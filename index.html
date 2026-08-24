@@ -1,1 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DARBY — Level 21 Unlocked</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 30px;
+      background:
+        radial-gradient(circle at 20% 20%, #ff3cac33, transparent 30%),
+        radial-gradient(circle at 80% 70%, #00e5ff33, transparent 30%),
+        #111;
+    }
+
+    .small-text {
+      font-size: 14px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(55px, 13vw, 150px);
+      font-weight: 900;
+      line-height: 0.85;
+      text-transform: uppercase;
+      text-shadow:
+        5px 5px 0 #ff3cac,
+        -5px -5px 0 #00e5ff;
+      transform: rotate(-3deg);
+    }
+
+    .level {
+      margin-top: 35px;
+      font-size: clamp(24px, 5vw, 50px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    .spray {
+      margin-top: 45px;
+      padding: 15px 30px;
+      border: 2px solid white;
+      background: transparent;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .spray:hover {
+      background: white;
+      color: #111;
+      transform: scale(1.05);
+    }
+
+    .message {
+      display: none;
+      max-width: 600px;
+      margin-top: 40px;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .message.show {
+      display: block;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+
+    <div class="small-text">
+      August 2026 • Birthday Transmission
+    </div>
+
+    <h1>DARBY</h1>
+
+    <div class="level">
+      LEVEL 21 UNLOCKED 🎮
+    </div>
+
+    <button class="spray" onclick="revealMessage()">
+      🎨 SPRAY TO UNLOCK
+    </button>
+
+    <div class="message" id="message">
+      <p>
+        Feliz cumpleaños, David! 🎂
+      </p>
+
+      <p>
+        Te deseo un día increíble y un year full of blessings,
+        good memories, and everything you've been working for.
+        I'm genuinely grateful to have you in my life. ❤️
+      </p>
+
+      <p>
+        Here's to Level 21. 🥂
+      </p>
+    </div>
+
+  </section>
+
+  <script>
+    function revealMessage() {
+      document.getElementById("message").classList.add("show");
+    }
+  </script>
+
+</body>
+</html>
