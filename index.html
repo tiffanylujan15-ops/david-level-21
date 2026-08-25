@@ -1,152 +1,832 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DARBY — Level 21 Unlocked</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DARBY — Level 21 Unlocked</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      min-height: 100vh;
-      background: #111;
-      color: white;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
-    }
+html {
+  scroll-behavior: smooth;
+}
 
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 30px;
-      background:
-        radial-gradient(circle at 20% 20%, #ff3cac33, transparent 30%),
-        radial-gradient(circle at 80% 70%, #00e5ff33, transparent 30%),
-        #111;
-    }
+body {
+  background: #171717;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
 
-    .small-text {
-      font-size: 14px;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      opacity: 0.7;
-      margin-bottom: 20px;
-    }
+/* =========================
+   BRICK WALL
+========================= */
 
-    h1 {
-      font-size: clamp(55px, 13vw, 150px);
-      font-weight: 900;
-      line-height: 0.85;
-      text-transform: uppercase;
-      text-shadow:
-        5px 5px 0 #ff3cac,
-        -5px -5px 0 #00e5ff;
-      transform: rotate(-3deg);
-    }
+.wall {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 
-    .level {
-      margin-top: 35px;
-      font-size: clamp(24px, 5vw, 50px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-    }
+  background-color: #555;
 
-    .spray {
-      margin-top: 45px;
-      padding: 15px 30px;
-      border: 2px solid white;
-      background: transparent;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+  background-image:
+    linear-gradient(rgba(0,0,0,.2), rgba(0,0,0,.2)),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 57px,
+      rgba(20,20,20,.85) 58px,
+      rgba(20,20,20,.85) 62px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 118px,
+      rgba(20,20,20,.8) 119px,
+      rgba(20,20,20,.8) 123px
+    );
 
-    .spray:hover {
-      background: white;
-      color: #111;
-      transform: scale(1.05);
-    }
+  box-shadow: inset 0 0 150px rgba(0,0,0,.7);
+}
 
-    .message {
-      display: none;
-      max-width: 600px;
-      margin-top: 40px;
-      font-size: 18px;
-      line-height: 1.7;
-    }
+.wall::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 25%,
+    rgba(0,0,0,.55) 100%
+  );
+  pointer-events: none;
+}
 
-    .message.show {
-      display: block;
-      animation: fadeIn 1s ease;
-    }
+/* =========================
+   OPENING
+========================= */
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+.hero {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-content {
+  width: 92%;
+  max-width: 1100px;
+}
+
+.intro {
+  font-size: 13px;
+  letter-spacing: 6px;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  animation-delay: .5s;
+}
+
+.graffiti {
+  margin-top: 30px;
+  font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
+  font-size: clamp(75px, 17vw, 220px);
+  line-height: .8;
+  letter-spacing: -8px;
+
+  background: linear-gradient(
+    100deg,
+    #008cff 0%,
+    #00b7ff 27%,
+    #873cff 50%,
+    #ff1744 75%,
+    #ff003c 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  -webkit-text-stroke: 4px rgba(0,0,0,.85);
+
+  filter:
+    drop-shadow(9px 9px 0 rgba(0,0,0,.8))
+    drop-shadow(0 0 20px rgba(0,140,255,.3));
+
+  opacity: 0;
+  transform: scale(.5) rotate(-5deg);
+
+  animation: graffitiReveal 2.2s cubic-bezier(.17,.67,.32,1.3) forwards;
+  animation-delay: 2s;
+}
+
+@keyframes graffitiReveal {
+  0% {
+    opacity: 0;
+    transform: scale(.5) rotate(-5deg);
+    filter: blur(18px);
+  }
+
+  45% {
+    opacity: 1;
+    transform: scale(1.08) rotate(2deg);
+  }
+
+  75% {
+    transform: scale(.96) rotate(-1deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+    filter:
+      drop-shadow(9px 9px 0 rgba(0,0,0,.8))
+      drop-shadow(0 0 20px rgba(0,140,255,.3));
+  }
+}
+
+/* =========================
+   PAINT DRIPS
+========================= */
+
+.drips {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 59%;
+  width: min(700px, 80%);
+  display: flex;
+  justify-content: space-around;
+  pointer-events: none;
+}
+
+.drip {
+  width: 7px;
+  border-radius: 0 0 10px 10px;
+  opacity: 0;
+  transform-origin: top;
+  animation: drip .8s ease forwards;
+}
+
+.drip:nth-child(1) {
+  height: 48px;
+  background: #008cff;
+  animation-delay: 3.2s;
+}
+
+.drip:nth-child(2) {
+  height: 30px;
+  background: #5550ff;
+  animation-delay: 3.4s;
+}
+
+.drip:nth-child(3) {
+  height: 55px;
+  background: #ff1744;
+  animation-delay: 3.6s;
+}
+
+.drip:nth-child(4) {
+  height: 35px;
+  background: #ff003c;
+  animation-delay: 3.8s;
+}
+
+@keyframes drip {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: .9;
+    transform: scaleY(1);
+  }
+}
+
+/* =========================
+   SPRAY PARTICLES
+========================= */
+
+.spray-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #009cff;
+  opacity: 0;
+  animation: particle 2s ease-out forwards;
+}
+
+.p1 { left: 20%; top: 47%; animation-delay: 1s; }
+.p2 { left: 27%; top: 40%; animation-delay: 1.2s; }
+.p3 { left: 35%; top: 55%; animation-delay: 1.4s; }
+.p4 { left: 43%; top: 38%; animation-delay: 1.6s; }
+.p5 { left: 51%; top: 54%; animation-delay: 1.8s; }
+.p6 { left: 59%; top: 42%; animation-delay: 2s; }
+.p7 { left: 67%; top: 52%; animation-delay: 2.2s; }
+.p8 { left: 75%; top: 44%; animation-delay: 2.4s; }
+
+@keyframes particle {
+  0% {
+    opacity: 0;
+    transform: translate(0,0) scale(.3);
+  }
+  30% {
+    opacity: .9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(20px,-30px) scale(1);
+  }
+}
+
+/* =========================
+   LEVEL
+========================= */
+
+.level {
+  margin-top: 50px;
+  font-size: clamp(24px, 5vw, 52px);
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-shadow: 4px 4px 0 #000;
+
+  opacity: 0;
+  transform: translateY(20px);
+  animation: levelIn 1s ease forwards;
+  animation-delay: 4.2s;
+}
+
+@keyframes levelIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.enter {
+  margin-top: 35px;
+  padding: 15px 32px;
+  border: 2px solid white;
+  background: rgba(0,0,0,.35);
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  cursor: pointer;
+
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 5s;
+
+  transition: .3s;
+}
+
+.enter:hover {
+  background: white;
+  color: black;
+  transform: scale(1.08);
+}
+
+/* =========================
+   MAIN SITE
+========================= */
+
+#main {
+  display: none;
+  position: relative;
+  min-height: 100vh;
+  padding: 80px 20px;
+
+  background-color: #3f3f3f;
+
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 57px,
+      rgba(15,15,15,.8) 58px,
+      rgba(15,15,15,.8) 62px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 118px,
+      rgba(15,15,15,.7) 119px,
+      rgba(15,15,15,.7) 123px
+    );
+}
+
+.section {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto 120px;
+}
+
+.section-title {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: clamp(40px, 8vw, 85px);
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+  text-shadow:
+    4px 4px 0 #008cff,
+    -4px -4px 0 #ff1744,
+    7px 7px 0 #000;
+  margin-bottom: 45px;
+}
+
+/* =========================
+   INTERESTS
+========================= */
+
+.interests {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.interest {
+  min-height: 130px;
+  padding: 25px;
+  background: rgba(0,0,0,.55);
+  border: 2px solid rgba(255,255,255,.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: .3s;
+}
+
+.interest:hover {
+  transform: translateY(-8px) rotate(-2deg);
+  border-color: white;
+  box-shadow: 8px 8px 0 #008cff;
+}
+
+.interest span {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.interest h3 {
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+/* =========================
+   PHOTO GALLERY
+========================= */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 35px;
+}
+
+.polaroid {
+  background: #f4f0e6;
+  padding: 12px 12px 35px;
+  box-shadow: 8px 10px 0 rgba(0,0,0,.5);
+  transition: .4s;
+}
+
+.polaroid:nth-child(1) {
+  transform: rotate(-3deg);
+}
+
+.polaroid:nth-child(2) {
+  transform: rotate(3deg);
+}
+
+.polaroid:nth-child(3) {
+  transform: rotate(-2deg);
+}
+
+.polaroid:nth-child(4) {
+  transform: rotate(3deg);
+}
+
+.polaroid:nth-child(5) {
+  transform: rotate(-3deg);
+}
+
+.polaroid:hover {
+  transform: rotate(0) scale(1.04);
+  z-index: 5;
+}
+
+.polaroid img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  display: block;
+}
+
+.caption {
+  color: #171717;
+  text-align: center;
+  margin-top: 18px;
+  font-family: "Comic Sans MS", cursive;
+  font-size: 16px;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message-card {
+  background: rgba(10,10,10,.75);
+  border: 2px solid rgba(255,255,255,.3);
+  padding: clamp(25px, 6vw, 60px);
+  box-shadow: 12px 12px 0 #008cff;
+}
+
+.message-card h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(30px, 6vw, 60px);
+  margin-bottom: 30px;
+}
+
+.message-card p {
+  font-family: Georgia, serif;
+  font-size: 19px;
+  line-height: 1.9;
+  margin-bottom: 25px;
+}
+
+.verse {
+  border-left: 4px solid #ff1744;
+  padding-left: 20px;
+  font-style: italic;
+}
+
+.signature {
+  font-size: 23px !important;
+  margin-top: 35px;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final {
+  text-align: center;
+  padding-bottom: 60px;
+}
+
+.final-tag {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: clamp(55px, 13vw, 140px);
+  background: linear-gradient(90deg, #008cff, #ff1744);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 3px black;
+  transform: rotate(-3deg);
+}
+
+.final p {
+  margin-top: 20px;
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+  .graffiti {
+    letter-spacing: -5px;
+    -webkit-text-stroke: 2px rgba(0,0,0,.85);
+  }
+
+  .level {
+    letter-spacing: 2px;
+  }
+
+  .interests {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .polaroid img {
+    height: 320px;
+  }
+
+  .message-card p {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 430px) {
+
+  .interests {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .interest {
+    min-height: 115px;
+    padding: 15px;
+  }
+
+  .interest span {
+    font-size: 34px;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+</style>
 </head>
 
 <body>
 
-  <section class="hero">
+<!-- =========================
+     OPENING
+========================= -->
 
-    <div class="small-text">
-      August 2026 • Birthday Transmission
+<section class="wall" id="opening">
+
+  <div class="spray-particles">
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+    <div class="particle p4"></div>
+    <div class="particle p5"></div>
+    <div class="particle p6"></div>
+    <div class="particle p7"></div>
+    <div class="particle p8"></div>
+  </div>
+
+  <div class="hero">
+
+    <div class="hero-content">
+
+      <div class="intro">
+        A SPECIAL MESSAGE FOR
+      </div>
+
+      <div class="graffiti">
+        DARBY
+      </div>
+
+      <div class="drips">
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+      </div>
+
+      <div class="level">
+        LEVEL 21 UNLOCKED 🎮
+      </div>
+
+      <button class="enter" onclick="enterSite()">
+        ENTER →
+      </button>
+
     </div>
 
-    <h1>DARBY</h1>
+  </div>
 
-    <div class="level">
-      LEVEL 21 UNLOCKED 🎮
+</section>
+
+
+<!-- =========================
+     MAIN WEBSITE
+========================= -->
+
+<main id="main">
+
+  <!-- INTERESTS -->
+
+  <section class="section">
+
+    <div class="section-title">
+      A LITTLE BIT OF YOU
     </div>
 
-    <button class="spray" onclick="revealMessage()">
-      🎨 SPRAY TO UNLOCK
-    </button>
+    <div class="interests">
 
-    <div class="message" id="message">
-      <p>
-        Feliz cumpleaños, David! 🎂
-      </p>
+      <div class="interest">
+        <span>🇻🇪</span>
+        <h3>VENEZUELA</h3>
+      </div>
 
-      <p>
-        Te deseo un día increíble y un year full of blessings,
-        good memories, and everything you've been working for.
-        I'm genuinely grateful to have you in my life. ❤️
-      </p>
+      <div class="interest">
+        <span>⚾</span>
+        <h3>SHOHEI OHTANI</h3>
+      </div>
 
-      <p>
-        Here's to Level 21. 🥂
-      </p>
+      <div class="interest">
+        <span>🎨</span>
+        <h3>DRAWING</h3>
+      </div>
+
+      <div class="interest">
+        <span>💙</span>
+        <h3>SONIC</h3>
+      </div>
+
+      <div class="interest">
+        <span>🐧</span>
+        <h3>PENGUINS</h3>
+      </div>
+
+      <div class="interest">
+        <span>⚽</span>
+        <h3>ARGENTINA & BRAZIL</h3>
+      </div>
+
+      <div class="interest">
+        <span>🇦🇷</span>
+        <h3>THE ARGENTINA JERSEY</h3>
+      </div>
+
+      <div class="interest">
+        <span>🎵</span>
+        <h3>2000s MUSIC</h3>
+      </div>
+
+      <div class="interest">
+        <span>🫓</span>
+        <h3>AREPAS</h3>
+      </div>
+
     </div>
 
   </section>
 
-  <script>
-    function revealMessage() {
-      document.getElementById("message").classList.add("show");
-    }
-  </script>
+
+  <!-- PHOTOS -->
+
+  <section class="section">
+
+    <div class="section-title">
+      THE MEMORIES
+    </div>
+
+    <div class="gallery">
+
+      <div class="polaroid">
+        <img src="251bbf52-e032-4ecc-a542-3c32b40bf0b9.jpeg" alt="Memory 1">
+        <div class="caption">memory #01 ❤️</div>
+      </div>
+
+      <div class="polaroid">
+        <img src="38514dda-9de0-41f1-8a3e-acdd58962246.jpeg" alt="Memory 2">
+        <div class="caption">memory #02</div>
+      </div>
+
+      <div class="polaroid">
+        <img src="55480ed8-697a-47d2-aaef-a233b98c2d95.jpeg" alt="Memory 3">
+        <div class="caption">memory #03</div>
+      </div>
+
+      <div class="polaroid">
+        <img src="IMG_6582.jpeg" alt="Memory 4">
+        <div class="caption">memory #04</div>
+      </div>
+
+      <div class="polaroid">
+        <img src="IMG_6585.jpeg" alt="Memory 5">
+        <div class="caption">memory #05</div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- MESSAGE -->
+
+  <section class="section">
+
+    <div class="section-title">
+      A MESSAGE FOR YOU
+    </div>
+
+    <div class="message-card">
+
+      <h2>Feliz cumpleaños, David! 🎂</h2>
+
+      <p>
+        Te deseo un día maravilloso. Te aprecio muchísimo y estoy muy
+        agradecida de tenerte en mi vida. Espero verte pronto y poder
+        seguir compartiendo momentos y creando recuerdos juntos.
+      </p>
+
+      <p>
+        Espero que con este nuevo capítulo sigas creciendo como persona,
+        te acerques más a Dios y te conviertas cada día en una mejor
+        versión de ti mismo. Te deseo lo mejor y espero que logres cumplir
+        todos tus sueños, incluso los más pequeños. Nunca dejes de creer
+        en todo lo que eres capaz de lograr.
+      </p>
+
+      <p class="verse">
+        “Porque yo sé los planes que tengo para ustedes, planes de bienestar
+        y no de calamidad, para darles un futuro y una esperanza.”
+        <br><br>
+        — Jeremías 29:11
+      </p>
+
+      <p class="signature">
+        Te quiero mucho.<br>
+        Un gran abrazo,<br>
+        Tiffany ❤️
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- FINAL -->
+
+  <section class="final">
+
+    <div class="final-tag">
+      DARBY
+    </div>
+
+    <p>
+      LEVEL 21 COMPLETE ✓
+    </p>
+
+    <p>
+      NEXT LEVEL LOADING...
+    </p>
+
+  </section>
+
+</main>
+
+
+<script>
+
+function enterSite() {
+
+  /*
+    This button is the first user interaction,
+    so browsers allow us to use audio here.
+  */
+
+  const audio = new Audio();
+
+  /*
+    We'll add the actual spray sound later
+    once we choose the sound file.
+  */
+
+  audio.volume = 0.5;
+
+  const opening = document.getElementById("opening");
+  const main = document.getElementById("main");
+
+  opening.style.transition = "opacity 1.2s ease";
+  opening.style.opacity = "0";
+
+  setTimeout(() => {
+    opening.style.display = "none";
+    main.style.display = "block";
+
+    window.scrollTo({
+      top: 0,
+      behavior: "instant"
+    });
+  }, 1200);
+}
+
+</script>
 
 </body>
 </html>
