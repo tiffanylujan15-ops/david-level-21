@@ -4,38 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DARBY — 21</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>DARBY — Level 21</title>
 
 <style>
 
-/* =====================================================
-   RESET
-===================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Press+Start+2P&family=Permanent+Marker&display=swap');
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-    background: #050505;
-    color: white;
-    font-family: Inter, Arial, sans-serif;
-    overflow-x: hidden;
+  background: #050505;
+  color: white;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
 }
 
 button {
-    font-family: inherit;
+  font-family: inherit;
+  cursor: pointer;
 }
 
 
@@ -44,58 +38,63 @@ button {
 ===================================================== */
 
 #intro {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: hidden;
 
-    background:
-        linear-gradient(
-            rgba(0,0,0,.2),
-            rgba(0,0,0,.65)
-        ),
-        url("image.jpeg") center/cover;
+  background:
+    linear-gradient(
+      rgba(0,0,0,.15),
+      rgba(0,0,0,.45)
+    ),
+    url("image.jpeg") center/cover;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    overflow: hidden;
+.wall-dark {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 25% 25%,
+      transparent 0 12%,
+      rgba(0,0,0,.45) 45%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 45%,
+      rgba(0,0,0,.7)
+    );
 }
 
 
-/* dark wall */
+/* =====================================================
+   LIGHT
+===================================================== */
 
-.intro-overlay {
-    position: absolute;
-    inset: 0;
+.spotlight {
+  position: absolute;
 
-    background:
-        radial-gradient(
-            circle at 50% 45%,
-            transparent 0%,
-            rgba(0,0,0,.15) 35%,
-            rgba(0,0,0,.8) 100%
-        );
-}
+  width: 700px;
+  height: 700px;
 
+  top: -250px;
+  left: 5%;
 
-/* subtle wall texture */
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(255,255,255,.20),
+      rgba(255,255,255,.05) 35%,
+      transparent 70%
+    );
 
-.wall-texture {
-    position: absolute;
-    inset: 0;
-
-    opacity: .18;
-
-    background-image:
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 4px,
-            rgba(255,255,255,.04) 5px
-        );
-
-    pointer-events: none;
+  transform: rotate(-15deg);
 }
 
 
@@ -104,134 +103,104 @@ button {
 ===================================================== */
 
 .spray-can {
-    position: absolute;
+  position: absolute;
 
-    left: 8%;
-    bottom: 13%;
+  left: 7%;
+  bottom: 14%;
 
-    width: 95px;
-    height: 225px;
+  width: 90px;
+  height: 220px;
 
-    border-radius: 28px;
+  border-radius:
+    25px 25px
+    18px 18px;
 
-    background:
-        linear-gradient(
-            90deg,
-            #111,
-            #555,
-            #aaa,
-            #333,
-            #111
-        );
+  background:
+    linear-gradient(
+      90deg,
+      #222,
+      #aaa,
+      #333
+    );
 
-    box-shadow:
-        15px 25px 50px rgba(0,0,0,.7);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.6);
 
-    transform: rotate(-13deg);
+  transform: rotate(-12deg);
 
-    z-index: 20;
+  animation:
+    canShake .16s infinite alternate;
 
-    animation:
-        canAppear .8s ease-out forwards,
-        canShake .16s infinite alternate 1s;
+  z-index: 5;
 }
 
 
-/* top */
+/* can cap */
 
 .spray-can::before {
-    content: "";
+  content: "";
 
-    position: absolute;
+  position: absolute;
 
-    width: 67px;
-    height: 30px;
+  width: 65px;
+  height: 28px;
 
-    left: 14px;
-    top: -23px;
+  background: #171717;
 
-    border-radius: 10px 10px 4px 4px;
+  border-radius:
+    10px 10px
+    4px 4px;
 
-    background: #151515;
+  top: -20px;
+  left: 12px;
 }
 
 
-/* nozzle */
-
-.spray-can::after {
-    content: "";
-
-    position: absolute;
-
-    width: 24px;
-    height: 12px;
-
-    background: #111;
-
-    top: -29px;
-    left: 48px;
-
-    border-radius: 5px;
-}
-
-
-/* actual artwork */
+/* =====================================================
+   DARBY ART ON CAN
+===================================================== */
 
 .can-art {
-    position: absolute;
+  position: absolute;
 
-    left: 7px;
-    right: 7px;
+  left: 7px;
+  right: 7px;
 
-    top: 65px;
+  top: 65px;
 
-    height: 95px;
+  height: 105px;
 
-    overflow: hidden;
+  overflow: hidden;
 
-    transform: rotate(-2deg);
+  border: 3px solid #111;
 
-    background: white;
+  background: white;
 
-    border: 3px solid #111;
+  transform: rotate(-4deg);
 }
 
 .can-art img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    object-fit: cover;
+  object-fit: cover;
 }
 
 
-/* can animation */
-
-@keyframes canAppear {
-
-    from {
-        opacity: 0;
-        transform:
-            translateX(-100px)
-            rotate(-25deg);
-    }
-
-    to {
-        opacity: 1;
-        transform:
-            translateX(0)
-            rotate(-13deg);
-    }
-}
+/* =====================================================
+   CAN SHAKE
+===================================================== */
 
 @keyframes canShake {
 
-    from {
-        transform: rotate(-15deg);
-    }
+  from {
+    transform: rotate(-13deg);
+  }
 
-    to {
-        transform: rotate(-8deg);
-    }
+  to {
+    transform: rotate(-9deg);
+  }
+
 }
 
 
@@ -239,65 +208,74 @@ button {
    SPRAY
 ===================================================== */
 
-.spray-stream {
+.spray {
+  position: absolute;
 
-    position: absolute;
+  left: 13%;
+  bottom: 30%;
 
-    left: 14%;
-    bottom: 32%;
+  width: 70vw;
+  height: 170px;
 
-    width: 72%;
-    height: 150px;
+  opacity: 0;
 
-    opacity: 0;
+  background:
 
-    transform-origin: left center;
+    radial-gradient(
+      circle,
+      rgba(0,140,255,.95) 0 3px,
+      transparent 5px
+    ),
 
-    background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.65) 0 2px,
+      transparent 4px
+    );
 
-        radial-gradient(
-            circle,
-            rgba(0,140,255,.95) 0 2px,
-            transparent 4px
-        ),
+  background-size:
+    20px 20px,
+    31px 31px;
 
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.8) 0 1px,
-            transparent 3px
-        );
+  filter: blur(1px);
 
-    background-size:
-        18px 18px,
-        28px 28px;
+  transform:
+    scaleX(.05)
+    rotate(-3deg);
 
-    filter: blur(.6px);
+  transform-origin: left center;
 
-    transform: scaleX(0);
+  animation:
+    spray 2.5s ease-out forwards;
 
-    animation:
-        sprayPaint 2.5s ease-out forwards;
+  animation-delay: .7s;
 
-    animation-delay: .8s;
-
-    z-index: 5;
+  z-index: 4;
 }
 
-@keyframes sprayPaint {
 
-    0% {
-        opacity: 0;
-        transform: scaleX(0);
-    }
+@keyframes spray {
 
-    15% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
 
-    100% {
-        opacity: .85;
-        transform: scaleX(1);
-    }
+    transform:
+      scaleX(.05)
+      rotate(-3deg);
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: .85;
+
+    transform:
+      scaleX(1.15)
+      rotate(-3deg);
+  }
+
 }
 
 
@@ -305,225 +283,212 @@ button {
    DARBY REVEAL
 ===================================================== */
 
-.darby-reveal {
+.graffiti {
 
-    position: absolute;
+  position: absolute;
 
-    top: 42%;
-    left: 50%;
+  left: 50%;
+  top: 42%;
 
-    transform:
-        translate(-50%, -50%)
-        scale(.1);
+  transform:
+    translate(-50%,-50%)
+    scale(.05);
+
+  opacity: 0;
+
+  text-align: center;
+
+  animation:
+    graffitiIn
+    1.5s
+    cubic-bezier(.2,1.4,.4,1)
+    forwards;
+
+  animation-delay: 2.5s;
+
+  z-index: 8;
+}
+
+
+/* actual artwork */
+
+.graffiti img {
+
+  width:
+    min(70vw,650px);
+
+  max-height: 330px;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(7px 7px 0 #111)
+    drop-shadow(
+      0 0 30px
+      rgba(0,140,255,.8)
+    );
+}
+
+
+/* small text */
+
+.graffiti p {
+
+  font-family:
+    Press Start 2P;
+
+  font-size:
+    clamp(10px,1.5vw,18px);
+
+  margin-top: 15px;
+
+  color: white;
+
+  text-shadow:
+    3px 3px #111;
+}
+
+
+@keyframes graffitiIn {
+
+  0% {
 
     opacity: 0;
 
-    text-align: center;
+    transform:
+      translate(-50%,-50%)
+      scale(.05)
+      rotate(-8deg);
+  }
 
-    z-index: 10;
+  60% {
 
-    animation:
-        darbyReveal 1.3s
-        cubic-bezier(.15,1.4,.4,1)
-        forwards;
+    opacity: 1;
 
-    animation-delay: 2.3s;
-}
+    transform:
+      translate(-50%,-50%)
+      scale(1.12)
+      rotate(2deg);
+  }
 
+  100% {
 
-.darby-image {
+    opacity: 1;
 
-    width:
-        min(75vw, 650px);
+    transform:
+      translate(-50%,-50%)
+      scale(1)
+      rotate(0);
+  }
 
-    max-height: 350px;
-
-    object-fit: contain;
-
-    filter:
-        drop-shadow(7px 7px 0 #111)
-        drop-shadow(0 0 30px rgba(0,140,255,.7));
-}
-
-
-@keyframes darbyReveal {
-
-    0% {
-        opacity: 0;
-
-        transform:
-            translate(-50%,-50%)
-            scale(.05)
-            rotate(-12deg);
-    }
-
-    55% {
-        opacity: 1;
-
-        transform:
-            translate(-50%,-50%)
-            scale(1.1)
-            rotate(3deg);
-    }
-
-    100% {
-        opacity: 1;
-
-        transform:
-            translate(-50%,-50%)
-            scale(1)
-            rotate(0);
-    }
 }
 
 
 /* =====================================================
-   INTRO TEXT
+   LEVEL UNLOCKED
 ===================================================== */
 
-.intro-subtitle {
+.level-unlocked {
 
-    position: absolute;
+  position: absolute;
 
-    top: 67%;
+  bottom: 11%;
 
-    left: 50%;
+  left: 50%;
 
-    transform: translateX(-50%);
+  transform:
+    translateX(-50%);
 
-    width: 90%;
+  text-align: center;
 
-    text-align: center;
+  opacity: 0;
 
-    opacity: 0;
+  animation:
+    fadeUp 1s forwards;
 
-    animation:
-        fadeIn 1s forwards;
+  animation-delay: 4s;
 
-    animation-delay: 3.2s;
-}
-
-.intro-subtitle h2 {
-
-    font-family: Permanent Marker;
-
-    font-size:
-        clamp(20px, 3vw, 35px);
-
-    letter-spacing: 2px;
-}
-
-.intro-subtitle p {
-
-    margin-top: 10px;
-
-    font-size: 12px;
-
-    letter-spacing: 5px;
-
-    color: #aaa;
+  z-index: 20;
 }
 
 
-@keyframes fadeIn {
+.level-unlocked h2 {
 
-    from {
-        opacity: 0;
-        transform:
-            translate(-50%,20px);
-    }
+  font-family:
+    Press Start 2P;
 
-    to {
-        opacity: 1;
-        transform:
-            translate(-50%,0);
-    }
+  font-size:
+    clamp(20px,3vw,38px);
+}
+
+
+.level-unlocked span {
+
+  display: block;
+
+  color: #008cff;
+
+  font-family: Bangers;
+
+  font-size:
+    clamp(35px,5vw,65px);
+
+  letter-spacing: 4px;
 }
 
 
 /* =====================================================
-   21
+   START
 ===================================================== */
 
-.intro-number {
+.start {
 
-    position: absolute;
+  margin-top: 25px;
 
-    right: -40px;
-    bottom: -100px;
+  padding:
+    18px 45px;
 
-    font-family: Anton;
+  border:
+    3px solid white;
 
-    font-size: 360px;
+  background: #050505;
 
-    color: rgba(255,255,255,.035);
+  color: white;
 
-    line-height: 1;
+  font-family:
+    Press Start 2P;
 
-    pointer-events: none;
+  font-size: 15px;
+
+  transition: .2s;
+}
+
+.start:hover {
+
+  background: #087aff;
+
+  transform: scale(1.06);
 }
 
 
-/* =====================================================
-   ENTER BUTTON
-===================================================== */
+@keyframes fadeUp {
 
-.enter {
-
-    position: absolute;
-
-    bottom: 8%;
-
-    left: 50%;
-
-    transform:
-        translateX(-50%);
-
-    padding:
-        16px 35px;
-
-    background: transparent;
-
-    border: 2px solid white;
-
-    color: white;
-
-    font-size: 12px;
-
-    letter-spacing: 3px;
-
-    cursor: pointer;
+  from {
 
     opacity: 0;
 
-    animation:
-        buttonAppear 1s forwards;
+    transform:
+      translate(-50%,30px);
+  }
 
-    animation-delay: 4s;
+  to {
 
-    transition: .3s;
-}
-
-.enter:hover {
-
-    background: white;
-
-    color: black;
+    opacity: 1;
 
     transform:
-        translateX(-50%)
-        scale(1.06);
-}
+      translate(-50%,0);
+  }
 
-@keyframes buttonAppear {
-
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
 }
 
 
@@ -532,553 +497,520 @@ button {
 ===================================================== */
 
 #main {
-    display: none;
 
-    background:
-        radial-gradient(
-            circle at 50% 0%,
-            #122a55,
-            #050505 55%
-        );
+  display: none;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #172c55,
+      #050505 55%
+    );
+
+  min-height: 100vh;
+
+  padding-bottom: 100px;
 }
 
-
-/* =====================================================
-   NAV
-===================================================== */
-
-.nav {
-
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-
-    padding: 20px 35px;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    z-index: 100;
-
-    background:
-        linear-gradient(
-            rgba(0,0,0,.8),
-            transparent
-        );
-}
-
-.logo {
-
-    font-family: Bangers;
-
-    font-size: 30px;
-
-    letter-spacing: 3px;
-
-    color: #087aff;
-}
-
-.nav span {
-
-    font-size: 11px;
-
-    letter-spacing: 3px;
-
-    color: #aaa;
-}
-
-
-/* =====================================================
-   HERO
-===================================================== */
-
-.hero {
-
-    min-height: 100vh;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    text-align: center;
-
-    padding: 100px 20px;
-
-    position: relative;
-
-    overflow: hidden;
-}
-
-.hero::before {
-
-    content: "21";
-
-    position: absolute;
-
-    font-family: Anton;
-
-    font-size:
-        min(65vw, 700px);
-
-    color:
-        rgba(255,255,255,.025);
-
-    z-index: 0;
-}
-
-.hero-content {
-
-    position: relative;
-
-    z-index: 2;
-}
-
-.small-title {
-
-    font-size: 12px;
-
-    letter-spacing: 6px;
-
-    color: #aaa;
-
-    margin-bottom: 20px;
-}
-
-.hero h1 {
-
-    font-family: Bangers;
-
-    font-size:
-        clamp(110px, 23vw, 280px);
-
-    letter-spacing: 8px;
-
-    color: #087aff;
-
-    line-height: .8;
-
-    text-shadow:
-        8px 8px 0 #111,
-        15px 15px 0 #ff8b00;
-}
-
-.hero h2 {
-
-    font-family: Permanent Marker;
-
-    font-size:
-        clamp(24px,4vw,45px);
-
-    margin-top: 30px;
-}
-
-.hero p {
-
-    margin-top: 15px;
-
-    color: #999;
-
-    letter-spacing: 4px;
-
-    font-size: 11px;
-}
-
-
-/* =====================================================
-   SECTIONS
-===================================================== */
 
 .section {
 
-    width:
-        min(1100px, 90%);
+  width:
+    min(1200px,92%);
 
-    margin: auto;
+  margin: auto;
 
-    padding:
-        120px 0;
+  padding:
+    80px 0;
 }
+
 
 .section-title {
 
-    font-family: Bangers;
+  text-align: center;
 
-    font-size:
-        clamp(60px, 10vw, 110px);
+  font-family: Bangers;
 
-    letter-spacing: 5px;
+  font-size:
+    clamp(50px,8vw,90px);
 
-    text-align: center;
+  letter-spacing: 4px;
 
-    color: white;
+  text-shadow:
+    5px 5px #087aff;
 
-    text-shadow:
-        5px 5px #087aff;
-
-    margin-bottom: 15px;
+  margin-bottom: 50px;
 }
 
-.section-subtitle {
 
-    text-align: center;
+.subtitle {
 
-    color: #888;
+  text-align: center;
 
-    margin-bottom: 60px;
+  color: #aaa;
+
+  margin-top: -35px;
+
+  margin-bottom: 45px;
 }
 
 
 /* =====================================================
-   PHOTO GRID
+   CARDS — KEEPING THE STYLE YOU LIKED
 ===================================================== */
 
-.gallery {
+.cards {
 
-    display: grid;
+  display: grid;
 
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap: 20px;
+}
+
+
+.card {
+
+  background:
+    linear-gradient(
+      145deg,
+      #fff,
+      #cfcfcf
+    );
+
+  color: #111;
+
+  border:
+    6px solid #d9a900;
+
+  border-radius: 18px;
+
+  padding: 10px;
+
+  box-shadow:
+    0 15px 35px rgba(0,0,0,.6),
+    inset 0 0 0 2px #fff;
+
+  transform:
+    rotate(var(--rotation));
+
+  transition: .35s;
+}
+
+
+.card:hover {
+
+  transform:
+    translateY(-15px)
+    rotate(0deg)
+    scale(1.03);
+}
+
+
+.card-header {
+
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  font-family: Bangers;
+
+  font-size: 25px;
+
+  letter-spacing: 2px;
+}
+
+
+.card-image {
+
+  width: 100%;
+
+  aspect-ratio: 4/3;
+
+  margin: 8px 0;
+
+  border:
+    4px solid #222;
+
+  background:
+    linear-gradient(
+      135deg,
+      #222,
+      #555
+    );
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+
+.card-image img {
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+
+.card-type {
+
+  font-family:
+    Press Start 2P;
+
+  font-size: 9px;
+
+  color: #145cff;
+
+  margin: 8px 0;
+}
+
+
+.card-ability {
+
+  background: #eee;
+
+  padding: 10px;
+
+  border-radius: 8px;
+}
+
+
+.card-ability small {
+
+  font-weight: bold;
+}
+
+
+.card-ability h3 {
+
+  font-family: Bangers;
+
+  font-size: 23px;
+}
+
+
+.stars {
+
+  margin-top: 8px;
+
+  color: #111;
+
+  letter-spacing: 3px;
+}
+
+
+@media(max-width:900px) {
+
+  .cards {
     grid-template-columns:
-        repeat(2, 1fr);
+      repeat(2,1fr);
+  }
 
-    gap: 25px;
 }
 
-.photo {
 
-    position: relative;
+@media(max-width:600px) {
 
-    background: #111;
+  .cards {
+    grid-template-columns: 1fr;
+  }
 
-    border: 2px solid #222;
-
-    overflow: hidden;
-
-    min-height: 350px;
-
-    transition: .4s;
-}
-
-.photo:nth-child(2) {
-    transform: translateY(45px);
-}
-
-.photo:nth-child(3) {
-    transform: translateY(-10px);
-}
-
-.photo:nth-child(4) {
-    transform: translateY(35px);
-}
-
-.photo:hover {
-
-    transform:
-        translateY(-10px)
-        scale(1.02);
-
-    border-color: #087aff;
-}
-
-.photo img {
-
-    width: 100%;
-    height: 100%;
-
-    min-height: 350px;
-
-    object-fit: cover;
-
-    display: block;
-}
-
-.photo-label {
-
-    position: absolute;
-
-    bottom: 0;
-    left: 0;
-
-    width: 100%;
-
-    padding: 20px;
-
-    background:
-        linear-gradient(
-            transparent,
-            rgba(0,0,0,.9)
-        );
-
-    font-family: Permanent Marker;
-
-    font-size: 22px;
 }
 
 
 /* =====================================================
-   ABOUT DAVID
+   UNLOCK
 ===================================================== */
 
-.about {
+.unlock {
 
-    display: grid;
+  margin:
+    70px auto 0;
 
-    grid-template-columns:
-        1fr 1fr;
+  max-width: 700px;
 
-    gap: 70px;
+  padding: 30px;
 
-    align-items: center;
+  border:
+    3px solid #087aff;
+
+  background:
+    rgba(0,0,0,.7);
+
+  text-align: center;
+
+  box-shadow:
+    0 0 30px
+    rgba(0,140,255,.25);
 }
 
-.about-art {
 
-    position: relative;
+.unlock h3 {
 
-    display: flex;
+  font-family:
+    Press Start 2P;
 
-    justify-content: center;
+  color: #ffd21c;
+
+  font-size: 18px;
+
+  line-height: 1.8;
 }
 
-.about-art img {
 
-    width: 90%;
+.unlock button {
 
-    max-height: 500px;
+  margin-top: 25px;
 
-    object-fit: contain;
+  background: #087aff;
 
-    filter:
-        drop-shadow(12px 12px 0 #087aff);
-}
+  color: white;
 
-.about-text h3 {
+  border: none;
 
-    font-family: Bangers;
+  padding:
+    16px 30px;
 
-    font-size: 65px;
-
-    color: #087aff;
-
-    letter-spacing: 3px;
-
-    margin-bottom: 20px;
-}
-
-.about-text p {
-
-    color: #bbb;
-
-    line-height: 1.9;
-
-    margin-bottom: 20px;
+  font-family:
+    Press Start 2P;
 }
 
 
 /* =====================================================
-   DARBY FILE
+   PERSONAL SECTION
 ===================================================== */
 
-.file-box {
-
-    border-top: 2px solid #087aff;
-
-    border-bottom: 2px solid #087aff;
-
-    padding: 45px 0;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 30px;
+#memories {
+  display: none;
 }
 
-.fact {
 
-    padding: 25px;
+.memory-grid {
 
-    background: rgba(255,255,255,.025);
+  display: grid;
 
-    border-left: 3px solid #087aff;
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap: 25px;
 }
 
-.fact-number {
 
-    font-size: 10px;
+.memory {
 
-    color: #087aff;
+  min-height: 250px;
 
-    letter-spacing: 3px;
+  padding: 25px;
+
+  border:
+    2px solid #444;
+
+  background:
+    linear-gradient(
+      145deg,
+      #111,
+      #1d1d1d
+    );
+
+  position: relative;
+
+  overflow: hidden;
+
+  transition: .3s;
 }
 
-.fact h3 {
 
-    font-family: Bangers;
+.memory:hover {
 
-    font-size: 35px;
+  border-color: #087aff;
 
-    margin: 12px 0;
+  transform:
+    translateY(-8px);
 }
 
-.fact p {
 
-    color: #888;
+.memory:before {
 
-    line-height: 1.6;
+  content: "★";
 
-    font-size: 14px;
+  position: absolute;
+
+  right: -10px;
+  top: -30px;
+
+  font-size: 130px;
+
+  color:
+    rgba(0,140,255,.08);
+}
+
+
+.memory-number {
+
+  font-family:
+    Press Start 2P;
+
+  font-size: 10px;
+
+  color: #087aff;
+}
+
+
+.memory h3 {
+
+  font-family: Bangers;
+
+  font-size: 35px;
+
+  margin: 15px 0;
+}
+
+
+.memory p {
+
+  color: #bbb;
+
+  line-height: 1.6;
 }
 
 
 /* =====================================================
-   BIRTHDAY MESSAGE
+   FINAL MESSAGE
 ===================================================== */
 
-.message-section {
-
-    min-height: 100vh;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 100px 20px;
-}
-
-.message-box {
-
-    width:
-        min(850px, 95%);
-
-    padding:
-        70px 50px;
-
-    text-align: center;
-
-    border:
-        1px solid #333;
-
-    background:
-        linear-gradient(
-            145deg,
-            #0c0c0c,
-            #111827
-        );
-
-    box-shadow:
-        0 0 80px
-        rgba(0,120,255,.12);
-}
-
-.message-box .birthday {
-
-    color: #ffd21c;
-
-    font-size: 11px;
-
-    letter-spacing: 5px;
-
-    margin-bottom: 25px;
-}
-
-.message-box h2 {
-
-    font-family: Bangers;
-
-    font-size:
-        clamp(70px, 13vw, 150px);
-
-    color: #087aff;
-
-    letter-spacing: 5px;
-
-    text-shadow:
-        5px 5px white,
-        10px 10px #ff8b00;
-}
-
-.message {
-
-    margin: 40px auto;
-
-    max-width: 650px;
-
-    color: #ccc;
-
-    line-height: 2;
-
-    font-size: 16px;
-}
-
-.message .spanish {
-
-    font-family: Permanent Marker;
-
-    font-size: 24px;
-
-    color: white;
-
-    margin-bottom: 25px;
-}
-
-.verse {
-
-    margin: 40px auto;
-
-    padding: 25px;
-
-    border-left:
-        3px solid #087aff;
-
-    border-right:
-        3px solid #087aff;
-
-    color: #999;
-
-    font-style: italic;
-
-    line-height: 1.8;
-}
-
-.signature {
-
-    font-family: Permanent Marker;
-
-    font-size: 25px;
-
-    margin-top: 30px;
+#final {
+  display: none;
 }
 
 
-/* =====================================================
-   FOOTER
-===================================================== */
+.final-box {
 
-footer {
+  max-width: 950px;
 
-    padding: 70px 20px;
+  margin: auto;
 
-    text-align: center;
+  padding:
+    60px 40px;
 
-    border-top: 1px solid #222;
+  background:
+    linear-gradient(
+      rgba(5,5,20,.85),
+      rgba(5,5,20,.95)
+    );
 
-    color: #555;
+  border:
+    3px solid #087aff;
 
-    font-size: 10px;
+  box-shadow:
+    0 0 50px
+      rgba(0,120,255,.25),
 
-    letter-spacing: 3px;
+    inset 0 0 50px
+      rgba(0,120,255,.08);
+
+  text-align: center;
+}
+
+
+.final-box .happy {
+
+  font-family:
+    Press Start 2P;
+
+  color: #ffd21c;
+
+  font-size:
+    clamp(18px,3vw,30px);
+
+  margin-bottom: 20px;
+}
+
+
+.final-box h1 {
+
+  font-family: Bangers;
+
+  font-size:
+    clamp(80px,15vw,170px);
+
+  color: #087aff;
+
+  text-shadow:
+    5px 5px #fff,
+    10px 10px #ff8b00;
+
+  letter-spacing: 5px;
+}
+
+
+.final-message {
+
+  max-width: 700px;
+
+  margin:
+    35px auto;
+
+  line-height: 1.9;
+
+  color: #ddd;
+
+  font-size: 17px;
+}
+
+
+.final-message .spanish {
+
+  font-family:
+    Permanent Marker;
+
+  color: white;
+
+  font-size: 22px;
+}
+
+
+.quote {
+
+  margin:
+    30px auto;
+
+  padding: 25px;
+
+  border-left:
+    4px solid #087aff;
+
+  border-right:
+    4px solid #087aff;
+
+  color: #aaa;
+
+  font-style: italic;
+}
+
+
+.heart {
+
+  font-size: 45px;
+
+  animation:
+    pulse 1s infinite;
+}
+
+
+@keyframes pulse {
+
+  50% {
+    transform: scale(1.2);
+  }
+
 }
 
 
@@ -1088,35 +1020,26 @@ footer {
 
 .music {
 
-    position: fixed;
+  position: fixed;
 
-    right: 25px;
-    bottom: 25px;
+  right: 20px;
+  bottom: 20px;
 
-    width: 55px;
-    height: 55px;
+  z-index: 500;
 
-    border-radius: 50%;
+  width: 55px;
+  height: 55px;
 
-    border: 2px solid white;
+  border-radius: 50%;
 
-    background: #087aff;
+  border:
+    2px solid white;
 
-    color: white;
+  background: #087aff;
 
-    font-size: 20px;
+  color: white;
 
-    cursor: pointer;
-
-    z-index: 500;
-
-    transition: .3s;
-}
-
-.music:hover {
-
-    transform: scale(1.1);
-
+  font-size: 20px;
 }
 
 
@@ -1124,56 +1047,33 @@ footer {
    MOBILE
 ===================================================== */
 
-@media(max-width: 750px) {
+@media(max-width:750px) {
 
-    .spray-can {
-        left: 3%;
-        transform: scale(.75) rotate(-13deg);
-    }
+  .spray-can {
 
-    .spray-stream {
-        left: 10%;
-        width: 85%;
-    }
+    left: 2%;
 
-    .darby-image {
-        width: 90vw;
-    }
+    transform:
+      scale(.75)
+      rotate(-12deg);
+  }
 
-    .gallery {
-        grid-template-columns: 1fr;
-    }
+  .spray {
 
-    .photo:nth-child(2),
-    .photo:nth-child(3),
-    .photo:nth-child(4) {
-        transform: none;
-    }
+    left: 10%;
 
-    .about {
-        grid-template-columns: 1fr;
-    }
+    width: 85vw;
+  }
 
-    .about-art {
-        order: 1;
-    }
+  .graffiti img {
 
-    .about-text {
-        order: 2;
-        text-align: center;
-    }
+    width: 90vw;
+  }
 
-    .file-box {
-        grid-template-columns: 1fr;
-    }
+  .memory-grid {
 
-    .message-box {
-        padding: 50px 25px;
-    }
-
-    .intro-number {
-        font-size: 220px;
-    }
+    grid-template-columns: 1fr;
+  }
 
 }
 
@@ -1190,72 +1090,68 @@ footer {
 
 <section id="intro">
 
-    <div class="intro-overlay"></div>
+  <div class="wall-dark"></div>
 
-    <div class="wall-texture"></div>
-
-    <div class="intro-number">
-        21
-    </div>
+  <div class="spotlight"></div>
 
 
-    <!-- SPRAY CAN -->
+  <!-- SPRAY CAN -->
 
-    <div class="spray-can">
+  <div class="spray-can">
 
-        <div class="can-art">
+    <div class="can-art">
 
-            <img
-                src="IMG_6590.jpeg"
-                alt="DARBY artwork"
-            >
-
-        </div>
+      <img
+        src="IMG_6590.jpeg"
+        alt="DARBY artwork"
+      >
 
     </div>
 
-
-    <!-- SPRAY -->
-
-    <div class="spray-stream"></div>
+  </div>
 
 
-    <!-- DARBY -->
+  <!-- SPRAY -->
 
-    <div class="darby-reveal">
-
-        <img
-            class="darby-image"
-            src="IMG_6590.jpeg"
-            alt="DARBY"
-        >
-
-    </div>
+  <div class="spray"></div>
 
 
-    <!-- INTRO TEXT -->
+  <!-- DARBY -->
 
-    <div class="intro-subtitle">
+  <div class="graffiti">
 
-        <h2>
-            THE ARTIST HAS ARRIVED.
-        </h2>
+    <img
+      src="IMG_6590.jpeg"
+      alt="DARBY"
+    >
 
-        <p>
-            A NEW CHAPTER BEGINS
-        </p>
+    <p>
+      THE ARTIST HAS ENTERED THE GAME
+    </p>
 
-    </div>
+  </div>
 
 
-    <!-- ENTER -->
+  <!-- LEVEL -->
+
+  <div class="level-unlocked">
+
+    <h2>
+      LEVEL 21
+    </h2>
+
+    <span>
+      UNLOCKED
+    </span>
 
     <button
-        class="enter"
-        onclick="enterSite()"
+      class="start"
+      onclick="startGame()"
     >
-        ENTER DARBY'S WORLD
+      ▶ START
     </button>
+
+  </div>
 
 </section>
 
@@ -1268,401 +1164,550 @@ footer {
 <main id="main">
 
 
-    <!-- NAV -->
+  <!-- CARDS -->
 
-    <nav class="nav">
+  <section class="section">
 
-        <div class="logo">
-            DARBY
-        </div>
+    <h2 class="section-title">
+      DARBY'S CARDS
+    </h2>
 
-        <span>
-            21 • 2026
-        </span>
-
-    </nav>
+    <p class="subtitle">
+      Four things that make David... David.
+    </p>
 
 
+    <div class="cards">
 
-    <!-- HERO -->
 
-    <section class="hero">
+      <!-- CARD 1 -->
 
-        <div class="hero-content">
+      <div
+        class="card"
+        style="--rotation:-2deg"
+      >
 
-            <div class="small-title">
-                AUGUST 2026
-            </div>
+        <div class="card-header">
 
-            <h1>
-                21
-            </h1>
+          <span>DARBY</span>
 
-            <h2>
-                DARBY'S NEW CHAPTER
-            </h2>
-
-            <p>
-                SAME ARTIST. NEW LEVEL.
-            </p>
+          <span>HP 210</span>
 
         </div>
 
-    </section>
+
+        <div class="card-image">
+
+          <img
+            src="251bbf52-e032-4ecc-a542-3c32b40bf0b9.jpeg"
+            onerror="this.style.display='none'"
+          >
+
+        </div>
+
+
+        <div class="card-type">
+          ARTIST TYPE
+        </div>
+
+
+        <div class="card-ability">
+
+          <small>
+            ABILITY
+          </small>
+
+          <h3>
+            SPRAY & SKETCH
+          </h3>
+
+          Turns anything into a masterpiece.
+
+        </div>
+
+
+        <div class="stars">
+          ★★★
+        </div>
+
+      </div>
 
 
 
-    <!-- =================================================
-         GALLERY
-    ================================================== -->
+      <!-- CARD 2 -->
 
-    <section class="section">
+      <div
+        class="card"
+        style="--rotation:2deg"
+      >
 
-        <h2 class="section-title">
-            THE ARCHIVE
-        </h2>
+        <div class="card-header">
 
-        <p class="section-subtitle">
-            A few moments from the Darby collection.
+          <span>DARBY</span>
+
+          <span>HP 230</span>
+
+        </div>
+
+
+        <div class="card-image">
+
+          <img
+            src="38514dda-9de0-41f1-8a3e-acdd58962246.jpeg"
+            onerror="this.style.display='none'"
+          >
+
+        </div>
+
+
+        <div
+          class="card-type"
+          style="color:#d71920"
+        >
+          ALL-STAR TYPE
+        </div>
+
+
+        <div class="card-ability">
+
+          <small>
+            ABILITY
+          </small>
+
+          <h3>
+            OHTANI MODE
+          </h3>
+
+          Unstoppable two-way power.
+
+        </div>
+
+
+        <div class="stars">
+          ★★★★
+        </div>
+
+      </div>
+
+
+
+      <!-- CARD 3 -->
+
+      <div
+        class="card"
+        style="--rotation:-1deg"
+      >
+
+        <div class="card-header">
+
+          <span>DARBY</span>
+
+          <span>HP 200</span>
+
+        </div>
+
+
+        <div class="card-image">
+
+          <img
+            src="IMG_6582.jpeg"
+            onerror="this.style.display='none'"
+          >
+
+        </div>
+
+
+        <div
+          class="card-type"
+          style="color:#168a35"
+        >
+          FÚTBOL TYPE
+        </div>
+
+
+        <div class="card-ability">
+
+          <small>
+            ABILITY
+          </small>
+
+          <h3>
+            WORLD CUP ENERGY
+          </h3>
+
+          Argentina. Brazil. Game on.
+
+        </div>
+
+
+        <div class="stars">
+          ★★★
+        </div>
+
+      </div>
+
+
+
+      <!-- CARD 4 -->
+
+      <div
+        class="card"
+        style="--rotation:2deg"
+      >
+
+        <div class="card-header">
+
+          <span>DARBY</span>
+
+          <span>HP 190</span>
+
+        </div>
+
+
+        <div class="card-image">
+
+          <img
+            src="IMG_6585.jpeg"
+            onerror="this.style.display='none'"
+          >
+
+        </div>
+
+
+        <div
+          class="card-type"
+          style="color:#8c45d9"
+        >
+          RETRO TYPE
+        </div>
+
+
+        <div class="card-ability">
+
+          <small>
+            ABILITY
+          </small>
+
+          <h3>
+            Y2K ENERGY
+          </h3>
+
+          2000s nostalgia never misses.
+
+        </div>
+
+
+        <div class="stars">
+          ★★★★★
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="unlock">
+
+      <h3>
+
+        ★ 4 / 4 CARDS COLLECTED ★
+
+        <br><br>
+
+        NEXT CHAPTER UNLOCKED
+
+      </h3>
+
+
+      <button
+        onclick="showMemories()"
+      >
+        CONTINUE →
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =================================================
+       PERSONAL MEMORY SECTION
+  ================================================== -->
+
+  <section
+    id="memories"
+    class="section"
+  >
+
+    <h2 class="section-title">
+      LEVEL 21
+    </h2>
+
+
+    <p class="subtitle">
+
+      A few things I hope you take with you
+      into this next chapter.
+
+    </p>
+
+
+    <div class="memory-grid">
+
+
+      <div class="memory">
+
+        <div class="memory-number">
+          CHAPTER 01
+        </div>
+
+        <h3>
+          KEEP CREATING
+        </h3>
+
+        <p>
+          Keep making art, keep creating,
+          and keep doing the things that
+          make you genuinely happy.
+        </p>
+
+      </div>
+
+
+
+      <div class="memory">
+
+        <div class="memory-number">
+          CHAPTER 02
+        </div>
+
+        <h3>
+          KEEP DREAMING
+        </h3>
+
+        <p>
+          I hope 21 brings you closer to
+          the things you've been working
+          toward and the dreams you've
+          been carrying with you.
+        </p>
+
+      </div>
+
+
+
+      <div class="memory">
+
+        <div class="memory-number">
+          CHAPTER 03
+        </div>
+
+        <h3>
+          KEEP GROWING
+        </h3>
+
+        <p>
+          Keep becoming the person God
+          created you to be. There is so
+          much more ahead of you.
+        </p>
+
+      </div>
+
+
+
+      <div class="memory">
+
+        <div class="memory-number">
+          CHAPTER 04
+        </div>
+
+        <h3>
+          MORE MEMORIES
+        </h3>
+
+        <p>
+          Here's to more random conversations,
+          more laughs, more adventures,
+          and memories we haven't made yet.
+        </p>
+
+      </div>
+
+
+
+      <div class="memory">
+
+        <div class="memory-number">
+          CHAPTER 05
+        </div>
+
+        <h3>
+          GOD'S PLAN
+        </h3>
+
+        <p>
+          Whatever this next chapter brings,
+          I hope you continue trusting God
+          even when you don't know what's
+          coming next.
+        </p>
+
+      </div>
+
+
+
+      <div class="memory">
+
+        <div class="memory-number">
+          CHAPTER 06
+        </div>
+
+        <h3>
+          LEVEL 21
+        </h3>
+
+        <p>
+          Twenty-one is only the beginning.
+          I hope this year becomes one
+          you'll always remember.
+        </p>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="unlock">
+
+      <h3>
+        ★ CHAPTER 21 READY ★
+      </h3>
+
+      <button
+        onclick="showFinal()"
+      >
+        FINAL MESSAGE →
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =================================================
+       FINAL
+  ================================================== -->
+
+  <section
+    id="final"
+    class="section"
+  >
+
+    <div class="final-box">
+
+
+      <div class="heart">
+        ♥
+      </div>
+
+
+      <div class="happy">
+        ★ FINAL LEVEL ★
+      </div>
+
+
+      <h1>
+        DAVID
+      </h1>
+
+
+      <div class="final-message">
+
+
+        <p class="spanish">
+
+          ¡Feliz cumpleaños, David!
+
         </p>
 
 
-        <div class="gallery">
+        <br>
 
 
-            <div class="photo">
+        <p>
 
-                <img
-                    src="251bbf52-e032-4ecc-a542-3c32b40bf0b9.jpeg"
-                    alt="David"
-                >
+          Te deseo un día maravilloso.
+          Te aprecio muchísimo y estoy
+          muy agradecida de tenerte
+          en mi vida.
 
-                <div class="photo-label">
-                    THE ARTIST
-                </div>
-
-            </div>
-
-
-            <div class="photo">
-
-                <img
-                    src="38514dda-9de0-41f1-8a3e-acdd58962246.jpeg"
-                    alt="David"
-                >
-
-                <div class="photo-label">
-                    OHTANI MODE
-                </div>
-
-            </div>
-
-
-            <div class="photo">
-
-                <img
-                    src="IMG_6582.jpeg"
-                    alt="David"
-                >
-
-                <div class="photo-label">
-                    FÚTBOL
-                </div>
-
-            </div>
-
-
-            <div class="photo">
-
-                <img
-                    src="IMG_6585.jpeg"
-                    alt="David"
-                >
-
-                <div class="photo-label">
-                    Y2K ENERGY
-                </div>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         ABOUT
-    ================================================== -->
-
-    <section class="section">
-
-        <div class="about">
-
-
-            <div class="about-art">
-
-                <img
-                    src="IMG_6590.jpeg"
-                    alt="Darby artwork"
-                >
-
-            </div>
-
-
-            <div class="about-text">
-
-                <h3>
-                    DARBY.
-                </h3>
-
-                <p>
-                    An artist, a baseball fan, a fútbol lover,
-                    and somehow the owner of an entire universe
-                    of random conversations and memories.
-                </p>
-
-                <p>
-                    21 years is only the beginning.
-                    There are still walls to paint,
-                    places to go, dreams to chase,
-                    and memories to make.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         DARBY FILE
-    ================================================== -->
-
-    <section class="section">
-
-        <h2 class="section-title">
-            THE DARBY FILE
-        </h2>
-
-        <p class="section-subtitle">
-            Things that simply belong in the lore.
         </p>
 
 
-        <div class="file-box">
+        <br>
 
 
-            <div class="fact">
+        <p>
 
-                <div class="fact-number">
-                    01
-                </div>
+          Espero que en este nuevo capítulo
+          sigas creciendo como persona,
+          te acerques más a Dios y seas una
+          versión aún mejor de ti mismo.
 
-                <h3>
-                    THE ARTIST
-                </h3>
-
-                <p>
-                    Give him a spray can and a blank wall
-                    and somehow something cool is going to
-                    appear.
-                </p>
-
-            </div>
+        </p>
 
 
-            <div class="fact">
-
-                <div class="fact-number">
-                    02
-                </div>
-
-                <h3>
-                    OHTANI MODE
-                </h3>
-
-                <p>
-                    Baseball isn't just baseball.
-                    Somehow it becomes a whole personality.
-                </p>
-
-            </div>
+        <br>
 
 
-            <div class="fact">
+        <p>
 
-                <div class="fact-number">
-                    03
-                </div>
+          Te deseo lo mejor y espero que
+          puedas cumplir todos tus sueños,
+          incluso los más pequeños.
 
-                <h3>
-                    FÚTBOL
-                </h3>
-
-                <p>
-                    Eventually every conversation finds
-                    its way back to fútbol.
-                </p>
-
-            </div>
+        </p>
 
 
-            <div class="fact">
+        <div class="quote">
 
-                <div class="fact-number">
-                    04
-                </div>
+          “Porque yo sé los planes que tengo
+          para ustedes, planes de bienestar
+          y no de calamidad, para darles un
+          futuro y una esperanza.”
 
-                <h3>
-                    PENGUIN ENERGY
-                </h3>
+          <br><br>
 
-                <p>
-                    No explanation needed.
-                    Penguins are simply superior.
-                </p>
-
-            </div>
-
-
-            <div class="fact">
-
-                <div class="fact-number">
-                    05
-                </div>
-
-                <h3>
-                    THE LORE
-                </h3>
-
-                <p>
-                    The random conversations,
-                    jokes and moments that somehow
-                    become unforgettable.
-                </p>
-
-            </div>
-
-
-            <div class="fact">
-
-                <div class="fact-number">
-                    06
-                </div>
-
-                <h3>
-                    CHAPTER 21
-                </h3>
-
-                <p>
-                    A completely new chapter.
-                    And hopefully one of the best ones yet.
-                </p>
-
-            </div>
-
+          — Jeremías 29:11
 
         </div>
 
-    </section>
+
+        <p class="spanish">
+
+          Te quiero mucho.
+
+          <br>
+
+          Besos,
+
+          <br>
+
+          Tiffany ♥
+
+        </p>
 
 
+      </div>
 
-    <!-- =================================================
-         BIRTHDAY MESSAGE
-    ================================================== -->
+    </div>
 
-    <section class="message-section">
-
-        <div class="message-box">
-
-
-            <div class="birthday">
-                HAPPY BIRTHDAY
-            </div>
-
-
-            <h2>
-                DAVID
-            </h2>
-
-
-            <div class="message">
-
-
-                <p class="spanish">
-                    ¡Feliz cumpleaños, David!
-                </p>
-
-
-                <p>
-                    Te deseo un día maravilloso.
-                    Te aprecio muchísimo y estoy muy
-                    agradecida de tenerte en mi vida.
-                </p>
-
-
-                <p>
-                    Espero que en este nuevo capítulo
-                    sigas creciendo como persona,
-                    te acerques más a Dios y sigas
-                    convirtiéndote en una versión aún
-                    mejor de ti mismo.
-                </p>
-
-
-                <p>
-                    Te deseo lo mejor y espero que
-                    puedas cumplir todos tus sueños,
-                    incluso los más pequeños.
-                </p>
-
-
-                <div class="verse">
-
-                    “Porque yo sé los planes que tengo
-                    para ustedes, planes de bienestar
-                    y no de calamidad, para darles un
-                    futuro y una esperanza.”
-
-                    <br><br>
-
-                    — Jeremías 29:11
-
-                </div>
-
-
-                <p class="spanish">
-
-                    Te quiero mucho.
-
-                    <br><br>
-
-                    Besos,
-
-                    <br>
-
-                    Tiffany ♥
-
-                </p>
-
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <footer>
-
-        MADE WITH LOVE FOR DARBY • 21
-
-    </footer>
+  </section>
 
 
 </main>
@@ -1670,41 +1715,44 @@ footer {
 
 
 <!-- =====================================================
-     MUSIC
+     MUSIC BUTTON
 ===================================================== -->
 
 <button
-    class="music"
-    onclick="toggleMusic()"
-    id="musicButton"
+  class="music"
+  onclick="toggleMusic()"
 >
-    ♫
+  ♫
 </button>
 
 
+
+<!-- BIRTHDAY MUSIC -->
+
 <audio
-    id="birthdayMusic"
-    loop
+  id="birthdayMusic"
+  loop
 >
 
-    <source
-        src="birthday.mp3"
-        type="audio/mpeg"
-    >
+  <source
+    src="birthday.mp3"
+    type="audio/mpeg"
+  >
 
 </audio>
+
 
 
 <!-- SPRAY SOUND -->
 
 <audio
-    id="spraySound"
+  id="spraySound"
 >
 
-    <source
-        src="spray.mp3"
-        type="audio/mpeg"
-    >
+  <source
+    src="spray.mp3"
+    type="audio/mpeg"
+  >
 
 </audio>
 
@@ -1712,49 +1760,83 @@ footer {
 
 <script>
 
+
 /* =====================================================
-   ENTER WEBSITE
+   START WEBSITE
 ===================================================== */
 
-function enterSite() {
+function startGame() {
 
-    const intro =
-        document.getElementById("intro");
+  const intro =
+    document.getElementById("intro");
 
-    const main =
-        document.getElementById("main");
+  const main =
+    document.getElementById("main");
 
-    const music =
-        document.getElementById("birthdayMusic");
+  intro.style.transition =
+    "opacity 1s";
 
-
-    /* spray sound */
-
-    const spray =
-        document.getElementById("spraySound");
-
-    spray.currentTime = 0;
-
-    spray.play().catch(() => {});
+  intro.style.opacity = "0";
 
 
-    /* fade intro */
+  setTimeout(() => {
 
-    intro.style.transition =
-        "opacity 1.2s ease";
+    intro.style.display = "none";
 
-    intro.style.opacity = "0";
+    main.style.display = "block";
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }, 1000);
+
+}
 
 
-    setTimeout(() => {
+/* =====================================================
+   PERSONAL SECTION
+===================================================== */
 
-        intro.style.display = "none";
+function showMemories() {
 
-        main.style.display = "block";
+  const memories =
+    document.getElementById("memories");
 
-        window.scrollTo(0,0);
+  memories.style.display = "block";
 
-    },1200);
+
+  setTimeout(() => {
+
+    memories.scrollIntoView({
+      behavior: "smooth"
+    });
+
+  }, 100);
+
+}
+
+
+/* =====================================================
+   FINAL
+===================================================== */
+
+function showFinal() {
+
+  const final =
+    document.getElementById("final");
+
+  final.style.display = "block";
+
+
+  setTimeout(() => {
+
+    final.scrollIntoView({
+      behavior: "smooth"
+    });
+
+  }, 100);
 
 }
 
@@ -1768,36 +1850,68 @@ let playing = false;
 
 function toggleMusic() {
 
-    const music =
-        document.getElementById(
-            "birthdayMusic"
-        );
-
-    const button =
-        document.getElementById(
-            "musicButton"
-        );
+  const music =
+    document.getElementById(
+      "birthdayMusic"
+    );
 
 
-    if (!playing) {
+  if (!playing) {
 
-        music.play().catch(() => {});
+    music.play();
 
-        playing = true;
+    playing = true;
 
-        button.innerHTML = "❚❚";
+  } else {
 
-    } else {
+    music.pause();
 
-        music.pause();
+    playing = false;
 
-        playing = false;
-
-        button.innerHTML = "♫";
-
-    }
+  }
 
 }
+
+
+/* =====================================================
+   SPRAY SOUND
+===================================================== */
+
+window.addEventListener(
+  "load",
+  () => {
+
+    const spray =
+      document.getElementById(
+        "spraySound"
+      );
+
+
+    /*
+      Browsers usually block automatic
+      audio before the user interacts.
+
+      The sound will therefore start when
+      the START button is pressed.
+    */
+
+    const start =
+      document.querySelector(".start");
+
+
+    start.addEventListener(
+      "click",
+      () => {
+
+        spray.currentTime = 0;
+
+        spray.play().catch(() => {});
+
+      }
+    );
+
+  }
+);
 
 </script>
 
