@@ -1,11 +1,18 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DARBY — Level 21 Unlocked</title>
+
+<title>David Alejandro // LEVEL 21</title>
 
 <style>
+
+/* ================================
+   RESET
+================================ */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -17,602 +24,838 @@ html {
 }
 
 body {
-  background: #171717;
+  background: #080808;
   color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Courier New", monospace;
   overflow-x: hidden;
 }
 
-/* =========================
-   BRICK WALL
-========================= */
+/* ================================
+   CRT EFFECT
+================================ */
 
-.wall {
-  min-height: 100vh;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
 
-  background-color: #555;
-
-  background-image:
-    linear-gradient(rgba(0,0,0,.2), rgba(0,0,0,.2)),
+  background:
     repeating-linear-gradient(
       0deg,
-      transparent 0px,
-      transparent 57px,
-      rgba(20,20,20,.85) 58px,
-      rgba(20,20,20,.85) 62px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent 0px,
-      transparent 118px,
-      rgba(20,20,20,.8) 119px,
-      rgba(20,20,20,.8) 123px
+      rgba(255,255,255,.025) 0px,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px,
+      transparent 4px
     );
 
-  box-shadow: inset 0 0 150px rgba(0,0,0,.7);
+  opacity: .35;
 }
 
-.wall::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse at center,
-    transparent 25%,
-    rgba(0,0,0,.55) 100%
-  );
-  pointer-events: none;
-}
+/* ================================
+   START SCREEN
+================================ */
 
-/* =========================
-   OPENING
-========================= */
-
-.hero {
-  position: relative;
-  z-index: 5;
-  width: 100%;
+#startScreen {
   min-height: 100vh;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   text-align: center;
+
+  background:
+    radial-gradient(circle at center, #242424, #050505 75%);
+
+  padding: 30px;
 }
 
-.hero-content {
-  width: 92%;
-  max-width: 1100px;
+.game-box {
+  width: 100%;
+  max-width: 850px;
+
+  border: 3px solid white;
+
+  padding: 55px 25px;
+
+  box-shadow:
+    10px 10px 0 #008cff,
+    -10px -10px 0 #ff1744;
+
+  background: rgba(0,0,0,.65);
 }
 
-.intro {
+.small {
   font-size: 13px;
-  letter-spacing: 6px;
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
-  animation-delay: .5s;
+  letter-spacing: 5px;
+  color: #aaa;
+  margin-bottom: 25px;
 }
 
-.graffiti {
-  margin-top: 30px;
-  font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
-  font-size: clamp(75px, 17vw, 220px);
-  line-height: .8;
-  letter-spacing: -8px;
+.logo {
+  font-family: Impact, "Arial Black", sans-serif;
 
-  background: linear-gradient(
-    100deg,
-    #008cff 0%,
-    #00b7ff 27%,
-    #873cff 50%,
-    #ff1744 75%,
-    #ff003c 100%
-  );
+  font-size: clamp(70px, 17vw, 180px);
+
+  letter-spacing: -5px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #008cff,
+      #743cff,
+      #ff1744
+    );
 
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 
-  -webkit-text-stroke: 4px rgba(0,0,0,.85);
+  -webkit-text-stroke: 3px black;
 
-  filter:
-    drop-shadow(9px 9px 0 rgba(0,0,0,.8))
-    drop-shadow(0 0 20px rgba(0,140,255,.3));
+  text-shadow:
+    8px 8px 0 black;
 
-  opacity: 0;
-  transform: scale(.5) rotate(-5deg);
+  transform: rotate(-3deg);
 
-  animation: graffitiReveal 2.2s cubic-bezier(.17,.67,.32,1.3) forwards;
-  animation-delay: 2s;
+  margin-bottom: 25px;
 }
 
-@keyframes graffitiReveal {
-  0% {
-    opacity: 0;
-    transform: scale(.5) rotate(-5deg);
-    filter: blur(18px);
-  }
+.level-title {
+  font-size: clamp(22px, 5vw, 42px);
 
-  45% {
-    opacity: 1;
-    transform: scale(1.08) rotate(2deg);
-  }
+  font-weight: bold;
 
-  75% {
-    transform: scale(.96) rotate(-1deg);
-  }
+  letter-spacing: 4px;
 
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(0);
-    filter:
-      drop-shadow(9px 9px 0 rgba(0,0,0,.8))
-      drop-shadow(0 0 20px rgba(0,140,255,.3));
+  margin-bottom: 45px;
+}
+
+.menu-button {
+  display: block;
+
+  width: min(330px, 90%);
+
+  margin: 15px auto;
+
+  padding: 17px;
+
+  background: black;
+
+  border: 2px solid white;
+
+  color: white;
+
+  font-family: "Courier New", monospace;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  letter-spacing: 3px;
+
+  cursor: pointer;
+
+  transition: .25s;
+}
+
+.menu-button:hover {
+  background: white;
+  color: black;
+
+  transform: translateX(7px);
+
+  box-shadow:
+    7px 0 #008cff,
+    -7px 0 #ff1744;
+}
+
+.press-start {
+  margin-top: 40px;
+
+  font-size: 12px;
+
+  color: #aaa;
+
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: .25;
   }
 }
 
-/* =========================
-   PAINT DRIPS
-========================= */
+/* ================================
+   GAME WORLD
+================================ */
 
-.drips {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 59%;
-  width: min(700px, 80%);
+#game {
+  display: none;
+
+  min-height: 100vh;
+
+  background-color: #454545;
+
+  background-image:
+
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 56px,
+      rgba(0,0,0,.8) 57px,
+      rgba(0,0,0,.8) 61px
+    ),
+
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 115px,
+      rgba(0,0,0,.75) 116px,
+      rgba(0,0,0,.75) 120px
+    );
+}
+
+/* ================================
+   HUD
+================================ */
+
+.hud {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 100;
+
   display: flex;
-  justify-content: space-around;
-  pointer-events: none;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 12px 18px;
+
+  background: rgba(0,0,0,.9);
+
+  border-bottom: 2px solid white;
+
+  font-size: 13px;
 }
 
-.drip {
-  width: 7px;
-  border-radius: 0 0 10px 10px;
-  opacity: 0;
-  transform-origin: top;
-  animation: drip .8s ease forwards;
+.hud-title {
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
-.drip:nth-child(1) {
-  height: 48px;
-  background: #008cff;
-  animation-delay: 3.2s;
+.xp {
+  color: #00aaff;
 }
 
-.drip:nth-child(2) {
-  height: 30px;
-  background: #5550ff;
-  animation-delay: 3.4s;
+/* ================================
+   WALL INTRO
+================================ */
+
+.wall-intro {
+  min-height: 90vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 30px;
 }
 
-.drip:nth-child(3) {
-  height: 55px;
-  background: #ff1744;
-  animation-delay: 3.6s;
+.wall-small {
+  font-size: 13px;
+
+  letter-spacing: 5px;
+
+  margin-bottom: 25px;
 }
 
-.drip:nth-child(4) {
-  height: 35px;
-  background: #ff003c;
-  animation-delay: 3.8s;
+.graffiti-name {
+
+  font-family: Impact, "Arial Black", sans-serif;
+
+  font-size: clamp(80px, 18vw, 220px);
+
+  line-height: .8;
+
+  letter-spacing: -10px;
+
+  background:
+    linear-gradient(
+      100deg,
+      #008cff,
+      #5d4aff,
+      #ff1744
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+
+  -webkit-text-stroke: 4px black;
+
+  text-shadow:
+    10px 10px 0 rgba(0,0,0,.8);
+
+  transform: rotate(-4deg);
+
+  animation: graffiti 1.7s ease-out;
 }
 
-@keyframes drip {
+@keyframes graffiti {
+
   from {
     opacity: 0;
-    transform: scaleY(0);
+
+    transform:
+      scale(.4)
+      rotate(-15deg);
+
+    filter: blur(15px);
   }
+
   to {
-    opacity: .9;
-    transform: scaleY(1);
+    opacity: 1;
+
+    transform:
+      scale(1)
+      rotate(-4deg);
+
+    filter: blur(0);
   }
+
 }
 
-/* =========================
-   SPRAY PARTICLES
-========================= */
+.unlock {
 
-.spray-particles {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  inset: 0;
-  pointer-events: none;
-}
+  margin-top: 45px;
 
-.particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #009cff;
-  opacity: 0;
-  animation: particle 2s ease-out forwards;
-}
+  font-size: clamp(25px, 5vw, 50px);
 
-.p1 { left: 20%; top: 47%; animation-delay: 1s; }
-.p2 { left: 27%; top: 40%; animation-delay: 1.2s; }
-.p3 { left: 35%; top: 55%; animation-delay: 1.4s; }
-.p4 { left: 43%; top: 38%; animation-delay: 1.6s; }
-.p5 { left: 51%; top: 54%; animation-delay: 1.8s; }
-.p6 { left: 59%; top: 42%; animation-delay: 2s; }
-.p7 { left: 67%; top: 52%; animation-delay: 2.2s; }
-.p8 { left: 75%; top: 44%; animation-delay: 2.4s; }
+  font-weight: bold;
 
-@keyframes particle {
-  0% {
-    opacity: 0;
-    transform: translate(0,0) scale(.3);
-  }
-  30% {
-    opacity: .9;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(20px,-30px) scale(1);
-  }
-}
-
-/* =========================
-   LEVEL
-========================= */
-
-.level {
-  margin-top: 50px;
-  font-size: clamp(24px, 5vw, 52px);
-  font-weight: 900;
   letter-spacing: 4px;
-  text-shadow: 4px 4px 0 #000;
 
-  opacity: 0;
-  transform: translateY(20px);
-  animation: levelIn 1s ease forwards;
-  animation-delay: 4.2s;
+  text-shadow:
+    4px 4px black;
+
+  animation: pop .8s ease-out;
 }
 
-@keyframes levelIn {
+@keyframes pop {
+
+  from {
+    opacity: 0;
+    transform: scale(.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+/* ================================
+   MENU
+================================ */
+
+.menu {
+
+  width: 92%;
+
+  max-width: 1000px;
+
+  margin: 0 auto 120px;
+
+  text-align: center;
+}
+
+.menu-heading {
+
+  font-family: Impact, "Arial Black", sans-serif;
+
+  font-size: clamp(45px, 9vw, 90px);
+
+  margin-bottom: 45px;
+
+  transform: rotate(-2deg);
+
+  text-shadow:
+    5px 5px #008cff,
+    -5px -5px #ff1744,
+    8px 8px black;
+}
+
+.menu-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 20px;
+}
+
+.level-card {
+
+  min-height: 160px;
+
+  background: rgba(0,0,0,.75);
+
+  border: 2px solid white;
+
+  padding: 30px;
+
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+.level-card:hover {
+
+  transform:
+    translateY(-8px)
+    rotate(-2deg);
+
+  box-shadow:
+    8px 8px #008cff;
+}
+
+.level-number {
+
+  font-size: 12px;
+
+  color: #00aaff;
+
+  letter-spacing: 3px;
+
+  margin-bottom: 15px;
+}
+
+.level-card h2 {
+
+  font-family: Impact, "Arial Black", sans-serif;
+
+  font-size: 32px;
+
+  margin-bottom: 12px;
+}
+
+.level-card p {
+
+  color: #aaa;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+/* ================================
+   SECTIONS
+================================ */
+
+.section {
+
+  width: 92%;
+
+  max-width: 1050px;
+
+  margin: 0 auto 120px;
+
+  display: none;
+}
+
+.section.active {
+  display: block;
+
+  animation: sectionIn .5s ease;
+}
+
+@keyframes sectionIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
-}
 
-.enter {
-  margin-top: 35px;
-  padding: 15px 32px;
-  border: 2px solid white;
-  background: rgba(0,0,0,.35);
-  color: white;
-  font-size: 15px;
-  font-weight: bold;
-  letter-spacing: 3px;
-  cursor: pointer;
-
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
-  animation-delay: 5s;
-
-  transition: .3s;
-}
-
-.enter:hover {
-  background: white;
-  color: black;
-  transform: scale(1.08);
-}
-
-/* =========================
-   MAIN SITE
-========================= */
-
-#main {
-  display: none;
-  position: relative;
-  min-height: 100vh;
-  padding: 80px 20px;
-
-  background-color: #3f3f3f;
-
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 57px,
-      rgba(15,15,15,.8) 58px,
-      rgba(15,15,15,.8) 62px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent 0px,
-      transparent 118px,
-      rgba(15,15,15,.7) 119px,
-      rgba(15,15,15,.7) 123px
-    );
-}
-
-.section {
-  width: 100%;
-  max-width: 1050px;
-  margin: 0 auto 120px;
 }
 
 .section-title {
+
   font-family: Impact, "Arial Black", sans-serif;
-  font-size: clamp(40px, 8vw, 85px);
+
+  font-size: clamp(45px, 9vw, 90px);
+
   text-transform: uppercase;
-  transform: rotate(-2deg);
+
   text-shadow:
-    4px 4px 0 #008cff,
-    -4px -4px 0 #ff1744,
-    7px 7px 0 #000;
+    5px 5px #008cff,
+    -5px -5px #ff1744,
+    8px 8px black;
+
+  transform: rotate(-2deg);
+
   margin-bottom: 45px;
 }
 
-/* =========================
-   INTERESTS
-========================= */
-
-.interests {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-
-.interest {
-  min-height: 130px;
-  padding: 25px;
-  background: rgba(0,0,0,.55);
-  border: 2px solid rgba(255,255,255,.25);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  transition: .3s;
-}
-
-.interest:hover {
-  transform: translateY(-8px) rotate(-2deg);
-  border-color: white;
-  box-shadow: 8px 8px 0 #008cff;
-}
-
-.interest span {
-  font-size: 42px;
-  margin-bottom: 10px;
-}
-
-.interest h3 {
-  font-size: 16px;
-  letter-spacing: 2px;
-}
-
-/* =========================
+/* ================================
    PHOTO GALLERY
-========================= */
+================================ */
 
 .gallery {
+
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
   gap: 35px;
 }
 
-.polaroid {
-  background: #f4f0e6;
-  padding: 12px 12px 35px;
-  box-shadow: 8px 10px 0 rgba(0,0,0,.5);
-  transition: .4s;
+.photo {
+
+  background: #eee;
+
+  padding: 12px 12px 30px;
+
+  box-shadow:
+    10px 10px rgba(0,0,0,.6);
+
+  transition: .35s;
+
+  cursor: pointer;
 }
 
-.polaroid:nth-child(1) {
+.photo:nth-child(1) {
   transform: rotate(-3deg);
 }
 
-.polaroid:nth-child(2) {
+.photo:nth-child(2) {
   transform: rotate(3deg);
 }
 
-.polaroid:nth-child(3) {
+.photo:nth-child(3) {
   transform: rotate(-2deg);
 }
 
-.polaroid:nth-child(4) {
+.photo:nth-child(4) {
   transform: rotate(3deg);
 }
 
-.polaroid:nth-child(5) {
+.photo:nth-child(5) {
   transform: rotate(-3deg);
 }
 
-.polaroid:hover {
-  transform: rotate(0) scale(1.04);
-  z-index: 5;
+.photo:hover {
+
+  transform:
+    rotate(0)
+    scale(1.04);
+
+  z-index: 10;
 }
 
-.polaroid img {
+.photo img {
+
   width: 100%;
+
   height: 350px;
+
   object-fit: cover;
+
   display: block;
 }
 
-.caption {
-  color: #171717;
+.photo-label {
+
+  color: #111;
+
   text-align: center;
-  margin-top: 18px;
+
+  margin-top: 17px;
+
   font-family: "Comic Sans MS", cursive;
-  font-size: 16px;
+
+  font-size: 15px;
 }
 
-/* =========================
+/* ================================
+   REMINDERS
+================================ */
+
+.reminders {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+.reminder {
+
+  background: rgba(0,0,0,.75);
+
+  border: 2px solid rgba(255,255,255,.4);
+
+  min-height: 150px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 20px;
+
+  transition: .3s;
+
+}
+
+.reminder:hover {
+
+  transform:
+    translateY(-8px)
+    rotate(-2deg);
+
+  border-color: white;
+
+  box-shadow:
+    7px 7px #ff1744;
+}
+
+.reminder-icon {
+
+  font-size: 40px;
+
+  margin-bottom: 15px;
+}
+
+.reminder h3 {
+
+  font-size: 15px;
+
+  letter-spacing: 2px;
+}
+
+/* ================================
    MESSAGE
-========================= */
+================================ */
 
-.message-card {
-  background: rgba(10,10,10,.75);
-  border: 2px solid rgba(255,255,255,.3);
+.message {
+
+  background: rgba(0,0,0,.8);
+
+  border: 2px solid white;
+
   padding: clamp(25px, 6vw, 60px);
-  box-shadow: 12px 12px 0 #008cff;
+
+  box-shadow:
+    12px 12px #008cff,
+    -12px -12px #ff1744;
 }
 
-.message-card h2 {
+.message h2 {
+
   font-family: Georgia, serif;
-  font-size: clamp(30px, 6vw, 60px);
+
+  font-size: clamp(30px, 6vw, 55px);
+
   margin-bottom: 30px;
 }
 
-.message-card p {
+.message p {
+
   font-family: Georgia, serif;
-  font-size: 19px;
+
+  font-size: 18px;
+
   line-height: 1.9;
+
   margin-bottom: 25px;
 }
 
 .verse {
+
   border-left: 4px solid #ff1744;
+
   padding-left: 20px;
+
   font-style: italic;
 }
 
 .signature {
-  font-size: 23px !important;
-  margin-top: 35px;
+
+  font-size: 22px !important;
 }
 
-/* =========================
-   FINAL
-========================= */
+/* ================================
+   SECRET
+================================ */
 
-.final {
+.secret {
+
   text-align: center;
-  padding-bottom: 60px;
+
+  padding-bottom: 100px;
 }
 
-.final-tag {
+.secret-title {
+
   font-family: Impact, "Arial Black", sans-serif;
-  font-size: clamp(55px, 13vw, 140px);
-  background: linear-gradient(90deg, #008cff, #ff1744);
+
+  font-size: clamp(50px, 12vw, 130px);
+
+  background:
+    linear-gradient(
+      90deg,
+      #008cff,
+      #ff1744
+    );
+
   -webkit-background-clip: text;
+
   background-clip: text;
+
   color: transparent;
+
   -webkit-text-stroke: 3px black;
+
   transform: rotate(-3deg);
+
+  margin-bottom: 25px;
 }
 
-.final p {
-  margin-top: 20px;
-  font-size: 20px;
-  letter-spacing: 3px;
+.secret p {
+
+  font-size: 18px;
+
+  letter-spacing: 2px;
+
+  line-height: 1.8;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* ================================
+   MOBILE
+================================ */
 
-@media (max-width: 700px) {
+@media(max-width: 700px) {
 
-  .graffiti {
-    letter-spacing: -5px;
-    -webkit-text-stroke: 2px rgba(0,0,0,.85);
-  }
+  .menu-grid {
 
-  .level {
-    letter-spacing: 2px;
-  }
-
-  .interests {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .gallery {
     grid-template-columns: 1fr;
   }
 
-  .polaroid img {
-    height: 320px;
+  .gallery {
+
+    grid-template-columns: 1fr;
   }
 
-  .message-card p {
-    font-size: 17px;
+  .reminders {
+
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .photo img {
+
+    height: 300px;
+  }
+
+  .graffiti-name {
+
+    letter-spacing: -5px;
+
+    -webkit-text-stroke: 2px black;
   }
 }
 
-@media (max-width: 430px) {
+@media(max-width: 430px) {
 
-  .interests {
+  .reminders {
+
     grid-template-columns: 1fr 1fr;
   }
 
-  .interest {
-    min-height: 115px;
-    padding: 15px;
+  .reminder {
+
+    min-height: 125px;
+
+    padding: 12px;
   }
 
-  .interest span {
-    font-size: 34px;
-  }
-}
+  .reminder-icon {
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
+    font-size: 32px;
   }
 }
 
 </style>
 </head>
 
+
 <body>
 
-<!-- =========================
-     OPENING
-========================= -->
 
-<section class="wall" id="opening">
+<!-- =================================
+     START SCREEN
+================================= -->
 
-  <div class="spray-particles">
-    <div class="particle p1"></div>
-    <div class="particle p2"></div>
-    <div class="particle p3"></div>
-    <div class="particle p4"></div>
-    <div class="particle p5"></div>
-    <div class="particle p6"></div>
-    <div class="particle p7"></div>
-    <div class="particle p8"></div>
-  </div>
+<section id="startScreen">
 
-  <div class="hero">
+  <div class="game-box">
 
-    <div class="hero-content">
+    <div class="small">
+      ★ SPECIAL EDITION ★
+    </div>
 
-      <div class="intro">
-        A SPECIAL MESSAGE FOR
-      </div>
+    <div class="logo">
+      DARBY
+    </div>
 
-      <div class="graffiti">
-        DARBY
-      </div>
+    <div class="level-title">
+      LEVEL 21
+    </div>
 
-      <div class="drips">
-        <div class="drip"></div>
-        <div class="drip"></div>
-        <div class="drip"></div>
-        <div class="drip"></div>
-      </div>
+    <button
+      class="menu-button"
+      onclick="startGame()"
+    >
+      ▶ START GAME
+    </button>
 
-      <div class="level">
-        LEVEL 21 UNLOCKED 🎮
-      </div>
+    <button
+      class="menu-button"
+      onclick="showInstructions()"
+    >
+      ? HOW TO PLAY
+    </button>
 
-      <button class="enter" onclick="enterSite()">
-        ENTER →
-      </button>
-
+    <div class="press-start">
+      PRESS START TO BEGIN
     </div>
 
   </div>
@@ -620,65 +863,127 @@ body {
 </section>
 
 
-<!-- =========================
-     MAIN WEBSITE
-========================= -->
+<!-- =================================
+     GAME
+================================= -->
 
-<main id="main">
+<main id="game">
 
-  <!-- INTERESTS -->
 
-  <section class="section">
+  <!-- HUD -->
 
-    <div class="section-title">
-      A LITTLE BIT OF YOU
+  <div class="hud">
+
+    <div class="hud-title">
+      DARBY // LV.21
     </div>
 
-    <div class="interests">
+    <div class="xp">
+      XP: <span id="xp">0000</span>
+    </div>
 
-      <div class="interest">
-        <span>🇻🇪</span>
-        <h3>VENEZUELA</h3>
+  </div>
+
+
+  <!-- WALL -->
+
+  <section class="wall-intro">
+
+    <div class="wall-small">
+      PLAYER 1 READY
+    </div>
+
+    <div class="graffiti-name">
+      DARBY
+    </div>
+
+    <div class="unlock">
+      ★ LEVEL 21 UNLOCKED ★
+    </div>
+
+  </section>
+
+
+  <!-- GAME MENU -->
+
+  <section class="menu">
+
+    <div class="menu-heading">
+      DARBY'S WORLD
+    </div>
+
+    <div class="menu-grid">
+
+
+      <div
+        class="level-card"
+        onclick="openSection('memories', 250)"
+      >
+
+        <div class="level-number">
+          LEVEL 01
+        </div>
+
+        <h2>📸 MEMORIES</h2>
+
+        <p>
+          Collect five memories.
+        </p>
+
       </div>
 
-      <div class="interest">
-        <span>⚾</span>
-        <h3>SHOHEI OHTANI</h3>
+
+      <div
+        class="level-card"
+        onclick="openSection('reminders', 250)"
+      >
+
+        <div class="level-number">
+          LEVEL 02
+        </div>
+
+        <h2>🎨 THINGS THAT REMIND ME OF YOU</h2>
+
+        <p>
+          A few things that always make me think of you...
+        </p>
+
       </div>
 
-      <div class="interest">
-        <span>🎨</span>
-        <h3>DRAWING</h3>
+
+      <div
+        class="level-card"
+        onclick="openSection('message', 500)"
+      >
+
+        <div class="level-number">
+          LEVEL 03
+        </div>
+
+        <h2>💌 NEW MESSAGE</h2>
+
+        <p>
+          You have one unread message.
+        </p>
+
       </div>
 
-      <div class="interest">
-        <span>💙</span>
-        <h3>SONIC</h3>
-      </div>
 
-      <div class="interest">
-        <span>🐧</span>
-        <h3>PENGUINS</h3>
-      </div>
+      <div
+        class="level-card"
+        onclick="secretLevel()"
+      >
 
-      <div class="interest">
-        <span>⚽</span>
-        <h3>ARGENTINA & BRAZIL</h3>
-      </div>
+        <div class="level-number">
+          ????
+        </div>
 
-      <div class="interest">
-        <span>🇦🇷</span>
-        <h3>THE ARGENTINA JERSEY</h3>
-      </div>
+        <h2>🎁 SECRET LEVEL</h2>
 
-      <div class="interest">
-        <span>🎵</span>
-        <h3>2000s MUSIC</h3>
-      </div>
+        <p>
+          Something is waiting here...
+        </p>
 
-      <div class="interest">
-        <span>🫓</span>
-        <h3>AREPAS</h3>
       </div>
 
     </div>
@@ -686,63 +991,255 @@ body {
   </section>
 
 
-  <!-- PHOTOS -->
+  <!-- =================================
+       MEMORIES
+  ================================= -->
 
-  <section class="section">
+  <section
+    id="memories"
+    class="section"
+  >
 
     <div class="section-title">
-      THE MEMORIES
+      MEMORY FILES
     </div>
 
     <div class="gallery">
 
-      <div class="polaroid">
-        <img src="251bbf52-e032-4ecc-a542-3c32b40bf0b9.jpeg" alt="Memory 1">
-        <div class="caption">memory #01 ❤️</div>
+
+      <div class="photo">
+
+        <img
+          src="251bbf52-e032-4ecc-a542-3c32b40bf0b9.jpeg"
+          alt="Memory 1"
+        >
+
+        <div class="photo-label">
+          MEMORY 01 // +250 XP
+        </div>
+
       </div>
 
-      <div class="polaroid">
-        <img src="38514dda-9de0-41f1-8a3e-acdd58962246.jpeg" alt="Memory 2">
-        <div class="caption">memory #02</div>
+
+      <div class="photo">
+
+        <img
+          src="38514dda-9de0-41f1-8a3e-acdd58962246.jpeg"
+          alt="Memory 2"
+        >
+
+        <div class="photo-label">
+          MEMORY 02 // +250 XP
+        </div>
+
       </div>
 
-      <div class="polaroid">
-        <img src="55480ed8-697a-47d2-aaef-a233b98c2d95.jpeg" alt="Memory 3">
-        <div class="caption">memory #03</div>
+
+      <div class="photo">
+
+        <img
+          src="55480ed8-697a-47d2-aaef-a233b98c2d95.jpeg"
+          alt="Memory 3"
+        >
+
+        <div class="photo-label">
+          MEMORY 03 // +250 XP
+        </div>
+
       </div>
 
-      <div class="polaroid">
-        <img src="IMG_6582.jpeg" alt="Memory 4">
-        <div class="caption">memory #04</div>
+
+      <div class="photo">
+
+        <img
+          src="IMG_6582.jpeg"
+          alt="Memory 4"
+        >
+
+        <div class="photo-label">
+          MEMORY 04 // +250 XP
+        </div>
+
       </div>
 
-      <div class="polaroid">
-        <img src="IMG_6585.jpeg" alt="Memory 5">
-        <div class="caption">memory #05</div>
+
+      <div class="photo">
+
+        <img
+          src="IMG_6585.jpeg"
+          alt="Memory 5"
+        >
+
+        <div class="photo-label">
+          MEMORY 05 // +250 XP
+        </div>
+
       </div>
+
 
     </div>
 
   </section>
 
 
-  <!-- MESSAGE -->
+  <!-- =================================
+       THINGS THAT REMIND ME OF YOU
+  ================================= -->
 
-  <section class="section">
+  <section
+    id="reminders"
+    class="section"
+  >
 
     <div class="section-title">
-      A MESSAGE FOR YOU
+      THINGS THAT REMIND ME OF YOU
     </div>
 
-    <div class="message-card">
+    <div class="reminders">
 
-      <h2>Feliz cumpleaños, David! 🎂</h2>
+
+      <div class="reminder">
+
+        <div class="reminder-icon">
+          🇻🇪
+        </div>
+
+        <h3>VENEZUELA</h3>
+
+      </div>
+
+
+      <div class="reminder">
+
+        <div class="reminder-icon">
+          ⚾
+        </div>
+
+        <h3>SHOHEI OHTANI</h3>
+
+      </div>
+
+
+      <div class="reminder">
+
+        <div class="reminder-icon">
+          🎨
+        </div>
+
+        <h3>DRAWING</h3>
+
+      </div>
+
+
+      <div class="reminder">
+
+        <div class="reminder-icon">
+          🦔
+        </div>
+
+        <h3>SONIC</h3>
+
+      </div>
+
+
+      <div class="reminder">
+
+        <div class="reminder-icon">
+          🐧
+        </div>
+
+        <h3>PENGUINS</h3>
+
+      </div>
+
+
+      <div class="reminder">
+
+        <div class="reminder-icon">
+          ⚽
+        </div>
+
+        <h3>ARGENTINA + BRAZIL</h3>
+
+      </div>
+
+
+      <div class="reminder">
+
+        <div class="reminder-icon">
+          🇦🇷
+        </div>
+
+        <h3>THAT ARGENTINA JERSEY</h3>
+
+      </div>
+
+
+      <div class="reminder">
+
+        <div class="reminder-icon">
+          🎵
+        </div>
+
+        <h3>2000s MUSIC</h3>
+
+      </div>
+
+
+      <div class="reminder">
+
+        <div class="reminder-icon">
+          🎤
+        </div>
+
+        <h3>LUIS MIGUEL</h3>
+
+      </div>
+
+
+      <div class="reminder">
+
+        <div class="reminder-icon">
+          🫓
+        </div>
+
+        <h3>AREPAS</h3>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- =================================
+       MESSAGE
+  ================================= -->
+
+  <section
+    id="message"
+    class="section"
+  >
+
+    <div class="section-title">
+      NEW MESSAGE
+    </div>
+
+
+    <div class="message">
+
+      <h2>
+        Feliz cumpleaños, David! 🎂
+      </h2>
+
 
       <p>
         Te deseo un día maravilloso. Te aprecio muchísimo y estoy muy
         agradecida de tenerte en mi vida. Espero verte pronto y poder
         seguir compartiendo momentos y creando recuerdos juntos.
       </p>
+
 
       <p>
         Espero que con este nuevo capítulo sigas creciendo como persona,
@@ -752,17 +1249,25 @@ body {
         en todo lo que eres capaz de lograr.
       </p>
 
+
       <p class="verse">
-        “Porque yo sé los planes que tengo para ustedes, planes de bienestar
-        y no de calamidad, para darles un futuro y una esperanza.”
+
+        “Porque yo sé los planes que tengo para ustedes, planes de
+        bienestar y no de calamidad, para darles un futuro y una esperanza.”
+
         <br><br>
+
         — Jeremías 29:11
+
       </p>
 
+
       <p class="signature">
+
         Te quiero mucho.<br>
         Un gran abrazo,<br>
         Tiffany ❤️
+
       </p>
 
     </div>
@@ -770,63 +1275,138 @@ body {
   </section>
 
 
-  <!-- FINAL -->
+  <!-- =================================
+       SECRET LEVEL
+  ================================= -->
 
-  <section class="final">
+  <section
+    id="secret"
+    class="secret section"
+  >
 
-    <div class="final-tag">
-      DARBY
+    <div class="secret-title">
+      LEVEL 21
     </div>
 
     <p>
-      LEVEL 21 COMPLETE ✓
+      ALL MISSIONS COMPLETE.
+    </p>
+
+    <p>
+      ALL MEMORIES FOUND.
     </p>
 
     <p>
       NEXT LEVEL LOADING...
     </p>
 
+    <br>
+
+    <p>
+      ❤️ HAPPY BIRTHDAY, DARBY ❤️
+    </p>
+
   </section>
+
 
 </main>
 
 
 <script>
 
-function enterSite() {
+/* ================================
+   START GAME
+================================ */
 
-  /*
-    This button is the first user interaction,
-    so browsers allow us to use audio here.
-  */
+function startGame() {
 
-  const audio = new Audio();
+  document.getElementById("startScreen").style.display = "none";
 
-  /*
-    We'll add the actual spray sound later
-    once we choose the sound file.
-  */
+  document.getElementById("game").style.display = "block";
 
-  audio.volume = 0.5;
+  window.scrollTo(0, 0);
 
-  const opening = document.getElementById("opening");
-  const main = document.getElementById("main");
+}
 
-  opening.style.transition = "opacity 1.2s ease";
-  opening.style.opacity = "0";
+
+/* ================================
+   INSTRUCTIONS
+================================ */
+
+function showInstructions() {
+
+  alert(
+    "WELCOME, PLAYER 1!\\n\\n" +
+    "Explore the different levels.\\n" +
+    "Collect memories.\\n" +
+    "Find the things that remind Tiffany of you.\\n" +
+    "Read your birthday message.\\n" +
+    "And try to find the secret level... 👀"
+  );
+
+}
+
+
+/* ================================
+   OPEN SECTIONS
+================================ */
+
+let currentXP = 0;
+
+function openSection(id, points) {
+
+  document.querySelectorAll(".section").forEach(section => {
+
+    section.classList.remove("active");
+
+  });
+
+  const section = document.getElementById(id);
+
+  section.classList.add("active");
+
+  currentXP += points;
+
+  document.getElementById("xp").textContent =
+    String(currentXP).padStart(4, "0");
 
   setTimeout(() => {
-    opening.style.display = "none";
-    main.style.display = "block";
 
-    window.scrollTo({
-      top: 0,
-      behavior: "instant"
+    section.scrollIntoView({
+      behavior: "smooth"
     });
-  }, 1200);
+
+  }, 100);
+
+}
+
+
+/* ================================
+   SECRET LEVEL
+================================ */
+
+function secretLevel() {
+
+  document.getElementById("secret").classList.add("active");
+
+  currentXP += 1000;
+
+  document.getElementById("xp").textContent =
+    String(currentXP).padStart(4, "0");
+
+  setTimeout(() => {
+
+    document.getElementById("secret").scrollIntoView({
+      behavior: "smooth"
+    });
+
+  }, 100);
+
 }
 
 </script>
 
 </body>
 </html>
+```
+
