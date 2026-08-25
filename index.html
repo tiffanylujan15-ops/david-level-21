@@ -4,10 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DAVID — Level 21</title>
+<title>DARBY — LEVEL 21</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Press+Start+2P&family=Permanent+Marker&display=swap');
 
 * {
   box-sizing: border-box;
@@ -15,1244 +14,1789 @@
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
+html,
 body {
-  background: #030712;
-  color: white;
-  font-family: Arial, sans-serif;
-  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 button {
-  font-family: inherit;
+  font: inherit;
   cursor: pointer;
 }
 
-
-/* =====================================================
-   INTRO — SONIC / STREET ART VIBE
-===================================================== */
-
-#intro {
+.screen {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  display: none;
   overflow: hidden;
+}
 
-  background:
-    radial-gradient(
-      circle at 50% 45%,
-      rgba(0,130,255,.35),
-      transparent 35%
-    ),
-    linear-gradient(
-      135deg,
-      #001b4d,
-      #030712 55%,
-      #00102e
-    );
-
+.screen.active {
   display: flex;
+}
+
+/* =========================
+   TRANSITION
+========================= */
+
+#transition {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  background: #050505;
+  transform: translateX(-100%);
+}
+
+#transition.go {
+  animation: screenWipe 1s ease-in-out forwards;
+}
+
+@keyframes screenWipe {
+  0% { transform: translateX(-100%); }
+  45% { transform: translateX(0); }
+  55% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+
+/* =========================
+   INTRO
+========================= */
+
+#intro {
   align-items: center;
   justify-content: center;
-}
-
-
-/* speed lines */
-
-.speed-lines {
-  position: absolute;
-  inset: 0;
 
   background:
-    repeating-linear-gradient(
-      -25deg,
-      transparent 0px,
-      transparent 35px,
-      rgba(0,140,255,.09) 36px,
-      rgba(0,140,255,.09) 38px,
-      transparent 39px,
-      transparent 80px
-    );
-
-  transform: scale(1.5);
-
-  animation: speedMove 3s linear infinite;
+    url("image.jpeg")
+    center center / cover no-repeat;
 }
 
-@keyframes speedMove {
-  from {
-    transform: translateX(0) scale(1.5);
-  }
-
-  to {
-    transform: translateX(-100px) scale(1.5);
-  }
-}
-
-
-/* Sonic-inspired blue rings */
-
-.ring {
-  position: absolute;
-
-  border: 4px solid rgba(0,140,255,.18);
-
-  border-radius: 50%;
-
-  animation: ringPulse 3s infinite ease-out;
-}
-
-.ring.one {
-  width: 500px;
-  height: 500px;
-}
-
-.ring.two {
-  width: 800px;
-  height: 800px;
-  animation-delay: .5s;
-}
-
-.ring.three {
-  width: 1100px;
-  height: 1100px;
-  animation-delay: 1s;
-}
-
-@keyframes ringPulse {
-  0% {
-    opacity: .15;
-    transform: scale(.8);
-  }
-
-  50% {
-    opacity: .4;
-  }
-
-  100% {
-    opacity: 0;
-    transform: scale(1.2);
-  }
-}
-
-
-/* dark overlay */
-
-.intro-dark {
+#intro::before {
+  content: "";
   position: absolute;
   inset: 0;
 
   background:
     radial-gradient(
-      circle,
-      transparent 15%,
-      rgba(0,0,0,.65) 90%
+      ellipse at center,
+      rgba(255,190,120,.08) 0%,
+      rgba(0,0,0,.15) 45%,
+      rgba(0,0,0,.72) 100%
     );
+
+  z-index: 1;
 }
 
-
-/* =====================================================
+/* =========================
    SPRAY CAN
-===================================================== */
+========================= */
 
 .spray-can {
   position: absolute;
+  width: 58px;
+  height: 130px;
+  left: -150px;
+  top: 47%;
+  z-index: 10;
 
-  left: 7%;
-  bottom: 13%;
-
-  width: 92px;
-  height: 220px;
-
-  border-radius: 25px 25px 18px 18px;
+  border-radius: 10px 10px 16px 16px;
 
   background:
     linear-gradient(
       90deg,
-      #171717,
-      #777,
-      #c7c7c7,
-      #444,
-      #111
+      #171717 0%,
+      #747474 20%,
+      #eeeeee 47%,
+      #8a8a8a 68%,
+      #111 100%
     );
 
-  box-shadow:
-    0 20px 50px rgba(0,0,0,.8);
-
-  transform: rotate(-12deg);
-
-  animation: canShake .14s infinite alternate;
-
-  z-index: 20;
+  box-shadow: 10px 14px 22px rgba(0,0,0,.75);
+  transform: rotate(-15deg);
 }
-
 
 .spray-can::before {
   content: "";
-
   position: absolute;
-
-  width: 65px;
-  height: 29px;
-
-  top: -21px;
-  left: 13px;
-
-  background: #111;
-
-  border-radius: 10px 10px 4px 4px;
+  width: 38px;
+  height: 17px;
+  left: 10px;
+  top: -15px;
+  background: #151515;
+  border-radius: 5px 5px 2px 2px;
 }
-
 
 .spray-can::after {
-  content: "";
-
+  content: "DARBY";
   position: absolute;
-
-  width: 25px;
-  height: 12px;
-
-  top: -29px;
-  left: 48px;
-
-  background: #090909;
-
-  border-radius: 5px;
-}
-
-
-/* actual DARBY artwork */
-
-.can-art {
-  position: absolute;
-
+  width: 45px;
   left: 7px;
-  right: 7px;
+  top: 42px;
+  padding: 5px 2px;
 
-  top: 60px;
+  color: white;
+  background: #087aff;
 
-  height: 105px;
-
-  overflow: hidden;
-
-  background: white;
-
-  border: 3px solid #111;
-
+  font-size: 9px;
+  font-weight: 900;
+  text-align: center;
   transform: rotate(-4deg);
 }
 
-.can-art img {
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
+.spray-can.animate {
+  animation: sprayAcross 2.7s ease-in-out forwards;
 }
 
-
-@keyframes canShake {
-  from {
-    transform: rotate(-14deg);
-  }
-
-  to {
-    transform: rotate(-8deg);
-  }
-}
-
-
-/* =====================================================
-   SPRAY
-===================================================== */
-
-.spray {
-  position: absolute;
-
-  left: 13%;
-  bottom: 31%;
-
-  width: 72vw;
-  height: 160px;
-
-  opacity: 0;
-
-  transform:
-    scaleX(.02)
-    rotate(-3deg);
-
-  transform-origin: left center;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(0,145,255,.95) 0 3px,
-      transparent 5px
-    ),
-    radial-gradient(
-      circle,
-      rgba(255,255,255,.7) 0 2px,
-      transparent 4px
-    );
-
-  background-size:
-    19px 19px,
-    31px 31px;
-
-  filter: blur(1px);
-
-  animation:
-    sprayPaint 2.3s ease-out forwards;
-
-  animation-delay: .7s;
-
-  z-index: 8;
-}
-
-@keyframes sprayPaint {
-
+@keyframes sprayAcross {
   0% {
-    opacity: 0;
-    transform:
-      scaleX(.02)
-      rotate(-3deg);
+    left: -150px;
+    top: 55%;
   }
 
-  15% {
-    opacity: 1;
+  35% {
+    left: 22%;
+    top: 48%;
+  }
+
+  65% {
+    left: 53%;
+    top: 43%;
   }
 
   100% {
-    opacity: .9;
-    transform:
-      scaleX(1.12)
-      rotate(-3deg);
+    left: 115%;
+    top: 50%;
   }
 }
 
+/* =========================
+   SPRAY
+========================= */
 
-/* =====================================================
-   DARBY REVEAL
-===================================================== */
+.spray-cloud {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  width: 750px;
+  height: 400px;
+  z-index: 3;
+
+  transform:
+    translate(-50%, -50%)
+    scale(.3);
+
+  opacity: 0;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(0,132,255,.6) 0%,
+      rgba(0,132,255,.35) 25%,
+      rgba(0,132,255,.15) 45%,
+      transparent 72%
+    );
+
+  filter: blur(10px);
+}
+
+.spray-cloud.active {
+  animation: sprayCloud 2s ease forwards;
+}
+
+@keyframes sprayCloud {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.2);
+  }
+
+  35% {
+    opacity: .85;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+}
+
+/* =========================
+   GRAFFITI
+========================= */
+
+.intro-content {
+  position: relative;
+  z-index: 5;
+  width: 90%;
+  text-align: center;
+}
+
+.intro-label {
+  margin-bottom: 25px;
+  color: #fff;
+  font-family: monospace;
+  letter-spacing: 6px;
+  font-size: 12px;
+  text-shadow: 2px 2px 6px #000;
+}
 
 .graffiti {
-
-  position: absolute;
-
-  left: 50%;
-  top: 41%;
-
-  transform:
-    translate(-50%,-50%)
-    scale(.04);
-
+  position: relative;
   opacity: 0;
 
-  text-align: center;
-
-  animation:
-    graffitiIn
-    1.45s
-    cubic-bezier(.2,1.4,.4,1)
-    forwards;
-
-  animation-delay: 2.35s;
-
-  z-index: 15;
-}
-
-.graffiti img {
-
-  width:
-    min(70vw,650px);
-
-  max-height: 330px;
-
-  object-fit: contain;
-
-  filter:
-    drop-shadow(7px 7px 0 #050505)
-    drop-shadow(
-      0 0 35px
-      rgba(0,145,255,.8)
-    );
-}
-
-.graffiti p {
-
-  margin-top: 12px;
-
   font-family:
-    Press Start 2P;
+    Impact,
+    "Arial Black",
+    sans-serif;
 
   font-size:
-    clamp(9px,1.5vw,17px);
+    clamp(95px, 18vw, 240px);
+
+  line-height: .8;
+  font-style: italic;
+  letter-spacing: -8px;
+
+  transform:
+    rotate(-6deg)
+    scale(.2);
+
+  color: #0b8cff;
+
+  -webkit-text-stroke: 7px #101010;
 
   text-shadow:
-    3px 3px #000;
+    3px 3px 0 #ffffff,
+    8px 8px 0 #101010,
+    14px 14px 16px rgba(0,0,0,.7);
 }
 
+.graffiti::after {
+  content: "";
+  position: absolute;
+  inset: -20px;
+  z-index: -1;
+  opacity: .65;
 
-@keyframes graffitiIn {
+  background:
+    radial-gradient(
+      circle,
+      rgba(20,130,255,.5) 0 2px,
+      transparent 3px
+    );
 
+  background-size: 20px 20px;
+}
+
+.graffiti.reveal {
+  animation: graffitiReveal 1.2s ease-out forwards;
+}
+
+@keyframes graffitiReveal {
   0% {
     opacity: 0;
-
     transform:
-      translate(-50%,-50%)
-      scale(.04)
-      rotate(-8deg);
-  }
+      translateX(-100px)
+      rotate(-12deg)
+      scale(.25);
 
-  60% {
-    opacity: 1;
-
-    transform:
-      translate(-50%,-50%)
-      scale(1.12)
-      rotate(2deg);
+    filter: blur(10px);
   }
 
   100% {
     opacity: 1;
-
     transform:
-      translate(-50%,-50%)
-      scale(1)
-      rotate(0);
+      rotate(-6deg)
+      scale(1);
+
+    filter: blur(0);
   }
 }
 
-
-/* =====================================================
-   LEVEL 21
-===================================================== */
-
-.level-unlocked {
-
-  position: absolute;
-
-  left: 50%;
-  bottom: 8%;
-
-  transform:
-    translateX(-50%);
-
-  text-align: center;
-
+.level-text {
+  margin-top: 38px;
+  color: #fff;
   opacity: 0;
 
-  animation:
-    fadeUp 1s forwards;
-
-  animation-delay: 3.9s;
-
-  z-index: 30;
-}
-
-.level-unlocked h2 {
-
-  font-family:
-    Press Start 2P;
+  font-family: monospace;
+  font-weight: bold;
 
   font-size:
-    clamp(18px,3vw,35px);
-}
+    clamp(20px, 4vw, 42px);
 
-.level-unlocked span {
-
-  display: block;
-
-  margin-top: 5px;
-
-  font-family: Bangers;
-
-  font-size:
-    clamp(40px,6vw,70px);
-
-  letter-spacing: 5px;
-
-  color: #008cff;
+  letter-spacing: 7px;
 
   text-shadow:
-    4px 4px #000;
+    4px 4px 8px #000;
 }
 
-
-.start {
-
-  margin-top: 20px;
-
-  padding:
-    17px 42px;
-
-  background: #087aff;
-
-  border:
-    3px solid white;
-
-  color: white;
-
-  font-family:
-    Press Start 2P;
-
-  font-size: 13px;
-
-  transition: .25s;
-
-  box-shadow:
-    0 0 25px
-    rgba(0,140,255,.5);
+.level-text.show {
+  animation: fadeUp .8s forwards;
 }
-
-.start:hover {
-
-  background: white;
-
-  color: #087aff;
-
-  transform: scale(1.08);
-}
-
 
 @keyframes fadeUp {
-
   from {
     opacity: 0;
-    transform:
-      translate(-50%,30px);
+    transform: translateY(30px);
   }
 
   to {
     opacity: 1;
-    transform:
-      translate(-50%,0);
+    transform: translateY(0);
   }
 }
 
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-#main {
-
-  display: none;
-
-  min-height: 100vh;
-
-  background:
-    radial-gradient(
-      circle at top,
-      #173e78,
-      #050505 55%
-    );
-
-  padding-bottom: 100px;
-}
-
-
-/* =====================================================
-   HERO
-===================================================== */
-
-.hero {
-
-  min-height: 75vh;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  text-align: center;
-
-  position: relative;
-
-  overflow: hidden;
-
-  padding: 100px 20px;
-}
-
-
-/* Sonic-style background */
-
-.hero::before {
-
-  content: "";
-
-  position: absolute;
-
-  width: 900px;
-  height: 900px;
-
-  border-radius: 50%;
-
-  border:
-    45px solid rgba(0,140,255,.07);
-
-  box-shadow:
-    0 0 0 70px rgba(0,140,255,.04),
-    0 0 0 140px rgba(0,140,255,.025);
-
-  animation:
-    heroSpin 18s linear infinite;
-}
-
-@keyframes heroSpin {
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-}
-
-
-.hero-small {
-
-  font-family:
-    Press Start 2P;
-
-  color: #aaa;
-
-  font-size: 11px;
-
-  letter-spacing: 3px;
-
-  margin-bottom: 20px;
-}
-
-
-.hero h1 {
-
-  font-family: Bangers;
-
-  font-size:
-    clamp(100px,20vw,230px);
-
-  color: #087aff;
-
-  letter-spacing: 5px;
-
-  line-height: .8;
-
-  text-shadow:
-    7px 7px #fff,
-    14px 14px #ff8b00,
-    20px 20px #111;
-}
-
-
-.hero h2 {
-
-  margin-top: 30px;
-
-  font-family:
-    Permanent Marker;
-
-  font-size:
-    clamp(25px,4vw,45px);
-}
-
-
-.hero p {
-
-  margin-top: 15px;
-
-  color: #aaa;
-
-  letter-spacing: 4px;
-
-  font-size: 11px;
-}
-
-
-/* =====================================================
-   SECTIONS
-===================================================== */
-
-.section {
-
-  width:
-    min(1200px,92%);
-
-  margin: auto;
-
-  padding:
-    80px 0;
-}
-
-
-.section-title {
-
-  text-align: center;
-
-  font-family: Bangers;
-
-  font-size:
-    clamp(50px,8vw,90px);
-
-  letter-spacing: 4px;
-
-  text-shadow:
-    5px 5px #087aff;
-
-  margin-bottom: 50px;
-}
-
-
-.subtitle {
-
-  text-align: center;
-
-  color: #aaa;
-
-  margin-top: -35px;
-
-  margin-bottom: 45px;
-}
-
-
-/* =====================================================
-   POKÉMON-STYLE CARDS
-===================================================== */
-
-.cards {
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
-  gap: 20px;
-}
-
-
-.card {
-
-  background:
-    linear-gradient(
-      145deg,
-      #ffffff,
-      #d2d2d2
-    );
-
-  color: #111;
-
-  border:
-    6px solid #d9a900;
-
-  border-radius: 18px;
-
-  padding: 10px;
-
-  box-shadow:
-    0 15px 35px rgba(0,0,0,.65),
-    inset 0 0 0 2px white;
-
-  transform:
-    rotate(var(--rotation));
-
-  transition: .35s;
-}
-
-
-.card:hover {
-
-  transform:
-    translateY(-15px)
-    rotate(0)
-    scale(1.04);
-
-  box-shadow:
-    0 25px 50px rgba(0,0,0,.8),
-    0 0 25px
-    rgba(255,200,0,.35);
-}
-
-
-.card-header {
-
-  display: flex;
-
-  justify-content:
-    space-between;
-
-  font-family: Bangers;
-
-  font-size: 25px;
-
-  letter-spacing: 2px;
-}
-
-
-.card-image {
-
-  width: 100%;
-
-  aspect-ratio: 4/3;
-
-  margin: 8px 0;
-
-  border:
-    4px solid #222;
-
-  background:
-    linear-gradient(
-      135deg,
-      #222,
-      #555
-    );
-
-  overflow: hidden;
-}
-
-
-.card-image img {
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-}
-
-
-.card-type {
-
-  font-family:
-    Press Start 2P;
-
-  font-size: 9px;
-
-  color: #145cff;
-
-  margin: 8px 0;
-}
-
-
-.card-ability {
-
-  background: #eee;
-
-  padding: 10px;
-
-  border-radius: 8px;
-}
-
-
-.card-ability small {
-
-  font-weight: bold;
-}
-
-
-.card-ability h3 {
-
-  font-family: Bangers;
-
-  font-size: 23px;
-}
-
-
-.stars {
-
-  margin-top: 8px;
-
-  color: #111;
-
-  letter-spacing: 3px;
-}
-
-
-/* responsive */
-
-@media(max-width:900px) {
-
-  .cards {
-    grid-template-columns:
-      repeat(2,1fr);
-  }
-
-}
-
-
-@media(max-width:600px) {
-
-  .cards {
-    grid-template-columns: 1fr;
-  }
-
-}
-
-
-/* =====================================================
-   CARD CONTINUE
-===================================================== */
-
-.unlock {
-
-  margin:
-    70px auto 0;
-
-  max-width: 700px;
-
-  padding: 30px;
-
-  border:
-    3px solid #087aff;
-
-  background:
-    rgba(0,0,0,.72);
-
-  text-align: center;
-
-  box-shadow:
-    0 0 30px
-    rgba(0,140,255,.25);
-}
-
-
-.unlock h3 {
-
-  font-family:
-    Press Start 2P;
-
-  color: #ffd21c;
-
-  font-size: 18px;
-
-  line-height: 1.8;
-}
-
-
-.unlock button {
-
-  margin-top: 25px;
-
-  background: #087aff;
+.start-button {
+  margin-top: 32px;
+  padding: 17px 52px;
 
   color: white;
+  background: rgba(0,0,0,.85);
 
-  border: none;
+  border: 3px solid white;
 
-  padding:
-    16px 30px;
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 5px;
 
-  font-family:
-    Press Start 2P;
+  box-shadow:
+    8px 8px 0 #0b8cff;
 
   transition: .2s;
 }
 
-
-.unlock button:hover {
-
-  transform: scale(1.06);
-
-  box-shadow:
-    0 0 20px
-    rgba(0,140,255,.5);
+.start-button:hover {
+  transform: scale(1.07);
 }
 
+/* =========================
+   HUD
+========================= */
 
-/* =====================================================
-   MEMORIES
-===================================================== */
+.hud {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  right: 20px;
+  z-index: 1000;
 
-#memories {
-  display: none;
+  display: flex;
+  justify-content: space-between;
+
+  color: white;
+  font-family: monospace;
+  font-weight: bold;
+
+  text-shadow: 3px 3px #000;
 }
 
-
-.memory-grid {
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
+.hud-right {
+  display: flex;
   gap: 25px;
 }
 
+/* =========================
+   LEVEL 1
+   SONIC STYLE — KEPT
+========================= */
 
-.memory {
+#gameWorld {
+  background:
+    linear-gradient(
+      #45c5ff 0%,
+      #b9ecff 48%,
+      #70cc57 49%,
+      #2f852e 100%
+    );
+}
 
-  min-height: 230px;
+.cloud {
+  position: absolute;
+  width: 150px;
+  height: 55px;
+  border-radius: 50px;
+  background: white;
+  opacity: .8;
+}
 
-  padding: 25px;
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+}
 
-  border:
-    2px solid #444;
+.cloud::before {
+  width: 75px;
+  height: 75px;
+  left: 25px;
+  top: -35px;
+}
+
+.cloud::after {
+  width: 60px;
+  height: 60px;
+  right: 20px;
+  top: -22px;
+}
+
+.cloud1 {
+  top: 14%;
+  left: 10%;
+}
+
+.cloud2 {
+  top: 22%;
+  right: 12%;
+  transform: scale(.7);
+}
+
+.ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  height: 22%;
+  z-index: 10;
+
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #754323 0 32px,
+      #a66a38 32px 64px
+    );
+
+  border-top: 10px solid #54b63d;
+}
+
+.platform {
+  position: absolute;
+  height: 30px;
+  z-index: 5;
+
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #8b522a 0 20px,
+      #a96b36 20px 40px
+    );
+
+  border-top: 8px solid #48ad3d;
+  box-shadow: 0 7px rgba(0,0,0,.2);
+}
+
+.platform1 {
+  width: 210px;
+  left: 7%;
+  bottom: 38%;
+}
+
+.platform2 {
+  width: 210px;
+  left: 39%;
+  bottom: 52%;
+}
+
+.platform3 {
+  width: 210px;
+  right: 7%;
+  bottom: 39%;
+}
+
+.character {
+  position: absolute;
+  left: -120px;
+  bottom: 23%;
+  width: 82px;
+  height: 82px;
+  z-index: 100;
+
+  display: none;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      #59b7ff,
+      #0c83e8 48%,
+      #03478e 100%
+    );
+
+  box-shadow:
+    inset -13px -13px #02336d,
+    0 9px rgba(0,0,0,.25);
+}
+
+.character.roll {
+  display: block;
+  animation: rollAcross 2.4s linear forwards;
+}
+
+@keyframes rollAcross {
+  from {
+    left: -120px;
+    transform: rotate(0deg);
+  }
+
+  to {
+    left: 110%;
+    transform: rotate(1080deg);
+  }
+}
+
+.ring {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  z-index: 200;
+
+  border-radius: 50%;
+  border: 7px solid #ffd21c;
+
+  box-shadow:
+    inset 3px 0 #fff2a2,
+    inset -3px 0 #b67b00,
+    0 4px 0 #9a6400;
+
+  cursor: pointer;
+  animation: ringSpin .65s infinite alternate;
+}
+
+@keyframes ringSpin {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(.25); }
+}
+
+.ring1 { left: 20%; top: 34%; }
+.ring2 { left: 29%; top: 26%; }
+.ring3 { left: 38%; top: 37%; }
+.ring4 { right: 30%; top: 27%; }
+.ring5 { right: 18%; top: 38%; }
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+  position: absolute;
+  width: 150px;
+  height: 225px;
+  z-index: 300;
+
+  padding: 7px;
+  cursor: pointer;
+
+  border-radius: 10px;
 
   background:
     linear-gradient(
-      145deg,
-      #111,
-      #1d1d1d
+      135deg,
+      #ffe77d,
+      #bd7810
     );
 
-  position: relative;
+  border: 5px solid #fff0a0;
 
-  overflow: hidden;
+  box-shadow:
+    6px 8px 0 #563400,
+    0 0 22px rgba(255,220,50,.45);
 
-  transition: .3s;
+  transition:
+    transform .25s,
+    filter .25s;
 }
 
-
-.memory:hover {
-
-  border-color: #087aff;
-
+.card:hover {
   transform:
-    translateY(-8px);
+    translateY(-18px)
+    rotate(0deg)
+    scale(1.1);
+
+  filter: brightness(1.1);
+  z-index: 500;
 }
 
+.card-top {
+  height: 23px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-.memory::before {
+  color: #17120a;
+  font-size: 11px;
+  font-weight: 900;
+}
 
-  content: "★";
+.card-hp {
+  color: #bd1010;
+}
+
+.card-photo {
+  width: 100%;
+  height: 95px;
+  overflow: hidden;
+  border: 3px solid #5b4011;
+}
+
+.card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-type {
+  margin-top: 5px;
+  padding: 4px;
+
+  text-align: center;
+
+  background: rgba(255,255,255,.45);
+
+  color: #49310b;
+  font-size: 8px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.card-line {
+  margin: 6px 0;
+  border-top: 1px solid #76550b;
+}
+
+.card-ability {
+  color: #241a08;
+  font-size: 8px;
+  line-height: 1.3;
+}
+
+.card-ability b {
+  font-size: 9px;
+}
+
+.card-rarity {
+  position: absolute;
+  bottom: 5px;
+  right: 8px;
+
+  color: #3a2600;
+  font-size: 13px;
+}
+
+.card1 {
+  left: 5%;
+  bottom: 24%;
+  transform: rotate(-7deg);
+}
+
+.card2 {
+  left: 27%;
+  bottom: 52%;
+  transform: rotate(5deg);
+}
+
+.card3 {
+  right: 27%;
+  bottom: 27%;
+  transform: rotate(-5deg);
+}
+
+.card4 {
+  right: 5%;
+  bottom: 51%;
+  transform: rotate(7deg);
+}
+
+.card.collected {
+  animation:
+    collectCard .75s forwards;
+}
+
+@keyframes collectCard {
+  0% { opacity: 1; }
+
+  50% {
+    transform:
+      scale(1.35)
+      rotate(0);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translateY(-180px)
+      scale(.1);
+  }
+}
+
+.checkpoint {
+  position: absolute;
+  left: 50%;
+  bottom: 24%;
+
+  transform: translateX(-50%);
+  z-index: 400;
+
+  width: 180px;
+  padding: 17px;
+
+  text-align: center;
+
+  color: #777;
+  background: #272727;
+
+  border: 4px solid #111;
+
+  font-family: monospace;
+  font-weight: bold;
+
+  cursor: not-allowed;
+}
+
+.checkpoint.unlocked {
+  color: #171717;
+  background: #ffd21a;
+  border-color: #19428c;
+
+  cursor: pointer;
+
+  animation:
+    checkpointPulse 1s infinite alternate;
+}
+
+@keyframes checkpointPulse {
+  from {
+    transform:
+      translateX(-50%)
+      scale(1);
+  }
+
+  to {
+    transform:
+      translateX(-50%)
+      scale(1.08);
+  }
+}
+
+/* =====================================================
+   LEVEL 2 — ACTUAL BASEBALL GAME
+===================================================== */
+
+#baseballWorld {
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      #071323 0%,
+      #102f56 55%,
+      #183b22 56%,
+      #07100a 100%
+    );
+}
+
+.stadium-lights {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 8% 20%,
+      rgba(255,255,220,.9) 0 2%,
+      transparent 15%
+    ),
+    radial-gradient(
+      circle at 92% 20%,
+      rgba(255,255,220,.9) 0 2%,
+      transparent 15%
+    );
+}
+
+.baseball-title {
+  position: absolute;
+  top: 9%;
+  width: 100%;
+
+  text-align: center;
+
+  color: #ffd34b;
+
+  font-family:
+    Impact,
+    "Arial Black",
+    sans-serif;
+
+  font-size:
+    clamp(45px, 8vw, 105px);
+
+  text-shadow:
+    5px 5px #8c1010,
+    10px 10px #000;
+}
+
+.baseball-instructions {
+  position: absolute;
+  top: 23%;
+  width: 100%;
+
+  text-align: center;
+
+  color: #fff;
+
+  font-family: monospace;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.baseball-field {
+  position: absolute;
+  left: 50%;
+  bottom: -10%;
+  transform: translateX(-50%);
+
+  width: min(850px, 100vw);
+  height: 65%;
+
+  background:
+    radial-gradient(
+      ellipse at center bottom,
+      #bd8045 0 16%,
+      #4c923c 17% 68%,
+      #2a672c 69% 100%
+    );
+
+  border-radius: 50% 50% 0 0;
+}
+
+.pitcher {
+  position: absolute;
+  left: 50%;
+  top: 29%;
+
+  transform: translateX(-50%);
+
+  width: 50px;
+  height: 80px;
+
+  z-index: 10;
+}
+
+.pitcher::before {
+  content: "⚾";
+  position: absolute;
+
+  font-size: 48px;
+
+  left: 0;
+  top: 0;
+}
+
+.batter {
+  position: absolute;
+
+  left: 16%;
+  bottom: 23%;
+
+  width: 70px;
+  height: 110px;
+
+  z-index: 30;
+}
+
+.batter::before {
+  content: "🏏";
 
   position: absolute;
 
-  right: -10px;
-  top: -30px;
+  font-size: 80px;
 
-  font-size: 130px;
-
-  color:
-    rgba(0,140,255,.08);
+  transform: rotate(-15deg);
 }
 
+.ball-lane {
+  position: absolute;
 
-.memory-number {
+  left: 50%;
+  top: 32%;
 
-  font-family:
-    Press Start 2P;
+  width: 45%;
+  height: 4px;
 
-  font-size: 10px;
+  transform: translateX(-50%);
 
-  color: #087aff;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,.2) 0 10px,
+      transparent 10px 20px
+    );
 }
 
+.baseball-ball {
+  position: absolute;
 
-.memory h3 {
+  left: 73%;
+  top: 37%;
 
-  font-family: Bangers;
+  width: 34px;
+  height: 34px;
 
-  font-size: 35px;
+  z-index: 50;
 
-  margin: 15px 0;
-}
+  border-radius: 50%;
 
+  background: white;
 
-.memory p {
+  border: 2px solid #ccc;
 
-  color: #bbb;
+  box-shadow:
+    0 4px 8px rgba(0,0,0,.7);
 
-  line-height: 1.6;
-}
-
-
-/* =====================================================
-   FINAL
-===================================================== */
-
-#final {
   display: none;
 }
 
+.baseball-ball::after {
+  content: "↝";
 
-.final-box {
+  position: absolute;
 
-  max-width: 950px;
+  color: #c71924;
 
-  margin: auto;
+  font-size: 17px;
 
-  padding:
-    60px 40px;
+  left: 7px;
+  top: 4px;
+
+  transform: rotate(-25deg);
+}
+
+.baseball-ball.pitch {
+  display: block;
+  animation: ballPitch 1.8s cubic-bezier(.2,.7,.3,1) forwards;
+}
+
+@keyframes ballPitch {
+
+  0% {
+    left: 73%;
+    top: 37%;
+    transform: scale(.65) rotate(0);
+  }
+
+  70% {
+    left: 36%;
+    top: 43%;
+    transform: scale(1) rotate(500deg);
+  }
+
+  100% {
+    left: 17%;
+    top: 48%;
+    transform: scale(1.1) rotate(800deg);
+  }
+
+}
+
+.swing-zone {
+  position: absolute;
+
+  left: 12%;
+  bottom: 35%;
+
+  width: 115px;
+  height: 115px;
+
+  border: 3px dashed rgba(255,255,255,.5);
+
+  border-radius: 50%;
+
+  z-index: 20;
+
+  transition: .2s;
+}
+
+.swing-zone.good {
+  border-color: #57ff63;
+  box-shadow: 0 0 30px #57ff63;
+}
+
+.swing-button {
+  position: absolute;
+
+  left: 50%;
+  bottom: 5%;
+
+  transform: translateX(-50%);
+
+  z-index: 100;
+
+  padding: 18px 65px;
+
+  color: white;
+  background: #c71924;
+
+  border: 4px solid white;
+
+  box-shadow:
+    8px 8px #124c9e;
+
+  font-family: monospace;
+  font-weight: bold;
+  letter-spacing: 3px;
+
+  transition: .15s;
+}
+
+.swing-button:hover {
+  transform:
+    translateX(-50%)
+    scale(1.05);
+}
+
+.swing-button:active {
+  transform:
+    translateX(-50%)
+    scale(.95);
+}
+
+.baseball-score {
+  position: absolute;
+
+  right: 25px;
+  top: 65px;
+
+  color: #82ff63;
+
+  font-family: monospace;
+  font-weight: bold;
+
+  font-size: 18px;
+}
+
+.pitch-message {
+  position: absolute;
+
+  left: 50%;
+  top: 66%;
+
+  transform: translateX(-50%);
+
+  color: white;
+
+  font-family: monospace;
+  font-weight: bold;
+
+  font-size: 22px;
+
+  text-align: center;
+
+  text-shadow: 3px 3px #000;
+
+  opacity: 0;
+
+  z-index: 100;
+}
+
+.pitch-message.show {
+  animation: messagePop .8s forwards;
+}
+
+@keyframes messagePop {
+  0% {
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      scale(.5);
+  }
+
+  40% {
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      scale(1.2);
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      scale(1);
+  }
+}
+
+/* =====================================================
+   LEVEL 3 — ARCTIC PENGUIN GAME
+===================================================== */
+
+#penguinWorld {
 
   background:
     linear-gradient(
-      rgba(5,5,20,.85),
-      rgba(5,5,20,.95)
+      #081a35 0%,
+      #246ca0 48%,
+      #bceeff 49%,
+      #eaffff 100%
     );
 
-  border:
-    3px solid #087aff;
+}
+
+.snow {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(circle, white 1px, transparent 2px),
+    radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 2px);
+
+  background-size:
+    45px 45px,
+    75px 75px;
+
+  animation: snowFall 8s linear infinite;
+}
+
+@keyframes snowFall {
+  from {
+    background-position: 0 0, 20px 0;
+  }
+
+  to {
+    background-position: 0 500px, 20px 600px;
+  }
+}
+
+.arctic-title {
+  position: absolute;
+
+  top: 8%;
+
+  width: 100%;
+
+  text-align: center;
+
+  color: white;
+
+  font-family:
+    Impact,
+    "Arial Black",
+    sans-serif;
+
+  font-size:
+    clamp(45px, 8vw, 100px);
+
+  letter-spacing: 3px;
+
+  text-shadow:
+    5px 5px #176ca1,
+    10px 10px #06233b;
+}
+
+.arctic-subtitle {
+  position: absolute;
+
+  top: 22%;
+
+  width: 100%;
+
+  text-align: center;
+
+  color: #063454;
+
+  font-family: monospace;
+
+  font-weight: bold;
+
+  font-size: 14px;
+}
+
+.ice-field {
+  position: absolute;
+
+  left: 4%;
+  right: 4%;
+
+  bottom: 5%;
+
+  height: 62%;
+
+  overflow: hidden;
+
+  border-radius: 35px 35px 0 0;
+
+  background:
+    radial-gradient(
+      ellipse at 30% 25%,
+      rgba(255,255,255,.9),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      #eaffff,
+      #9fe5f5
+    );
+
+  border: 8px solid white;
 
   box-shadow:
-    0 0 50px
-    rgba(0,120,255,.25),
+    inset 0 0 60px rgba(40,160,210,.3),
+    0 15px 30px rgba(0,0,0,.35);
+}
 
-    inset 0 0 50px
-    rgba(0,120,255,.08);
+.ice-crack {
+  position: absolute;
+
+  width: 170px;
+  height: 5px;
+
+  background: rgba(48,150,190,.3);
+
+  transform: rotate(22deg);
+}
+
+.crack1 {
+  left: 10%;
+  top: 30%;
+}
+
+.crack2 {
+  right: 15%;
+  top: 55%;
+  transform: rotate(-17deg);
+}
+
+.crack3 {
+  left: 45%;
+  bottom: 15%;
+  transform: rotate(5deg);
+}
+
+.igloo {
+  position: absolute;
+
+  left: 5%;
+  bottom: 4%;
+
+  width: 120px;
+  height: 80px;
+
+  border-radius: 120px 120px 0 0;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      #fff 0 15px,
+      #bcecff 15px 18px
+    );
+
+  border: 4px solid #8ed6ec;
+}
+
+.igloo::after {
+  content: "";
+
+  position: absolute;
+
+  width: 38px;
+  height: 45px;
+
+  bottom: 0;
+  left: 41px;
+
+  border-radius: 40px 40px 0 0;
+
+  background: #4c9fba;
+}
+
+.penguin {
+  position: absolute;
+
+  width: 70px;
+  height: 85px;
+
+  z-index: 50;
+
+  cursor: pointer;
+
+  transition:
+    transform .2s,
+    left .5s,
+    top .5s;
+
+  user-select: none;
+
+  filter:
+    drop-shadow(0 7px 3px rgba(0,0,0,.25));
+}
+
+.penguin-body {
+
+  position: absolute;
+
+  width: 58px;
+  height: 72px;
+
+  left: 6px;
+  top: 10px;
+
+  border-radius:
+    48% 48% 42% 42%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #101820,
+      #263746,
+      #0a1118
+    );
+
+}
+
+.penguin-belly {
+
+  position: absolute;
+
+  width: 42px;
+  height: 54px;
+
+  left: 14px;
+  top: 27px;
+
+  border-radius: 50%;
+
+  background: #f7fdff;
+
+}
+
+.penguin-head {
+
+  position: absolute;
+
+  width: 54px;
+  height: 48px;
+
+  left: 8px;
+  top: 0;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #172532,
+      #050b10
+    );
+
+}
+
+.penguin-eye {
+
+  position: absolute;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  top: 18px;
+
+  box-shadow:
+    18px 0 white;
+}
+
+.penguin-eye::after {
+  content: "";
+
+  position: absolute;
+
+  width: 3px;
+  height: 3px;
+
+  border-radius: 50%;
+
+  background: black;
+
+  top: 2px;
+  left: 2px;
+
+  box-shadow:
+    18px 0 black;
+}
+
+.penguin-eye {
+  left: 13px;
+}
+
+.penguin-beak {
+
+  position: absolute;
+
+  left: 24px;
+  top: 26px;
+
+  width: 0;
+  height: 0;
+
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 12px solid #ffb21c;
+}
+
+.penguin-foot {
+
+  position: absolute;
+
+  width: 23px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background: #ffad1c;
+
+  bottom: 0;
+}
+
+.foot1 {
+  left: 8px;
+}
+
+.foot2 {
+  right: 8px;
+}
+
+.penguin.caught {
+  animation: penguinCaught .65s forwards;
+  pointer-events: none;
+}
+
+@keyframes penguinCaught {
+
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  40% {
+    transform:
+      scale(1.35)
+      rotate(10deg);
+  }
+
+  100% {
+    transform:
+      translateY(-100px)
+      scale(.2)
+      rotate(-25deg);
+
+    opacity: 0;
+  }
+
+}
+
+.penguin-score {
+
+  position: absolute;
+
+  right: 25px;
+  top: 65px;
+
+  color: white;
+
+  font-family: monospace;
+
+  font-weight: bold;
+
+  font-size: 18px;
+
+  text-shadow:
+    3px 3px #124a6c;
+
+}
+
+.penguin-message {
+
+  position: absolute;
+
+  left: 50%;
+  top: 30%;
+
+  transform: translateX(-50%);
+
+  z-index: 200;
+
+  color: #063454;
+
+  font-family: monospace;
+
+  font-weight: bold;
+
+  font-size: 18px;
+
+  text-align: center;
+
+  pointer-events: none;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+#finalWorld {
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  background:
+    radial-gradient(
+      circle,
+      #142b66,
+      #05050d 70%
+    );
+}
+
+#finalWorld::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    radial-gradient(
+      circle,
+      white 1px,
+      transparent 1px
+    );
+
+  background-size: 50px 50px;
+  opacity: .25;
+}
+
+.final-content {
+  position: relative;
+  z-index: 5;
+
+  width:
+    min(850px, 90vw);
 
   text-align: center;
 }
 
+.final-label {
+  color: #ffd21a;
 
-.final-box .happy {
-
-  font-family:
-    Press Start 2P;
-
-  color: #ffd21c;
-
-  font-size:
-    clamp(18px,3vw,30px);
+  font-family: monospace;
+  font-weight: bold;
+  letter-spacing: 7px;
 
   margin-bottom: 20px;
 }
 
-
-.final-box h1 {
-
-  font-family: Bangers;
+.final-title {
+  font-family:
+    Impact,
+    "Arial Black",
+    sans-serif;
 
   font-size:
-    clamp(80px,15vw,170px);
+    clamp(75px, 14vw, 160px);
 
-  color: #087aff;
+  line-height: .8;
+
+  margin-bottom: 35px;
+
+  color: #eaf4ff;
 
   text-shadow:
-    5px 5px #fff,
-    10px 10px #ff8b00;
-
-  letter-spacing: 5px;
+    6px 6px #0b8cff,
+    -5px -5px #e52972,
+    10px 10px #000;
 }
-
 
 .final-message {
+  max-height: 52vh;
+  overflow-y: auto;
 
-  max-width: 700px;
+  padding: 30px;
 
-  margin:
-    35px auto;
+  color: #eee;
 
-  line-height: 1.9;
+  background:
+    rgba(0,0,0,.62);
 
-  color: #ddd;
+  border: 2px solid rgba(255,255,255,.5);
 
-  font-size: 17px;
+  text-align: left;
+
+  font-family: Georgia, serif;
+  line-height: 1.7;
 }
 
+.final-message p {
+  margin-bottom: 18px;
+}
 
-.final-message .spanish {
+.restart {
+  margin-top: 22px;
+  padding: 15px 45px;
+
+  color: white;
+  background: #e52972;
+
+  border: 3px solid white;
+
+  font-family: monospace;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+/* =========================
+   POPUP
+========================= */
+
+#popup {
+  position: fixed;
+  inset: 0;
+
+  z-index: 10000;
+
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(0,0,0,.8);
+}
+
+.popup-box {
+  width:
+    min(600px, 90vw);
+
+  padding: 35px;
+
+  color: white;
+  text-align: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #17172a,
+      #050509
+    );
+
+  border: 4px solid #0b9fff;
+
+  box-shadow:
+    10px 10px #e52972;
+}
+
+.popup-box h2 {
+  margin-bottom: 15px;
+
+  color: #ffd21a;
 
   font-family:
-    Permanent Marker;
-
-  color: white;
-
-  font-size: 22px;
-}
-
-
-.quote {
-
-  margin:
-    30px auto;
-
-  padding: 25px;
-
-  border-left:
-    4px solid #087aff;
-
-  border-right:
-    4px solid #087aff;
-
-  color: #aaa;
-
-  font-style: italic;
-}
-
-
-.heart {
+    Impact,
+    sans-serif;
 
   font-size: 45px;
-
-  animation:
-    pulse 1s infinite;
 }
 
-
-@keyframes pulse {
-
-  50% {
-    transform: scale(1.2);
-  }
-
-}
-
-
-/* =====================================================
-   MUSIC
-===================================================== */
-
-.music {
-
-  position: fixed;
-
-  right: 20px;
-  bottom: 20px;
-
-  z-index: 500;
-
-  width: 55px;
-  height: 55px;
-
-  border-radius: 50%;
-
-  border:
-    2px solid white;
-
-  background: #087aff;
+.popup-button {
+  margin-top: 25px;
+  padding: 13px 35px;
 
   color: white;
+  background: #0b8cff;
 
-  font-size: 20px;
+  border: 2px solid white;
+
+  font-weight: bold;
 }
 
-
-/* =====================================================
+/* =========================
    MOBILE
-===================================================== */
+========================= */
 
-@media(max-width:750px) {
+@media (max-width: 700px) {
 
-  .spray-can {
-
-    left: 2%;
-
-    transform:
-      scale(.75)
-      rotate(-12deg);
+  .card {
+    width: 88px;
+    height: 145px;
+    padding: 4px;
+    border-width: 3px;
   }
 
-  .spray {
-
-    left: 10%;
-
-    width: 85vw;
+  .card-top {
+    height: 14px;
+    font-size: 6px;
   }
 
-  .graffiti img {
-
-    width: 90vw;
+  .card-photo {
+    height: 58px;
+    border-width: 2px;
   }
 
-  .memory-grid {
+  .card-type {
+    font-size: 5px;
+  }
 
-    grid-template-columns: 1fr;
+  .card-ability,
+  .card-ability b {
+    font-size: 5px;
+  }
+
+  .card-rarity {
+    font-size: 8px;
+  }
+
+  .baseball-title {
+    top: 12%;
+  }
+
+  .baseball-instructions {
+    top: 25%;
+    padding: 0 20px;
+    font-size: 11px;
+  }
+
+  .swing-button {
+    padding: 15px 40px;
+  }
+
+  .arctic-title {
+    top: 12%;
+  }
+
+  .arctic-subtitle {
+    top: 24%;
+    padding: 0 20px;
+    font-size: 11px;
+  }
+
+  .penguin {
+    transform: scale(.8);
+  }
+
+  .penguin-score {
+    top: 60px;
+    right: 15px;
+    font-size: 13px;
+  }
+
+  .final-message {
+    font-size: 14px;
   }
 
 }
@@ -1260,79 +1804,56 @@ button {
 </style>
 </head>
 
-
 <body>
+
+<div id="transition"></div>
 
 
 <!-- =====================================================
      INTRO
 ===================================================== -->
 
-<section id="intro">
+<section id="intro" class="screen active">
 
-  <div class="speed-lines"></div>
+  <div
+    class="spray-cloud"
+    id="sprayCloud">
+  </div>
 
-  <div class="ring one"></div>
-  <div class="ring two"></div>
-  <div class="ring three"></div>
+  <div
+    class="spray-can"
+    id="sprayCan">
+  </div>
 
-  <div class="intro-dark"></div>
+  <div class="intro-content">
 
+    <div class="intro-label">
+      SPECIAL BIRTHDAY EDITION
+    </div>
 
-  <!-- SPRAY CAN -->
+    <div
+      class="graffiti"
+      id="graffiti">
 
-  <div class="spray-can">
-
-    <div class="can-art">
-
-      <img
-        src="IMG_6590.jpeg"
-        alt="DARBY artwork"
-      >
+      DARBY
 
     </div>
 
-  </div>
+    <div
+      class="level-text"
+      id="levelText">
 
+      LEVEL 21 UNLOCKED
 
-  <!-- SPRAY -->
-
-  <div class="spray"></div>
-
-
-  <!-- DARBY REVEAL -->
-
-  <div class="graffiti">
-
-    <img
-      src="IMG_6590.jpeg"
-      alt="DARBY"
-    >
-
-    <p>
-      THE ARTIST HAS ENTERED THE GAME
-    </p>
-
-  </div>
-
-
-  <!-- LEVEL -->
-
-  <div class="level-unlocked">
-
-    <h2>
-      LEVEL 21
-    </h2>
-
-    <span>
-      UNLOCKED
-    </span>
+    </div>
 
     <button
-      class="start"
-      onclick="startGame()"
-    >
-      ▶ START
+      class="start-button"
+      id="startButton"
+      onclick="startGame()">
+
+      START
+
     </button>
 
   </div>
@@ -1340,731 +1861,1216 @@ button {
 </section>
 
 
-
 <!-- =====================================================
-     MAIN
+     LEVEL 1 — SONIC CARD LEVEL
 ===================================================== -->
 
-<main id="main">
+<section
+  id="gameWorld"
+  class="screen">
 
+  <div class="hud">
 
-  <!-- HERO -->
+    <div>
+      DARBY // LEVEL 21
+    </div>
 
-  <section class="hero">
+    <div class="hud-right">
 
-    <div class="hero-content">
-
-      <div class="hero-small">
-        PLAYER 01 • DARBY
+      <div>
+        RINGS:
+        <span id="ringCount">0</span>
       </div>
 
-      <h1>
-        LEVEL 21
-      </h1>
+      <div>
+        CARDS:
+        <span id="cardCount">0</span>/4
+      </div>
 
-      <h2>
-        THE ADVENTURE CONTINUES
-      </h2>
+    </div>
+
+  </div>
+
+  <div class="cloud cloud1"></div>
+  <div class="cloud cloud2"></div>
+
+  <div
+    class="character"
+    id="character">
+  </div>
+
+  <div
+    class="ring ring1"
+    onclick="collectRing(this)">
+  </div>
+
+  <div
+    class="ring ring2"
+    onclick="collectRing(this)">
+  </div>
+
+  <div
+    class="ring ring3"
+    onclick="collectRing(this)">
+  </div>
+
+  <div
+    class="ring ring4"
+    onclick="collectRing(this)">
+  </div>
+
+  <div
+    class="ring ring5"
+    onclick="collectRing(this)">
+  </div>
+
+  <div class="platform platform1"></div>
+  <div class="platform platform2"></div>
+  <div class="platform platform3"></div>
+
+
+  <!-- CARD 1 -->
+
+  <div
+    class="card card1"
+    onclick="collectCard(this)">
+
+    <div class="card-top">
+      <span>DARBY</span>
+      <span class="card-hp">HP 210</span>
+    </div>
+
+    <div class="card-photo">
+
+      <img
+        src="251bbf52-e032-4ecc-a542-3c32b40bf0b9.jpeg"
+        onerror="this.style.display='none'">
+
+    </div>
+
+    <div class="card-type">
+      ARTIST TYPE
+    </div>
+
+    <div class="card-line"></div>
+
+    <div class="card-ability">
+      <b>SPRAY & SKETCH</b><br>
+      Turns anything into a canvas.
+    </div>
+
+    <div class="card-rarity">
+      ★★★
+    </div>
+
+  </div>
+
+
+  <!-- CARD 2 -->
+
+  <div
+    class="card card2"
+    onclick="collectCard(this)">
+
+    <div class="card-top">
+      <span>DARBY</span>
+      <span class="card-hp">HP 230</span>
+    </div>
+
+    <div class="card-photo">
+
+      <img
+        src="38514dda-9de0-41f1-8a3e-acdd58962246.jpeg"
+        onerror="this.style.display='none'">
+
+    </div>
+
+    <div class="card-type">
+      ALL-STAR TYPE
+    </div>
+
+    <div class="card-line"></div>
+
+    <div class="card-ability">
+      <b>OHTANI MODE</b><br>
+      Home run energy activated.
+    </div>
+
+    <div class="card-rarity">
+      ★★★★
+    </div>
+
+  </div>
+
+
+  <!-- CARD 3 -->
+
+  <div
+    class="card card3"
+    onclick="collectCard(this)">
+
+    <div class="card-top">
+      <span>DARBY</span>
+      <span class="card-hp">HP 200</span>
+    </div>
+
+    <div class="card-photo">
+
+      <img
+        src="IMG_6582.jpeg"
+        onerror="this.style.display='none'">
+
+    </div>
+
+    <div class="card-type">
+      FÚTBOL TYPE
+    </div>
+
+    <div class="card-line"></div>
+
+    <div class="card-ability">
+      <b>WORLD CUP MODE</b><br>
+      Argentina. Brazil. Game on.
+    </div>
+
+    <div class="card-rarity">
+      ★★★
+    </div>
+
+  </div>
+
+
+  <!-- CARD 4 -->
+
+  <div
+    class="card card4"
+    onclick="collectCard(this)">
+
+    <div class="card-top">
+      <span>DARBY</span>
+      <span class="card-hp">HP 190</span>
+    </div>
+
+    <div class="card-photo">
+
+      <img
+        src="IMG_6585.jpeg"
+        onerror="this.style.display='none'">
+
+    </div>
+
+    <div class="card-type">
+      RETRO TYPE
+    </div>
+
+    <div class="card-line"></div>
+
+    <div class="card-ability">
+      <b>Y2K ENERGY</b><br>
+      2000s nostalgia activated.
+    </div>
+
+    <div class="card-rarity">
+      ★★★★★
+    </div>
+
+  </div>
+
+
+  <div
+    class="checkpoint"
+    id="checkpoint"
+    onclick="nextLevel()">
+
+    COLLECT ALL 4 CARDS
+
+  </div>
+
+  <div class="ground"></div>
+
+</section>
+
+
+<!-- =====================================================
+     LEVEL 2 — BASEBALL
+===================================================== -->
+
+<section
+  id="baseballWorld"
+  class="screen">
+
+  <div class="stadium-lights"></div>
+
+  <div class="hud">
+
+    <div>
+      LEVEL 2 // DARBY'S HOME RUN
+    </div>
+
+    <div>
+      HOME RUNS:
+      <span id="homeRuns">0</span>/3
+    </div>
+
+  </div>
+
+  <div class="baseball-title">
+    DARBY'S HOME RUN
+  </div>
+
+  <div class="baseball-instructions">
+    WAIT FOR THE BALL TO ENTER THE CIRCLE — THEN SWING!
+  </div>
+
+  <div class="baseball-field"></div>
+
+  <div class="pitcher"></div>
+
+  <div class="ball-lane"></div>
+
+  <div class="batter"></div>
+
+  <div
+    class="swing-zone"
+    id="swingZone">
+  </div>
+
+  <div
+    class="baseball-ball"
+    id="baseballBall">
+  </div>
+
+  <div
+    class="pitch-message"
+    id="pitchMessage">
+  </div>
+
+  <div class="baseball-score">
+    STRIKES:
+    <span id="strikes">0</span>/3
+  </div>
+
+  <button
+    class="swing-button"
+    onclick="swing()">
+
+    ⚾ SWING
+
+  </button>
+
+</section>
+
+
+<!-- =====================================================
+     LEVEL 3 — ARCTIC PENGUIN
+===================================================== -->
+
+<section
+  id="penguinWorld"
+  class="screen">
+
+  <div class="snow"></div>
+
+  <div class="hud">
+
+    <div>
+      LEVEL 3 // ARCTIC MISSION
+    </div>
+
+    <div>
+      PENGUINS:
+      <span id="penguinCount">0</span>/5
+    </div>
+
+  </div>
+
+  <div class="arctic-title">
+    CATCH THE PENGUIN
+  </div>
+
+  <div class="arctic-subtitle">
+    THE PENGUINS ARE ESCAPING! CLICK THEM BEFORE THEY GET AWAY.
+  </div>
+
+  <div class="ice-field">
+
+    <div class="ice-crack crack1"></div>
+    <div class="ice-crack crack2"></div>
+    <div class="ice-crack crack3"></div>
+
+    <div class="igloo"></div>
+
+    <div
+      class="penguin"
+      id="penguin1"
+      onclick="catchPenguin(this)">
+
+      <div class="penguin-body"></div>
+      <div class="penguin-belly"></div>
+      <div class="penguin-head"></div>
+      <div class="penguin-eye"></div>
+      <div class="penguin-beak"></div>
+
+      <div class="penguin-foot foot1"></div>
+      <div class="penguin-foot foot2"></div>
+
+    </div>
+
+
+    <div
+      class="penguin"
+      id="penguin2"
+      onclick="catchPenguin(this)">
+
+      <div class="penguin-body"></div>
+      <div class="penguin-belly"></div>
+      <div class="penguin-head"></div>
+      <div class="penguin-eye"></div>
+      <div class="penguin-beak"></div>
+
+      <div class="penguin-foot foot1"></div>
+      <div class="penguin-foot foot2"></div>
+
+    </div>
+
+
+    <div
+      class="penguin"
+      id="penguin3"
+      onclick="catchPenguin(this)">
+
+      <div class="penguin-body"></div>
+      <div class="penguin-belly"></div>
+      <div class="penguin-head"></div>
+      <div class="penguin-eye"></div>
+      <div class="penguin-beak"></div>
+
+      <div class="penguin-foot foot1"></div>
+      <div class="penguin-foot foot2"></div>
+
+    </div>
+
+
+    <div
+      class="penguin"
+      id="penguin4"
+      onclick="catchPenguin(this)">
+
+      <div class="penguin-body"></div>
+      <div class="penguin-belly"></div>
+      <div class="penguin-head"></div>
+      <div class="penguin-eye"></div>
+      <div class="penguin-beak"></div>
+
+      <div class="penguin-foot foot1"></div>
+      <div class="penguin-foot foot2"></div>
+
+    </div>
+
+
+    <div
+      class="penguin"
+      id="penguin5"
+      onclick="catchPenguin(this)">
+
+      <div class="penguin-body"></div>
+      <div class="penguin-belly"></div>
+      <div class="penguin-head"></div>
+      <div class="penguin-eye"></div>
+      <div class="penguin-beak"></div>
+
+      <div class="penguin-foot foot1"></div>
+      <div class="penguin-foot foot2"></div>
+
+    </div>
+
+  </div>
+
+  <div
+    class="penguin-message"
+    id="penguinMessage">
+
+    CATCH 5 PENGUINS!
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL
+===================================================== -->
+
+<section
+  id="finalWorld"
+  class="screen">
+
+  <div class="final-content">
+
+    <div class="final-label">
+      ★ FINAL LEVEL ★
+    </div>
+
+    <div class="final-title">
+      HAPPY BIRTHDAY<br>
+      DAVID
+    </div>
+
+    <div class="final-message">
 
       <p>
-        WELCOME TO THE NEXT CHAPTER
+        ¡Feliz cumpleaños, David!
+      </p>
+
+      <p>
+        Te deseo un día maravilloso.
+        Te aprecio muchísimo y estoy muy agradecida
+        de tenerte en mi vida.
+        Espero verte pronto.
+      </p>
+
+      <p>
+        Espero que en este nuevo capítulo sigas creciendo
+        como persona, te acerques más a Dios y seas una
+        versión aún mejor de ti mismo.
+      </p>
+
+      <p>
+        Te deseo lo mejor y espero que puedas cumplir
+        todos tus sueños, incluso los más pequeños.
+      </p>
+
+      <p>
+        “Porque yo sé los planes que tengo para ustedes,
+        planes de bienestar y no de calamidad,
+        para darles un futuro y una esperanza.”
+      </p>
+
+      <p>
+        — Jeremías 29:11
+      </p>
+
+      <p>
+        Te quiero mucho.
+        <br><br>
+        Besos,<br>
+        Tiffany
       </p>
 
     </div>
 
-  </section>
+    <button
+      class="restart"
+      onclick="location.reload()">
 
+      PLAY AGAIN
 
+    </button>
 
-  <!-- =================================================
-       CARDS
-  ================================================== -->
+  </div>
 
-  <section class="section">
-
-    <h2 class="section-title">
-      DARBY'S CARDS
-    </h2>
-
-    <p class="subtitle">
-      Four things that make David... David.
-    </p>
-
-
-    <div class="cards">
-
-
-      <!-- CARD 1 -->
-
-      <div
-        class="card"
-        style="--rotation:-2deg"
-      >
-
-        <div class="card-header">
-
-          <span>DARBY</span>
-          <span>HP 210</span>
-
-        </div>
-
-
-        <div class="card-image">
-
-          <img
-            src="251bbf52-e032-4ecc-a542-3c32b40bf0b9.jpeg"
-          >
-
-        </div>
-
-
-        <div class="card-type">
-          ARTIST TYPE
-        </div>
-
-
-        <div class="card-ability">
-
-          <small>
-            ABILITY
-          </small>
-
-          <h3>
-            SPRAY & SKETCH
-          </h3>
-
-          Creative.
-
-        </div>
-
-
-        <div class="stars">
-          ★★★
-        </div>
-
-      </div>
-
-
-
-      <!-- CARD 2 -->
-
-      <div
-        class="card"
-        style="--rotation:2deg"
-      >
-
-        <div class="card-header">
-
-          <span>DARBY</span>
-          <span>HP 230</span>
-
-        </div>
-
-
-        <div class="card-image">
-
-          <img
-            src="38514dda-9de0-41f1-8a3e-acdd58962246.jpeg"
-          >
-
-        </div>
-
-
-        <div
-          class="card-type"
-          style="color:#d71920"
-        >
-          ALL-STAR TYPE
-        </div>
-
-
-        <div class="card-ability">
-
-          <small>
-            ABILITY
-          </small>
-
-          <h3>
-            OHTANI MODE
-          </h3>
-
-          Unstoppable two-way power.
-
-        </div>
-
-
-        <div class="stars">
-          ★★★★
-        </div>
-
-      </div>
-
-
-
-      <!-- CARD 3 -->
-
-      <div
-        class="card"
-        style="--rotation:-1deg"
-      >
-
-        <div class="card-header">
-
-          <span>DARBY</span>
-          <span>HP 200</span>
-
-        </div>
-
-
-        <div class="card-image">
-
-          <img
-            src="IMG_6582.jpeg"
-          >
-
-        </div>
-
-
-        <div
-          class="card-type"
-          style="color:#168a35"
-        >
-          FÚTBOL TYPE
-        </div>
-
-
-        <div class="card-ability">
-
-          <small>
-            ABILITY
-          </small>
-
-          <h3>
-            WORLD CUP ENERGY
-          </h3>
-
-          Argentina. Brazil. Game on.
-
-        </div>
-
-
-        <div class="stars">
-          ★★★
-        </div>
-
-      </div>
-
-
-
-      <!-- CARD 4 -->
-
-      <div
-        class="card"
-        style="--rotation:2deg"
-      >
-
-        <div class="card-header">
-
-          <span>DARBY</span>
-          <span>HP 190</span>
-
-        </div>
-
-
-        <div class="card-image">
-
-          <img
-            src="IMG_6585.jpeg"
-          >
-
-        </div>
-
-
-        <div
-          class="card-type"
-          style="color:#8c45d9"
-        >
-          RETRO TYPE
-        </div>
-
-
-        <div class="card-ability">
-
-          <small>
-            ABILITY
-          </small>
-
-          <h3>
-            Y2K ENERGY
-          </h3>
-
-          2000s nostalgia.
-
-        </div>
-
-
-        <div class="stars">
-          ★★★★★
-        </div>
-
-      </div>
-
-
-    </div>
-
-
-    <div class="unlock">
-
-      <h3>
-
-        ★ 4 / 4 CARDS COLLECTED ★
-
-        <br><br>
-
-        NEXT LEVEL UNLOCKED
-
-      </h3>
-
-
-      <button
-        onclick="showMemories()"
-      >
-        CONTINUE →
-      </button>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- =================================================
-       MEMORIES
-  ================================================== -->
-
-  <section
-    id="memories"
-    class="section"
-  >
-
-    <h2 class="section-title">
-      THE DARBY FILES
-    </h2>
-
-    <p class="subtitle">
-      A collection of things that somehow became part of the lore.
-    </p>
-
-
-    <div class="memory-grid">
-
-
-      <div class="memory">
-
-        <div class="memory-number">
-          MEMORY 01
-        </div>
-
-        <h3>
-          THE ARTIST
-        </h3>
-
-        <p>
-       
-        </p>
-
-      </div>
-
-
-
-      <div class="memory">
-
-        <div class="memory-number">
-          MEMORY 02
-        </div>
-
-        <h3>
-          OHTANI MODE
-        </h3>
-
-        <p>
-          Discipline and Mindset 
-        </p>
-
-      </div>
-
-
-
-      <div class="memory">
-
-        <div class="memory-number">
-          MEMORY 03
-        </div>
-
-        <h3>
-          SOCCER
-        </h3>
-
-        <p>
-          SPAIN WON HA HA 
-        </p>
-
-      </div>
-
-
-
-      <div class="memory">
-
-        <div class="memory-number">
-          MEMORY 04
-        </div>
-
-        <h3>
-          PENGUIN 
-        </h3>
-
-        <p>
-          .
-        </p>
-
-      </div>
-
-
-
-      <div class="memory">
-
-        <div class="memory-number">
-          MEMORY 05
-        </div>
-
-        <h3>
-          RANDOM CONVERSATIONS
-        </h3>
-
-        <p>
-          One second you're having a normal
-          conversation. The next second you're
-          discussing something completely insane.
-        </p>
-
-      </div>
-
-
-
-      <div class="memory">
-
-        <div class="memory-number">
-          MEMORY 06
-        </div>
-
-        <h3>
-          21 YEARS
-        </h3>
-
-        <p>
-          Somehow this guy survived 21 years
-          and we're all still here for the
-          next chapter.
-        </p>
-
-      </div>
-
-
-    </div>
-
-
-    <div class="unlock">
-
-      <h3>
-        ★ ALL MEMORIES FOUND ★
-      </h3>
-
-      <button
-        onclick="showFinal()"
-      >
-        FINAL LEVEL →
-      </button>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- =================================================
-       FINAL MESSAGE
-  ================================================== -->
-
-  <section
-    id="final"
-    class="section"
-  >
-
-    <div class="final-box">
-
-
-      <div class="heart">
-        ♥
-      </div>
-
-
-      <div class="happy">
-        ★ FINAL LEVEL ★
-      </div>
-
-
-      <h1>
-        DAVID
-      </h1>
-
-
-      <div class="final-message">
-
-
-        <p class="spanish">
-          ¡Feliz cumpleaños, David!
-        </p>
-
-
-        <br>
-
-
-        <p>
-          Te deseo un día maravilloso.
-          Te aprecio muchísimo y estoy muy
-          agradecida de tenerte en mi vida.
-        </p>
-
-
-        <br>
-
-
-        <p>
-          Espero que en este nuevo capítulo
-          sigas creciendo como persona,
-          te acerques más a Dios y seas una
-          versión aún mejor de ti mismo.
-        </p>
-
-
-        <br>
-
-
-        <p>
-          Te deseo lo mejor y espero que
-          puedas cumplir todos tus sueños,
-          incluso los más pequeños.
-        </p>
-
-
-        <div class="quote">
-
-          “Porque yo sé los planes que tengo
-          para ustedes, planes de bienestar
-          y no de calamidad, para darles un
-          futuro y una esperanza.”
-
-          <br><br>
-
-          — Jeremías 29:11
-
-        </div>
-
-
-        <p class="spanish">
-
-          Te quiero mucho.
-
-          <br>
-
-          Un Gran Abrazo,
-
-          <br>
-
-          Tiffany ♥
-
-        </p>
-
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-</main>
-
+</section>
 
 
 <!-- =====================================================
-     MUSIC
+     POPUP
 ===================================================== -->
 
-<button
-  class="music"
-  onclick="toggleMusic()"
->
-  ♫
-</button>
+<div id="popup">
 
+  <div class="popup-box">
 
-<audio
-  id="birthdayMusic"
-  loop
->
+    <h2 id="popupTitle"></h2>
 
-  <source
-    src="birthday.mp3"
-    type="audio/mpeg"
-  >
+    <div id="popupContent"></div>
 
-</audio>
+    <button
+      class="popup-button"
+      onclick="closePopup()">
 
+      CONTINUE
 
-<!-- SPRAY SOUND -->
+    </button>
 
-<audio
-  id="spraySound"
->
+  </div>
 
-  <source
-    src="spray.mp3"
-    type="audio/mpeg"
-  >
-
-</audio>
-
+</div>
 
 
 <script>
 
 /* =====================================================
-   START
+   GAME VARIABLES
+===================================================== */
+
+let rings = 0;
+let cards = 0;
+
+let homeRuns = 0;
+let strikes = 0;
+
+let penguinsCaught = 0;
+
+let ballMoving = false;
+let ballTimer = null;
+
+let baseballGameStarted = false;
+
+
+/* =====================================================
+   SCREEN CHANGE
+===================================================== */
+
+function changeScreen(id) {
+
+  const transition =
+    document.getElementById("transition");
+
+  transition.classList.remove("go");
+
+  void transition.offsetWidth;
+
+  transition.classList.add("go");
+
+  setTimeout(() => {
+
+    document
+      .querySelectorAll(".screen")
+      .forEach(screen => {
+        screen.classList.remove("active");
+      });
+
+    document
+      .getElementById(id)
+      .classList.add("active");
+
+  }, 450);
+
+}
+
+
+/* =====================================================
+   START GAME
 ===================================================== */
 
 function startGame() {
 
-  const intro =
-    document.getElementById("intro");
+  document
+    .getElementById("startButton")
+    .style.display = "none";
 
-  const main =
-    document.getElementById("main");
+  document
+    .getElementById("sprayCan")
+    .classList.add("animate");
 
-  const spray =
-    document.getElementById("spraySound");
-
-
-  /* play spray sound */
-
-  spray.currentTime = 0;
-
-  spray.play().catch(() => {});
-
-
-  /* fade intro */
-
-  intro.style.transition =
-    "opacity 1s";
-
-  intro.style.opacity = "0";
-
+  document
+    .getElementById("sprayCloud")
+    .classList.add("active");
 
   setTimeout(() => {
 
-    intro.style.display = "none";
+    document
+      .getElementById("graffiti")
+      .classList.add("reveal");
 
-    main.style.display = "block";
+  }, 650);
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+  setTimeout(() => {
 
-  },1000);
+    document
+      .getElementById("levelText")
+      .classList.add("show");
+
+  }, 1500);
+
+  setTimeout(() => {
+
+    changeScreen("gameWorld");
+
+    setTimeout(() => {
+
+      document
+        .getElementById("character")
+        .classList.add("roll");
+
+    }, 600);
+
+  }, 3300);
 
 }
 
 
 /* =====================================================
-   MEMORIES
+   RINGS
 ===================================================== */
 
-function showMemories() {
+function collectRing(ring) {
 
-  const memories =
-    document.getElementById("memories");
+  if (ring.dataset.collected) return;
 
-  memories.style.display = "block";
+  ring.dataset.collected = true;
 
+  ring.style.display = "none";
 
-  setTimeout(() => {
+  rings++;
 
-    memories.scrollIntoView({
-      behavior: "smooth"
-    });
-
-  },100);
+  document
+    .getElementById("ringCount")
+    .textContent = rings;
 
 }
 
 
 /* =====================================================
-   FINAL
+   CARDS
 ===================================================== */
 
-function showFinal() {
+function collectCard(card) {
 
-  const final =
-    document.getElementById("final");
+  if (card.dataset.collected) return;
 
-  final.style.display = "block";
+  card.dataset.collected = true;
 
+  cards++;
+
+  document
+    .getElementById("cardCount")
+    .textContent = cards;
+
+  card.classList.add("collected");
 
   setTimeout(() => {
 
-    final.scrollIntoView({
-      behavior: "smooth"
-    });
+    card.style.display = "none";
 
-  },100);
+  }, 750);
 
-}
+  if (cards === 4) {
 
+    const checkpoint =
+      document.getElementById("checkpoint");
 
-/* =====================================================
-   MUSIC
-===================================================== */
+    checkpoint.classList.add("unlocked");
 
-let playing = false;
-
-
-function toggleMusic() {
-
-  const music =
-    document.getElementById(
-      "birthdayMusic"
-    );
-
-
-  if (!playing) {
-
-    music.play().catch(() => {});
-
-    playing = true;
-
-  } else {
-
-    music.pause();
-
-    playing = false;
+    checkpoint.innerHTML =
+      "4/4 CARDS FOUND<br>NEXT LEVEL →";
 
   }
 
 }
 
-</script>
 
+/* =====================================================
+   NEXT LEVEL
+===================================================== */
+
+function nextLevel() {
+
+  if (cards < 4) {
+
+    showPopup(
+      "LEVEL LOCKED",
+      "You still need to collect all four cards."
+    );
+
+    return;
+
+  }
+
+  changeScreen("baseballWorld");
+
+  setTimeout(() => {
+
+    resetBaseball();
+
+    startPitch();
+
+  }, 1000);
+
+}
+
+
+/* =====================================================
+   BASEBALL GAME
+===================================================== */
+
+function resetBaseball() {
+
+  homeRuns = 0;
+  strikes = 0;
+
+  document
+    .getElementById("homeRuns")
+    .textContent = homeRuns;
+
+  document
+    .getElementById("strikes")
+    .textContent = strikes;
+
+  baseballGameStarted = true;
+}
+
+
+function startPitch() {
+
+  if (!baseballGameStarted) return;
+
+  const ball =
+    document.getElementById("baseballBall");
+
+  ball.classList.remove("pitch");
+
+  ball.style.display = "block";
+
+  void ball.offsetWidth;
+
+  ball.classList.add("pitch");
+
+  ballMoving = true;
+
+  clearTimeout(ballTimer);
+
+  ballTimer = setTimeout(() => {
+
+    if (!ballMoving) return;
+
+    ballMoving = false;
+
+    missPitch();
+
+  }, 1800);
+
+}
+
+
+function swing() {
+
+  if (!ballMoving) return;
+
+  const ball =
+    document.getElementById("baseballBall");
+
+  const ballRect =
+    ball.getBoundingClientRect();
+
+  const zone =
+    document.getElementById("swingZone");
+
+  const zoneRect =
+    zone.getBoundingClientRect();
+
+  const ballCenter =
+    ballRect.left + ballRect.width / 2;
+
+  const zoneLeft =
+    zoneRect.left;
+
+  const zoneRight =
+    zoneRect.right;
+
+
+  /*
+     THE BALL HAS TO ACTUALLY BE
+     INSIDE THE BATTER'S ZONE.
+  */
+
+  if (
+    ballCenter >= zoneLeft - 25 &&
+    ballCenter <= zoneRight + 25
+  ) {
+
+    ballMoving = false;
+
+    clearTimeout(ballTimer);
+
+    ball.classList.remove("pitch");
+
+    ball.style.display = "none";
+
+    homeRuns++;
+
+    document
+      .getElementById("homeRuns")
+      .textContent = homeRuns;
+
+    showBaseballMessage(
+      "💥 HOME RUN!",
+      true
+    );
+
+    if (homeRuns >= 3) {
+
+      baseballGameStarted = false;
+
+      setTimeout(() => {
+
+        changeScreen("penguinWorld");
+
+        setTimeout(() => {
+
+          setupPenguinGame();
+
+        }, 700);
+
+      }, 1400);
+
+    } else {
+
+      setTimeout(() => {
+
+        startPitch();
+
+      }, 1100);
+
+    }
+
+  } else {
+
+    ballMoving = false;
+
+    clearTimeout(ballTimer);
+
+    ball.style.display = "none";
+
+    strikes++;
+
+    document
+      .getElementById("strikes")
+      .textContent = strikes;
+
+    showBaseballMessage(
+      "❌ STRIKE!",
+      false
+    );
+
+    if (strikes >= 3) {
+
+      setTimeout(() => {
+
+        strikes = 0;
+
+        document
+          .getElementById("strikes")
+          .textContent = strikes;
+
+        showBaseballMessage(
+          "NEW INNING!",
+          false
+        );
+
+        setTimeout(() => {
+
+          startPitch();
+
+        }, 900);
+
+      }, 800);
+
+    } else {
+
+      setTimeout(() => {
+
+        startPitch();
+
+      }, 900);
+
+    }
+
+  }
+
+}
+
+
+function missPitch() {
+
+  const ball =
+    document.getElementById("baseballBall");
+
+  ball.style.display = "none";
+
+  strikes++;
+
+  document
+    .getElementById("strikes")
+    .textContent = strikes;
+
+  showBaseballMessage(
+    "⚾ TOO LATE!",
+    false
+  );
+
+  if (strikes >= 3) {
+
+    strikes = 0;
+
+    document
+      .getElementById("strikes")
+      .textContent = strikes;
+
+    setTimeout(() => {
+
+      startPitch();
+
+    }, 1000);
+
+  } else {
+
+    setTimeout(() => {
+
+      startPitch();
+
+    }, 900);
+
+  }
+
+}
+
+
+function showBaseballMessage(text, good) {
+
+  const message =
+    document.getElementById("pitchMessage");
+
+  const zone =
+    document.getElementById("swingZone");
+
+  message.textContent = text;
+
+  message.classList.remove("show");
+
+  zone.classList.remove("good");
+
+  void message.offsetWidth;
+
+  message.classList.add("show");
+
+  if (good) {
+
+    zone.classList.add("good");
+
+    setTimeout(() => {
+
+      zone.classList.remove("good");
+
+    }, 700);
+
+  }
+
+}
+
+
+/* =====================================================
+   PENGUIN GAME
+===================================================== */
+
+function setupPenguinGame() {
+
+  penguinsCaught = 0;
+
+  document
+    .getElementById("penguinCount")
+    .textContent = "0";
+
+  const penguins =
+    document.querySelectorAll(".penguin");
+
+  penguins.forEach((penguin, index) => {
+
+    penguin.classList.remove("caught");
+
+    penguin.style.display = "block";
+
+    penguin.dataset.caught = "";
+
+    movePenguin(penguin);
+
+  });
+
+}
+
+
+function movePenguin(penguin) {
+
+  if (penguin.dataset.caught) return;
+
+  const field =
+    document.querySelector(".ice-field");
+
+  const fieldWidth =
+    field.clientWidth;
+
+  const fieldHeight =
+    field.clientHeight;
+
+  const maxX =
+    Math.max(20, fieldWidth - 100);
+
+  const maxY =
+    Math.max(20, fieldHeight - 115);
+
+  const x =
+    20 + Math.random() * (maxX - 20);
+
+  const y =
+    20 + Math.random() * (maxY - 20);
+
+  penguin.style.left = x + "px";
+  penguin.style.top = y + "px";
+
+  penguin.style.transform =
+    "rotate(" +
+    ((Math.random() * 12) - 6) +
+    "deg)";
+
+}
+
+
+function catchPenguin(penguin) {
+
+  if (penguin.dataset.caught) return;
+
+  penguin.dataset.caught = true;
+
+  penguinsCaught++;
+
+  document
+    .getElementById("penguinCount")
+    .textContent = penguinsCaught;
+
+  penguin.classList.add("caught");
+
+  showPenguinMessage(
+    penguinsCaught === 5
+      ? "🐧 ALL PENGUINS CAUGHT!"
+      : "🐧 GOT ONE!"
+  );
+
+  if (penguinsCaught >= 5) {
+
+    setTimeout(() => {
+
+      changeScreen("finalWorld");
+
+    }, 1200);
+
+    return;
+
+  }
+
+  setTimeout(() => {
+
+    const remaining =
+      document.querySelectorAll(
+        '.penguin:not([data-caught="true"])'
+      );
+
+    if (remaining.length) {
+
+      movePenguin(
+        remaining[
+          Math.floor(
+            Math.random() * remaining.length
+          )
+        ]
+      );
+
+    }
+
+  }, 300);
+
+}
+
+
+function showPenguinMessage(text) {
+
+  const message =
+    document.getElementById("penguinMessage");
+
+  message.textContent = text;
+
+  message.animate(
+    [
+      {
+        transform:
+          "translateX(-50%) scale(.7)",
+        opacity: 0
+      },
+      {
+        transform:
+          "translateX(-50%) scale(1.1)",
+        opacity: 1
+      },
+      {
+        transform:
+          "translateX(-50%) scale(1)",
+        opacity: 1
+      }
+    ],
+    {
+      duration: 650,
+      easing: "ease-out"
+    }
+  );
+
+}
+
+
+/* =====================================================
+   POPUP
+===================================================== */
+
+function showPopup(title, content) {
+
+  document
+    .getElementById("popupTitle")
+    .textContent = title;
+
+  document
+    .getElementById("popupContent")
+    .innerHTML = content;
+
+  document
+    .getElementById("popup")
+    .style.display = "flex";
+
+}
+
+
+function closePopup() {
+
+  document
+    .getElementById("popup")
+    .style.display = "none";
+
+}
+
+
+/* =====================================================
+   KEYBOARD SUPPORT
+   SPACE = SWING
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.code === "Space" &&
+      document
+        .getElementById("baseballWorld")
+        .classList.contains("active")
+    ) {
+
+      event.preventDefault();
+
+      swing();
+
+    }
+
+  }
+);
+
+</script>
 
 </body>
 </html>
