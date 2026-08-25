@@ -4,10 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DARBY — Level 21</title>
+<title>DAVID — Level 21</title>
 
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Press+Start+2P&family=Permanent+Marker&display=swap');
 
 * {
@@ -21,7 +20,7 @@ html {
 }
 
 body {
-  background: #050505;
+  background: #030712;
   color: white;
   font-family: Arial, sans-serif;
   overflow-x: hidden;
@@ -34,7 +33,7 @@ button {
 
 
 /* =====================================================
-   INTRO
+   INTRO — SONIC / STREET ART VIBE
 ===================================================== */
 
 #intro {
@@ -44,57 +43,115 @@ button {
   overflow: hidden;
 
   background:
-    linear-gradient(
-      rgba(0,0,0,.15),
-      rgba(0,0,0,.45)
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(0,130,255,.35),
+      transparent 35%
     ),
-    url("image.jpeg") center/cover;
+    linear-gradient(
+      135deg,
+      #001b4d,
+      #030712 55%,
+      #00102e
+    );
 
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.wall-dark {
+
+/* speed lines */
+
+.speed-lines {
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      -25deg,
+      transparent 0px,
+      transparent 35px,
+      rgba(0,140,255,.09) 36px,
+      rgba(0,140,255,.09) 38px,
+      transparent 39px,
+      transparent 80px
+    );
+
+  transform: scale(1.5);
+
+  animation: speedMove 3s linear infinite;
+}
+
+@keyframes speedMove {
+  from {
+    transform: translateX(0) scale(1.5);
+  }
+
+  to {
+    transform: translateX(-100px) scale(1.5);
+  }
+}
+
+
+/* Sonic-inspired blue rings */
+
+.ring {
+  position: absolute;
+
+  border: 4px solid rgba(0,140,255,.18);
+
+  border-radius: 50%;
+
+  animation: ringPulse 3s infinite ease-out;
+}
+
+.ring.one {
+  width: 500px;
+  height: 500px;
+}
+
+.ring.two {
+  width: 800px;
+  height: 800px;
+  animation-delay: .5s;
+}
+
+.ring.three {
+  width: 1100px;
+  height: 1100px;
+  animation-delay: 1s;
+}
+
+@keyframes ringPulse {
+  0% {
+    opacity: .15;
+    transform: scale(.8);
+  }
+
+  50% {
+    opacity: .4;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+
+/* dark overlay */
+
+.intro-dark {
   position: absolute;
   inset: 0;
 
   background:
     radial-gradient(
-      circle at 25% 25%,
-      transparent 0 12%,
-      rgba(0,0,0,.45) 45%
-    ),
-    linear-gradient(
-      to bottom,
-      transparent 45%,
-      rgba(0,0,0,.7)
+      circle,
+      transparent 15%,
+      rgba(0,0,0,.65) 90%
     );
-}
-
-
-/* =====================================================
-   LIGHT
-===================================================== */
-
-.spotlight {
-  position: absolute;
-
-  width: 700px;
-  height: 700px;
-
-  top: -250px;
-  left: 5%;
-
-  background:
-    radial-gradient(
-      ellipse,
-      rgba(255,255,255,.20),
-      rgba(255,255,255,.05) 35%,
-      transparent 70%
-    );
-
-  transform: rotate(-15deg);
 }
 
 
@@ -106,36 +163,33 @@ button {
   position: absolute;
 
   left: 7%;
-  bottom: 14%;
+  bottom: 13%;
 
-  width: 90px;
+  width: 92px;
   height: 220px;
 
-  border-radius:
-    25px 25px
-    18px 18px;
+  border-radius: 25px 25px 18px 18px;
 
   background:
     linear-gradient(
       90deg,
-      #222,
-      #aaa,
-      #333
+      #171717,
+      #777,
+      #c7c7c7,
+      #444,
+      #111
     );
 
   box-shadow:
-    0 20px 40px rgba(0,0,0,.6);
+    0 20px 50px rgba(0,0,0,.8);
 
   transform: rotate(-12deg);
 
-  animation:
-    canShake .16s infinite alternate;
+  animation: canShake .14s infinite alternate;
 
-  z-index: 5;
+  z-index: 20;
 }
 
-
-/* can cap */
 
 .spray-can::before {
   content: "";
@@ -143,22 +197,35 @@ button {
   position: absolute;
 
   width: 65px;
-  height: 28px;
+  height: 29px;
 
-  background: #171717;
+  top: -21px;
+  left: 13px;
 
-  border-radius:
-    10px 10px
-    4px 4px;
+  background: #111;
 
-  top: -20px;
-  left: 12px;
+  border-radius: 10px 10px 4px 4px;
 }
 
 
-/* =====================================================
-   DARBY ART ON CAN
-===================================================== */
+.spray-can::after {
+  content: "";
+
+  position: absolute;
+
+  width: 25px;
+  height: 12px;
+
+  top: -29px;
+  left: 48px;
+
+  background: #090909;
+
+  border-radius: 5px;
+}
+
+
+/* actual DARBY artwork */
 
 .can-art {
   position: absolute;
@@ -166,15 +233,15 @@ button {
   left: 7px;
   right: 7px;
 
-  top: 65px;
+  top: 60px;
 
   height: 105px;
 
   overflow: hidden;
 
-  border: 3px solid #111;
-
   background: white;
+
+  border: 3px solid #111;
 
   transform: rotate(-4deg);
 }
@@ -187,20 +254,14 @@ button {
 }
 
 
-/* =====================================================
-   CAN SHAKE
-===================================================== */
-
 @keyframes canShake {
-
   from {
-    transform: rotate(-13deg);
+    transform: rotate(-14deg);
   }
 
   to {
-    transform: rotate(-9deg);
+    transform: rotate(-8deg);
   }
-
 }
 
 
@@ -212,55 +273,51 @@ button {
   position: absolute;
 
   left: 13%;
-  bottom: 30%;
+  bottom: 31%;
 
-  width: 70vw;
-  height: 170px;
+  width: 72vw;
+  height: 160px;
 
   opacity: 0;
 
-  background:
-
-    radial-gradient(
-      circle,
-      rgba(0,140,255,.95) 0 3px,
-      transparent 5px
-    ),
-
-    radial-gradient(
-      circle,
-      rgba(255,255,255,.65) 0 2px,
-      transparent 4px
-    );
-
-  background-size:
-    20px 20px,
-    31px 31px;
-
-  filter: blur(1px);
-
   transform:
-    scaleX(.05)
+    scaleX(.02)
     rotate(-3deg);
 
   transform-origin: left center;
 
+  background:
+    radial-gradient(
+      circle,
+      rgba(0,145,255,.95) 0 3px,
+      transparent 5px
+    ),
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.7) 0 2px,
+      transparent 4px
+    );
+
+  background-size:
+    19px 19px,
+    31px 31px;
+
+  filter: blur(1px);
+
   animation:
-    spray 2.5s ease-out forwards;
+    sprayPaint 2.3s ease-out forwards;
 
   animation-delay: .7s;
 
-  z-index: 4;
+  z-index: 8;
 }
 
-
-@keyframes spray {
+@keyframes sprayPaint {
 
   0% {
     opacity: 0;
-
     transform:
-      scaleX(.05)
+      scaleX(.02)
       rotate(-3deg);
   }
 
@@ -269,13 +326,11 @@ button {
   }
 
   100% {
-    opacity: .85;
-
+    opacity: .9;
     transform:
-      scaleX(1.15)
+      scaleX(1.12)
       rotate(-3deg);
   }
-
 }
 
 
@@ -288,11 +343,11 @@ button {
   position: absolute;
 
   left: 50%;
-  top: 42%;
+  top: 41%;
 
   transform:
     translate(-50%,-50%)
-    scale(.05);
+    scale(.04);
 
   opacity: 0;
 
@@ -300,17 +355,14 @@ button {
 
   animation:
     graffitiIn
-    1.5s
+    1.45s
     cubic-bezier(.2,1.4,.4,1)
     forwards;
 
-  animation-delay: 2.5s;
+  animation-delay: 2.35s;
 
-  z-index: 8;
+  z-index: 15;
 }
-
-
-/* actual artwork */
 
 .graffiti img {
 
@@ -322,47 +374,40 @@ button {
   object-fit: contain;
 
   filter:
-    drop-shadow(7px 7px 0 #111)
+    drop-shadow(7px 7px 0 #050505)
     drop-shadow(
-      0 0 30px
-      rgba(0,140,255,.8)
+      0 0 35px
+      rgba(0,145,255,.8)
     );
 }
 
-
-/* small text */
-
 .graffiti p {
+
+  margin-top: 12px;
 
   font-family:
     Press Start 2P;
 
   font-size:
-    clamp(10px,1.5vw,18px);
-
-  margin-top: 15px;
-
-  color: white;
+    clamp(9px,1.5vw,17px);
 
   text-shadow:
-    3px 3px #111;
+    3px 3px #000;
 }
 
 
 @keyframes graffitiIn {
 
   0% {
-
     opacity: 0;
 
     transform:
       translate(-50%,-50%)
-      scale(.05)
+      scale(.04)
       rotate(-8deg);
   }
 
   60% {
-
     opacity: 1;
 
     transform:
@@ -372,7 +417,6 @@ button {
   }
 
   100% {
-
     opacity: 1;
 
     transform:
@@ -380,21 +424,19 @@ button {
       scale(1)
       rotate(0);
   }
-
 }
 
 
 /* =====================================================
-   LEVEL UNLOCKED
+   LEVEL 21
 ===================================================== */
 
 .level-unlocked {
 
   position: absolute;
 
-  bottom: 11%;
-
   left: 50%;
+  bottom: 8%;
 
   transform:
     translateX(-50%);
@@ -406,11 +448,10 @@ button {
   animation:
     fadeUp 1s forwards;
 
-  animation-delay: 4s;
+  animation-delay: 3.9s;
 
-  z-index: 20;
+  z-index: 30;
 }
-
 
 .level-unlocked h2 {
 
@@ -418,77 +459,78 @@ button {
     Press Start 2P;
 
   font-size:
-    clamp(20px,3vw,38px);
+    clamp(18px,3vw,35px);
 }
-
 
 .level-unlocked span {
 
   display: block;
 
-  color: #008cff;
+  margin-top: 5px;
 
   font-family: Bangers;
 
   font-size:
-    clamp(35px,5vw,65px);
+    clamp(40px,6vw,70px);
 
-  letter-spacing: 4px;
+  letter-spacing: 5px;
+
+  color: #008cff;
+
+  text-shadow:
+    4px 4px #000;
 }
 
 
-/* =====================================================
-   START
-===================================================== */
-
 .start {
 
-  margin-top: 25px;
+  margin-top: 20px;
 
   padding:
-    18px 45px;
+    17px 42px;
+
+  background: #087aff;
 
   border:
     3px solid white;
-
-  background: #050505;
 
   color: white;
 
   font-family:
     Press Start 2P;
 
-  font-size: 15px;
+  font-size: 13px;
 
-  transition: .2s;
+  transition: .25s;
+
+  box-shadow:
+    0 0 25px
+    rgba(0,140,255,.5);
 }
 
 .start:hover {
 
-  background: #087aff;
+  background: white;
 
-  transform: scale(1.06);
+  color: #087aff;
+
+  transform: scale(1.08);
 }
 
 
 @keyframes fadeUp {
 
   from {
-
     opacity: 0;
-
     transform:
       translate(-50%,30px);
   }
 
   to {
-
     opacity: 1;
-
     transform:
       translate(-50%,0);
   }
-
 }
 
 
@@ -500,18 +542,143 @@ button {
 
   display: none;
 
+  min-height: 100vh;
+
   background:
     radial-gradient(
       circle at top,
-      #172c55,
+      #173e78,
       #050505 55%
     );
-
-  min-height: 100vh;
 
   padding-bottom: 100px;
 }
 
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+
+  min-height: 75vh;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 100px 20px;
+}
+
+
+/* Sonic-style background */
+
+.hero::before {
+
+  content: "";
+
+  position: absolute;
+
+  width: 900px;
+  height: 900px;
+
+  border-radius: 50%;
+
+  border:
+    45px solid rgba(0,140,255,.07);
+
+  box-shadow:
+    0 0 0 70px rgba(0,140,255,.04),
+    0 0 0 140px rgba(0,140,255,.025);
+
+  animation:
+    heroSpin 18s linear infinite;
+}
+
+@keyframes heroSpin {
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+
+.hero-small {
+
+  font-family:
+    Press Start 2P;
+
+  color: #aaa;
+
+  font-size: 11px;
+
+  letter-spacing: 3px;
+
+  margin-bottom: 20px;
+}
+
+
+.hero h1 {
+
+  font-family: Bangers;
+
+  font-size:
+    clamp(100px,20vw,230px);
+
+  color: #087aff;
+
+  letter-spacing: 5px;
+
+  line-height: .8;
+
+  text-shadow:
+    7px 7px #fff,
+    14px 14px #ff8b00,
+    20px 20px #111;
+}
+
+
+.hero h2 {
+
+  margin-top: 30px;
+
+  font-family:
+    Permanent Marker;
+
+  font-size:
+    clamp(25px,4vw,45px);
+}
+
+
+.hero p {
+
+  margin-top: 15px;
+
+  color: #aaa;
+
+  letter-spacing: 4px;
+
+  font-size: 11px;
+}
+
+
+/* =====================================================
+   SECTIONS
+===================================================== */
 
 .section {
 
@@ -556,7 +723,7 @@ button {
 
 
 /* =====================================================
-   CARDS — KEEPING THE STYLE YOU LIKED
+   POKÉMON-STYLE CARDS
 ===================================================== */
 
 .cards {
@@ -575,8 +742,8 @@ button {
   background:
     linear-gradient(
       145deg,
-      #fff,
-      #cfcfcf
+      #ffffff,
+      #d2d2d2
     );
 
   color: #111;
@@ -589,8 +756,8 @@ button {
   padding: 10px;
 
   box-shadow:
-    0 15px 35px rgba(0,0,0,.6),
-    inset 0 0 0 2px #fff;
+    0 15px 35px rgba(0,0,0,.65),
+    inset 0 0 0 2px white;
 
   transform:
     rotate(var(--rotation));
@@ -603,8 +770,13 @@ button {
 
   transform:
     translateY(-15px)
-    rotate(0deg)
-    scale(1.03);
+    rotate(0)
+    scale(1.04);
+
+  box-shadow:
+    0 25px 50px rgba(0,0,0,.8),
+    0 0 25px
+    rgba(255,200,0,.35);
 }
 
 
@@ -640,12 +812,6 @@ button {
       #222,
       #555
     );
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
 
   overflow: hidden;
 }
@@ -707,6 +873,8 @@ button {
 }
 
 
+/* responsive */
+
 @media(max-width:900px) {
 
   .cards {
@@ -727,7 +895,7 @@ button {
 
 
 /* =====================================================
-   UNLOCK
+   CARD CONTINUE
 ===================================================== */
 
 .unlock {
@@ -743,7 +911,7 @@ button {
     3px solid #087aff;
 
   background:
-    rgba(0,0,0,.7);
+    rgba(0,0,0,.72);
 
   text-align: center;
 
@@ -781,11 +949,23 @@ button {
 
   font-family:
     Press Start 2P;
+
+  transition: .2s;
+}
+
+
+.unlock button:hover {
+
+  transform: scale(1.06);
+
+  box-shadow:
+    0 0 20px
+    rgba(0,140,255,.5);
 }
 
 
 /* =====================================================
-   PERSONAL SECTION
+   MEMORIES
 ===================================================== */
 
 #memories {
@@ -806,7 +986,7 @@ button {
 
 .memory {
 
-  min-height: 250px;
+  min-height: 230px;
 
   padding: 25px;
 
@@ -837,7 +1017,7 @@ button {
 }
 
 
-.memory:before {
+.memory::before {
 
   content: "★";
 
@@ -883,7 +1063,7 @@ button {
 
 
 /* =====================================================
-   FINAL MESSAGE
+   FINAL
 ===================================================== */
 
 #final {
@@ -911,10 +1091,10 @@ button {
 
   box-shadow:
     0 0 50px
-      rgba(0,120,255,.25),
+    rgba(0,120,255,.25),
 
     inset 0 0 50px
-      rgba(0,120,255,.08);
+    rgba(0,120,255,.08);
 
   text-align: center;
 }
@@ -1090,9 +1270,13 @@ button {
 
 <section id="intro">
 
-  <div class="wall-dark"></div>
+  <div class="speed-lines"></div>
 
-  <div class="spotlight"></div>
+  <div class="ring one"></div>
+  <div class="ring two"></div>
+  <div class="ring three"></div>
+
+  <div class="intro-dark"></div>
 
 
   <!-- SPRAY CAN -->
@@ -1116,7 +1300,7 @@ button {
   <div class="spray"></div>
 
 
-  <!-- DARBY -->
+  <!-- DARBY REVEAL -->
 
   <div class="graffiti">
 
@@ -1164,7 +1348,37 @@ button {
 <main id="main">
 
 
-  <!-- CARDS -->
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="hero-small">
+        PLAYER 01 • DARBY
+      </div>
+
+      <h1>
+        LEVEL 21
+      </h1>
+
+      <h2>
+        THE ADVENTURE CONTINUES
+      </h2>
+
+      <p>
+        WELCOME TO THE NEXT CHAPTER
+      </p>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =================================================
+       CARDS
+  ================================================== -->
 
   <section class="section">
 
@@ -1190,7 +1404,6 @@ button {
         <div class="card-header">
 
           <span>DARBY</span>
-
           <span>HP 210</span>
 
         </div>
@@ -1200,7 +1413,6 @@ button {
 
           <img
             src="251bbf52-e032-4ecc-a542-3c32b40bf0b9.jpeg"
-            onerror="this.style.display='none'"
           >
 
         </div>
@@ -1221,7 +1433,7 @@ button {
             SPRAY & SKETCH
           </h3>
 
-          Turns anything into a masterpiece.
+          Creative.
 
         </div>
 
@@ -1244,7 +1456,6 @@ button {
         <div class="card-header">
 
           <span>DARBY</span>
-
           <span>HP 230</span>
 
         </div>
@@ -1254,7 +1465,6 @@ button {
 
           <img
             src="38514dda-9de0-41f1-8a3e-acdd58962246.jpeg"
-            onerror="this.style.display='none'"
           >
 
         </div>
@@ -1301,7 +1511,6 @@ button {
         <div class="card-header">
 
           <span>DARBY</span>
-
           <span>HP 200</span>
 
         </div>
@@ -1311,7 +1520,6 @@ button {
 
           <img
             src="IMG_6582.jpeg"
-            onerror="this.style.display='none'"
           >
 
         </div>
@@ -1358,7 +1566,6 @@ button {
         <div class="card-header">
 
           <span>DARBY</span>
-
           <span>HP 190</span>
 
         </div>
@@ -1368,7 +1575,6 @@ button {
 
           <img
             src="IMG_6585.jpeg"
-            onerror="this.style.display='none'"
           >
 
         </div>
@@ -1392,7 +1598,7 @@ button {
             Y2K ENERGY
           </h3>
 
-          2000s nostalgia never misses.
+          2000s nostalgia.
 
         </div>
 
@@ -1415,7 +1621,7 @@ button {
 
         <br><br>
 
-        NEXT CHAPTER UNLOCKED
+        NEXT LEVEL UNLOCKED
 
       </h3>
 
@@ -1433,7 +1639,7 @@ button {
 
 
   <!-- =================================================
-       PERSONAL MEMORY SECTION
+       MEMORIES
   ================================================== -->
 
   <section
@@ -1442,15 +1648,11 @@ button {
   >
 
     <h2 class="section-title">
-      LEVEL 21
+      THE DARBY FILES
     </h2>
 
-
     <p class="subtitle">
-
-      A few things I hope you take with you
-      into this next chapter.
-
+      A collection of things that somehow became part of the lore.
     </p>
 
 
@@ -1460,17 +1662,15 @@ button {
       <div class="memory">
 
         <div class="memory-number">
-          CHAPTER 01
+          MEMORY 01
         </div>
 
         <h3>
-          KEEP CREATING
+          THE ARTIST
         </h3>
 
         <p>
-          Keep making art, keep creating,
-          and keep doing the things that
-          make you genuinely happy.
+       
         </p>
 
       </div>
@@ -1480,18 +1680,15 @@ button {
       <div class="memory">
 
         <div class="memory-number">
-          CHAPTER 02
+          MEMORY 02
         </div>
 
         <h3>
-          KEEP DREAMING
+          OHTANI MODE
         </h3>
 
         <p>
-          I hope 21 brings you closer to
-          the things you've been working
-          toward and the dreams you've
-          been carrying with you.
+          Discipline and Mindset 
         </p>
 
       </div>
@@ -1501,17 +1698,15 @@ button {
       <div class="memory">
 
         <div class="memory-number">
-          CHAPTER 03
+          MEMORY 03
         </div>
 
         <h3>
-          KEEP GROWING
+          SOCCER
         </h3>
 
         <p>
-          Keep becoming the person God
-          created you to be. There is so
-          much more ahead of you.
+          SPAIN WON HA HA 
         </p>
 
       </div>
@@ -1521,17 +1716,15 @@ button {
       <div class="memory">
 
         <div class="memory-number">
-          CHAPTER 04
+          MEMORY 04
         </div>
 
         <h3>
-          MORE MEMORIES
+          PENGUIN 
         </h3>
 
         <p>
-          Here's to more random conversations,
-          more laughs, more adventures,
-          and memories we haven't made yet.
+          .
         </p>
 
       </div>
@@ -1541,18 +1734,17 @@ button {
       <div class="memory">
 
         <div class="memory-number">
-          CHAPTER 05
+          MEMORY 05
         </div>
 
         <h3>
-          GOD'S PLAN
+          RANDOM CONVERSATIONS
         </h3>
 
         <p>
-          Whatever this next chapter brings,
-          I hope you continue trusting God
-          even when you don't know what's
-          coming next.
+          One second you're having a normal
+          conversation. The next second you're
+          discussing something completely insane.
         </p>
 
       </div>
@@ -1562,17 +1754,17 @@ button {
       <div class="memory">
 
         <div class="memory-number">
-          CHAPTER 06
+          MEMORY 06
         </div>
 
         <h3>
-          LEVEL 21
+          21 YEARS
         </h3>
 
         <p>
-          Twenty-one is only the beginning.
-          I hope this year becomes one
-          you'll always remember.
+          Somehow this guy survived 21 years
+          and we're all still here for the
+          next chapter.
         </p>
 
       </div>
@@ -1584,13 +1776,13 @@ button {
     <div class="unlock">
 
       <h3>
-        ★ CHAPTER 21 READY ★
+        ★ ALL MEMORIES FOUND ★
       </h3>
 
       <button
         onclick="showFinal()"
       >
-        FINAL MESSAGE →
+        FINAL LEVEL →
       </button>
 
     </div>
@@ -1600,7 +1792,7 @@ button {
 
 
   <!-- =================================================
-       FINAL
+       FINAL MESSAGE
   ================================================== -->
 
   <section
@@ -1630,9 +1822,7 @@ button {
 
 
         <p class="spanish">
-
           ¡Feliz cumpleaños, David!
-
         </p>
 
 
@@ -1640,12 +1830,9 @@ button {
 
 
         <p>
-
           Te deseo un día maravilloso.
-          Te aprecio muchísimo y estoy
-          muy agradecida de tenerte
-          en mi vida.
-
+          Te aprecio muchísimo y estoy muy
+          agradecida de tenerte en mi vida.
         </p>
 
 
@@ -1653,12 +1840,10 @@ button {
 
 
         <p>
-
           Espero que en este nuevo capítulo
           sigas creciendo como persona,
           te acerques más a Dios y seas una
           versión aún mejor de ti mismo.
-
         </p>
 
 
@@ -1666,11 +1851,9 @@ button {
 
 
         <p>
-
           Te deseo lo mejor y espero que
           puedas cumplir todos tus sueños,
           incluso los más pequeños.
-
         </p>
 
 
@@ -1694,7 +1877,7 @@ button {
 
           <br>
 
-          Besos,
+          Un Gran Abrazo,
 
           <br>
 
@@ -1715,7 +1898,7 @@ button {
 
 
 <!-- =====================================================
-     MUSIC BUTTON
+     MUSIC
 ===================================================== -->
 
 <button
@@ -1725,9 +1908,6 @@ button {
   ♫
 </button>
 
-
-
-<!-- BIRTHDAY MUSIC -->
 
 <audio
   id="birthdayMusic"
@@ -1740,7 +1920,6 @@ button {
   >
 
 </audio>
-
 
 
 <!-- SPRAY SOUND -->
@@ -1760,9 +1939,8 @@ button {
 
 <script>
 
-
 /* =====================================================
-   START WEBSITE
+   START
 ===================================================== */
 
 function startGame() {
@@ -1772,6 +1950,19 @@ function startGame() {
 
   const main =
     document.getElementById("main");
+
+  const spray =
+    document.getElementById("spraySound");
+
+
+  /* play spray sound */
+
+  spray.currentTime = 0;
+
+  spray.play().catch(() => {});
+
+
+  /* fade intro */
 
   intro.style.transition =
     "opacity 1s";
@@ -1790,13 +1981,13 @@ function startGame() {
       behavior: "smooth"
     });
 
-  }, 1000);
+  },1000);
 
 }
 
 
 /* =====================================================
-   PERSONAL SECTION
+   MEMORIES
 ===================================================== */
 
 function showMemories() {
@@ -1813,7 +2004,7 @@ function showMemories() {
       behavior: "smooth"
     });
 
-  }, 100);
+  },100);
 
 }
 
@@ -1836,7 +2027,7 @@ function showFinal() {
       behavior: "smooth"
     });
 
-  }, 100);
+  },100);
 
 }
 
@@ -1858,7 +2049,7 @@ function toggleMusic() {
 
   if (!playing) {
 
-    music.play();
+    music.play().catch(() => {});
 
     playing = true;
 
@@ -1871,47 +2062,6 @@ function toggleMusic() {
   }
 
 }
-
-
-/* =====================================================
-   SPRAY SOUND
-===================================================== */
-
-window.addEventListener(
-  "load",
-  () => {
-
-    const spray =
-      document.getElementById(
-        "spraySound"
-      );
-
-
-    /*
-      Browsers usually block automatic
-      audio before the user interacts.
-
-      The sound will therefore start when
-      the START button is pressed.
-    */
-
-    const start =
-      document.querySelector(".start");
-
-
-    start.addEventListener(
-      "click",
-      () => {
-
-        spray.currentTime = 0;
-
-        spray.play().catch(() => {});
-
-      }
-    );
-
-  }
-);
 
 </script>
 
