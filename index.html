@@ -28,6 +28,10 @@ button {
   cursor: pointer;
 }
 
+/* =========================
+   SCREENS
+========================= */
+
 .screen {
   position: fixed;
   inset: 0;
@@ -92,10 +96,6 @@ button {
   z-index: 1;
 }
 
-/* =========================
-   SPRAY CAN
-========================= */
-
 .spray-can {
   position: absolute;
   width: 58px;
@@ -132,20 +132,14 @@ button {
 }
 
 .spray-can::after {
-  content: "DARBY";
+  content: "";
   position: absolute;
-  width: 45px;
-  left: 7px;
-  top: 42px;
-  padding: 5px 2px;
-
-  color: white;
-  background: #087aff;
-
-  font-size: 9px;
-  font-weight: 900;
-  text-align: center;
-  transform: rotate(-4deg);
+  width: 20px;
+  height: 8px;
+  right: -11px;
+  top: -18px;
+  border-radius: 2px;
+  background: #d9d9d9;
 }
 
 .spray-can.animate {
@@ -173,10 +167,6 @@ button {
     top: 50%;
   }
 }
-
-/* =========================
-   SPRAY
-========================= */
 
 .spray-cloud {
   position: absolute;
@@ -223,10 +213,6 @@ button {
     transform: translate(-50%, -50%) scale(1.5);
   }
 }
-
-/* =========================
-   GRAFFITI
-========================= */
 
 .intro-content {
   position: relative;
@@ -400,8 +386,7 @@ button {
 }
 
 /* =========================
-   LEVEL 1
-   SONIC STYLE — KEPT
+   LEVEL 1 — SONIC STYLE
 ========================= */
 
 #gameWorld {
@@ -551,6 +536,10 @@ button {
   }
 }
 
+/* =========================
+   RINGS
+========================= */
+
 .ring {
   position: absolute;
   width: 42px;
@@ -581,7 +570,7 @@ button {
 .ring5 { right: 18%; top: 38%; }
 
 /* =========================
-   CARDS
+   POKEMON STYLE CARDS
 ========================= */
 
 .card {
@@ -736,6 +725,10 @@ button {
   }
 }
 
+/* =========================
+   CHECKPOINT
+========================= */
+
 .checkpoint {
   position: absolute;
   left: 50%;
@@ -785,19 +778,16 @@ button {
   }
 }
 
-/* =====================================================
-   LEVEL 2 — ACTUAL BASEBALL GAME
-===================================================== */
+/* =========================
+   LEVEL 2 — BASEBALL
+========================= */
 
 #baseballWorld {
-  align-items: center;
-  justify-content: center;
-
   background:
     linear-gradient(
       #071323 0%,
-      #102f56 55%,
-      #183b22 56%,
+      #102f56 58%,
+      #1e4225 59%,
       #07100a 100%
     );
 }
@@ -805,23 +795,24 @@ button {
 .stadium-lights {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 
   background:
     radial-gradient(
-      circle at 8% 20%,
-      rgba(255,255,220,.9) 0 2%,
-      transparent 15%
+      circle at 8% 22%,
+      rgba(255,255,220,.8) 0 2%,
+      transparent 13%
     ),
     radial-gradient(
-      circle at 92% 20%,
-      rgba(255,255,220,.9) 0 2%,
-      transparent 15%
+      circle at 92% 22%,
+      rgba(255,255,220,.8) 0 2%,
+      transparent 13%
     );
 }
 
 .baseball-title {
   position: absolute;
-  top: 9%;
+  top: 10%;
   width: 100%;
 
   text-align: center;
@@ -834,121 +825,72 @@ button {
     sans-serif;
 
   font-size:
-    clamp(45px, 8vw, 105px);
+    clamp(55px, 10vw, 120px);
+
+  letter-spacing: 3px;
 
   text-shadow:
     5px 5px #8c1010,
     10px 10px #000;
 }
 
-.baseball-instructions {
+.scoreboard {
   position: absolute;
-  top: 23%;
-  width: 100%;
+  top: 30%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  min-width: 300px;
+  padding: 18px 35px;
+
+  color: #82ff63;
+  background: #070707;
+
+  border: 5px solid #777;
+
+  box-shadow:
+    8px 8px #000;
 
   text-align: center;
 
-  color: #fff;
-
   font-family: monospace;
-  font-size: 14px;
-  letter-spacing: 1px;
+  font-size: 22px;
 }
 
-.baseball-field {
+.pitch-area {
   position: absolute;
   left: 50%;
-  bottom: -10%;
+  bottom: 10%;
+
   transform: translateX(-50%);
 
-  width: min(850px, 100vw);
-  height: 65%;
+  width: min(700px, 95vw);
+  height: 45%;
+
+  border-radius: 50% 50% 0 0;
 
   background:
     radial-gradient(
       ellipse at center bottom,
-      #bd8045 0 16%,
-      #4c923c 17% 68%,
-      #2a672c 69% 100%
-    );
-
-  border-radius: 50% 50% 0 0;
-}
-
-.pitcher {
-  position: absolute;
-  left: 50%;
-  top: 29%;
-
-  transform: translateX(-50%);
-
-  width: 50px;
-  height: 80px;
-
-  z-index: 10;
-}
-
-.pitcher::before {
-  content: "⚾";
-  position: absolute;
-
-  font-size: 48px;
-
-  left: 0;
-  top: 0;
-}
-
-.batter {
-  position: absolute;
-
-  left: 16%;
-  bottom: 23%;
-
-  width: 70px;
-  height: 110px;
-
-  z-index: 30;
-}
-
-.batter::before {
-  content: "🏏";
-
-  position: absolute;
-
-  font-size: 80px;
-
-  transform: rotate(-15deg);
-}
-
-.ball-lane {
-  position: absolute;
-
-  left: 50%;
-  top: 32%;
-
-  width: 45%;
-  height: 4px;
-
-  transform: translateX(-50%);
-
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(255,255,255,.2) 0 10px,
-      transparent 10px 20px
+      #a46b39 0 30%,
+      #3e7d38 31% 70%,
+      transparent 71%
     );
 }
+
+/* REAL MOVING BASEBALL */
 
 .baseball-ball {
   position: absolute;
 
-  left: 73%;
-  top: 37%;
+  left: 72%;
+  bottom: 43%;
 
-  width: 34px;
-  height: 34px;
+  width: 42px;
+  height: 42px;
 
-  z-index: 50;
+  z-index: 20;
 
   border-radius: 50%;
 
@@ -957,87 +899,58 @@ button {
   border: 2px solid #ccc;
 
   box-shadow:
-    0 4px 8px rgba(0,0,0,.7);
+    0 4px 8px rgba(0,0,0,.6);
 
   display: none;
 }
 
-.baseball-ball::after {
-  content: "↝";
+.baseball-ball::before {
+  content: "";
 
   position: absolute;
+  inset: 5px;
 
-  color: #c71924;
+  border-left: 3px dashed #d01c1c;
+  border-radius: 50%;
 
-  font-size: 17px;
-
-  left: 7px;
-  top: 4px;
-
-  transform: rotate(-25deg);
+  transform: rotate(25deg);
 }
 
 .baseball-ball.pitch {
-  display: block;
-  animation: ballPitch 1.8s cubic-bezier(.2,.7,.3,1) forwards;
+  animation: pitchBall 1.35s linear forwards;
 }
 
-@keyframes ballPitch {
+@keyframes pitchBall {
 
   0% {
-    left: 73%;
-    top: 37%;
-    transform: scale(.65) rotate(0);
+    left: 72%;
+    bottom: 43%;
+    transform: scale(.7) rotate(0deg);
   }
 
-  70% {
-    left: 36%;
-    top: 43%;
-    transform: scale(1) rotate(500deg);
+  50% {
+    left: 48%;
+    bottom: 46%;
+    transform: scale(.95) rotate(180deg);
   }
 
   100% {
-    left: 17%;
-    top: 48%;
-    transform: scale(1.1) rotate(800deg);
+    left: 27%;
+    bottom: 43%;
+    transform: scale(1.15) rotate(360deg);
   }
 
-}
-
-.swing-zone {
-  position: absolute;
-
-  left: 12%;
-  bottom: 35%;
-
-  width: 115px;
-  height: 115px;
-
-  border: 3px dashed rgba(255,255,255,.5);
-
-  border-radius: 50%;
-
-  z-index: 20;
-
-  transition: .2s;
-}
-
-.swing-zone.good {
-  border-color: #57ff63;
-  box-shadow: 0 0 30px #57ff63;
 }
 
 .swing-button {
   position: absolute;
-
   left: 50%;
   bottom: 5%;
 
   transform: translateX(-50%);
-
   z-index: 100;
 
-  padding: 18px 65px;
+  padding: 18px 60px;
 
   color: white;
   background: #c71924;
@@ -1050,135 +963,70 @@ button {
   font-family: monospace;
   font-weight: bold;
   letter-spacing: 3px;
-
-  transition: .15s;
 }
 
 .swing-button:hover {
   transform:
     translateX(-50%)
-    scale(1.05);
+    scale(1.08);
 }
 
-.swing-button:active {
-  transform:
-    translateX(-50%)
-    scale(.95);
-}
+/* =========================
+   LEVEL 3 — ARCTIC PENGUIN
+========================= */
 
-.baseball-score {
-  position: absolute;
-
-  right: 25px;
-  top: 65px;
-
-  color: #82ff63;
-
-  font-family: monospace;
-  font-weight: bold;
-
-  font-size: 18px;
-}
-
-.pitch-message {
-  position: absolute;
-
-  left: 50%;
-  top: 66%;
-
-  transform: translateX(-50%);
-
-  color: white;
-
-  font-family: monospace;
-  font-weight: bold;
-
-  font-size: 22px;
-
-  text-align: center;
-
-  text-shadow: 3px 3px #000;
-
-  opacity: 0;
-
-  z-index: 100;
-}
-
-.pitch-message.show {
-  animation: messagePop .8s forwards;
-}
-
-@keyframes messagePop {
-  0% {
-    opacity: 0;
-    transform:
-      translateX(-50%)
-      scale(.5);
-  }
-
-  40% {
-    opacity: 1;
-    transform:
-      translateX(-50%)
-      scale(1.2);
-  }
-
-  100% {
-    opacity: 0;
-    transform:
-      translateX(-50%)
-      scale(1);
-  }
-}
-
-/* =====================================================
-   LEVEL 3 — ARCTIC PENGUIN GAME
-===================================================== */
-
-#penguinWorld {
+#arcadeWorld {
 
   background:
     linear-gradient(
-      #081a35 0%,
-      #246ca0 48%,
-      #bceeff 49%,
-      #eaffff 100%
+      #071d38 0%,
+      #103f68 45%,
+      #8fd8f2 46%,
+      #dff8ff 100%
     );
 
 }
 
-.snow {
+.arctic-sky {
   position: absolute;
   inset: 0;
 
-  pointer-events: none;
-
-  background-image:
-    radial-gradient(circle, white 1px, transparent 2px),
-    radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 2px);
-
-  background-size:
-    45px 45px,
-    75px 75px;
-
-  animation: snowFall 8s linear infinite;
+  background:
+    radial-gradient(
+      circle at 80% 18%,
+      rgba(255,255,255,.8),
+      transparent 18%
+    ),
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(120,230,255,.5),
+      transparent 22%
+    );
 }
 
-@keyframes snowFall {
-  from {
-    background-position: 0 0, 20px 0;
-  }
+.aurora {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 45%;
 
-  to {
-    background-position: 0 500px, 20px 600px;
-  }
+  background:
+    linear-gradient(
+      120deg,
+      transparent 10%,
+      rgba(40,255,190,.22) 35%,
+      rgba(75,220,255,.25) 50%,
+      rgba(190,70,255,.18) 70%,
+      transparent 90%
+    );
+
+  filter: blur(15px);
 }
 
 .arctic-title {
   position: absolute;
-
   top: 8%;
-
   width: 100%;
 
   text-align: center;
@@ -1191,360 +1039,332 @@ button {
     sans-serif;
 
   font-size:
-    clamp(45px, 8vw, 100px);
-
-  letter-spacing: 3px;
+    clamp(42px, 7vw, 90px);
 
   text-shadow:
-    5px 5px #176ca1,
-    10px 10px #06233b;
+    4px 4px #1266a3,
+    7px 7px #0a2138;
 }
 
 .arctic-subtitle {
   position: absolute;
-
-  top: 22%;
-
+  top: 20%;
   width: 100%;
 
   text-align: center;
 
-  color: #063454;
+  color: #173b55;
 
   font-family: monospace;
-
   font-weight: bold;
-
-  font-size: 14px;
+  letter-spacing: 2px;
 }
 
-.ice-field {
+/* SNOW */
+
+.snow {
   position: absolute;
+  inset: 0;
 
-  left: 4%;
-  right: 4%;
+  background-image:
+    radial-gradient(circle, white 1px, transparent 2px),
+    radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 2px);
 
-  bottom: 5%;
+  background-size: 45px 45px, 75px 75px;
 
-  height: 62%;
+  animation: snowFall 8s linear infinite;
+}
 
-  overflow: hidden;
+@keyframes snowFall {
+  from {
+    background-position: 0 0, 20px 0;
+  }
 
-  border-radius: 35px 35px 0 0;
+  to {
+    background-position: 0 500px, 20px 650px;
+  }
+}
+
+/* ICE */
+
+.ice-ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  height: 43%;
 
   background:
-    radial-gradient(
-      ellipse at 30% 25%,
-      rgba(255,255,255,.9),
-      transparent 30%
-    ),
     linear-gradient(
-      145deg,
+      to bottom,
       #eaffff,
-      #9fe5f5
+      #b9e9f7
     );
 
-  border: 8px solid white;
-
-  box-shadow:
-    inset 0 0 60px rgba(40,160,210,.3),
-    0 15px 30px rgba(0,0,0,.35);
+  border-top: 7px solid white;
 }
 
-.ice-crack {
+/* ICEBERGS */
+
+.iceberg {
   position: absolute;
+  bottom: 28%;
 
   width: 170px;
-  height: 5px;
-
-  background: rgba(48,150,190,.3);
-
-  transform: rotate(22deg);
-}
-
-.crack1 {
-  left: 10%;
-  top: 30%;
-}
-
-.crack2 {
-  right: 15%;
-  top: 55%;
-  transform: rotate(-17deg);
-}
-
-.crack3 {
-  left: 45%;
-  bottom: 15%;
-  transform: rotate(5deg);
-}
-
-.igloo {
-  position: absolute;
-
-  left: 5%;
-  bottom: 4%;
-
-  width: 120px;
-  height: 80px;
-
-  border-radius: 120px 120px 0 0;
+  height: 150px;
 
   background:
-    repeating-linear-gradient(
-      0deg,
-      #fff 0 15px,
-      #bcecff 15px 18px
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #a8e2f5
     );
 
-  border: 4px solid #8ed6ec;
+  clip-path:
+    polygon(
+      0 100%,
+      25% 30%,
+      42% 48%,
+      62% 0,
+      78% 42%,
+      100% 100%
+    );
+
+  opacity: .9;
 }
 
-.igloo::after {
-  content: "";
-
-  position: absolute;
-
-  width: 38px;
-  height: 45px;
-
-  bottom: 0;
-  left: 41px;
-
-  border-radius: 40px 40px 0 0;
-
-  background: #4c9fba;
+.iceberg1 {
+  left: 5%;
 }
+
+.iceberg2 {
+  right: 5%;
+  transform: scale(.75);
+}
+
+/* PENGUIN */
 
 .penguin {
   position: absolute;
 
-  width: 70px;
-  height: 85px;
+  left: 50%;
+  bottom: 20%;
+
+  transform: translateX(-50%);
+
+  width: 85px;
+  height: 105px;
 
   z-index: 50;
 
   cursor: pointer;
 
-  transition:
-    transform .2s,
-    left .5s,
-    top .5s;
+  transition: .2s;
+}
 
-  user-select: none;
-
-  filter:
-    drop-shadow(0 7px 3px rgba(0,0,0,.25));
+.penguin:hover {
+  transform:
+    translateX(-50%)
+    scale(1.08);
 }
 
 .penguin-body {
-
   position: absolute;
+  bottom: 0;
+  left: 10px;
 
-  width: 58px;
-  height: 72px;
-
-  left: 6px;
-  top: 10px;
-
-  border-radius:
-    48% 48% 42% 42%;
+  width: 65px;
+  height: 90px;
 
   background:
     linear-gradient(
       90deg,
-      #101820,
-      #263746,
-      #0a1118
+      #050b12,
+      #172b3b,
+      #02070b
     );
 
+  border-radius: 50% 50% 42% 42%;
 }
 
 .penguin-belly {
-
   position: absolute;
 
-  width: 42px;
-  height: 54px;
+  left: 23px;
+  bottom: 8px;
 
-  left: 14px;
-  top: 27px;
+  width: 40px;
+  height: 63px;
 
-  border-radius: 50%;
-
-  background: #f7fdff;
-
-}
-
-.penguin-head {
-
-  position: absolute;
-
-  width: 54px;
-  height: 48px;
-
-  left: 8px;
-  top: 0;
+  background: #f4fbff;
 
   border-radius: 50%;
-
-  background:
-    linear-gradient(
-      135deg,
-      #172532,
-      #050b10
-    );
-
 }
 
 .penguin-eye {
-
   position: absolute;
 
-  width: 7px;
-  height: 7px;
+  top: 20px;
 
-  border-radius: 50%;
+  width: 9px;
+  height: 9px;
 
   background: white;
 
-  top: 18px;
+  border-radius: 50%;
 
-  box-shadow:
-    18px 0 white;
+  z-index: 3;
 }
 
-.penguin-eye::after {
+.penguin-eye.left {
+  left: 28px;
+}
+
+.penguin-eye.right {
+  right: 28px;
+}
+
+.penguin-beak {
+  position: absolute;
+
+  top: 29px;
+  left: 37px;
+
+  width: 15px;
+  height: 11px;
+
+  background: #ff9d24;
+
+  clip-path:
+    polygon(
+      0 0,
+      100% 50%,
+      0 100%
+    );
+
+  z-index: 3;
+}
+
+.penguin-wing {
+  position: absolute;
+
+  width: 23px;
+  height: 60px;
+
+  background: #07111a;
+
+  border-radius: 50%;
+
+  top: 42px;
+}
+
+.penguin-wing.left {
+  left: -3px;
+  transform: rotate(22deg);
+}
+
+.penguin-wing.right {
+  right: -3px;
+  transform: rotate(-22deg);
+}
+
+.penguin-foot {
+  position: absolute;
+
+  bottom: -4px;
+
+  width: 30px;
+  height: 13px;
+
+  background: #ff9d24;
+
+  border-radius: 50%;
+}
+
+.penguin-foot.left {
+  left: 8px;
+}
+
+.penguin-foot.right {
+  right: 8px;
+}
+
+/* FISH */
+
+.fish {
+  position: absolute;
+
+  width: 45px;
+  height: 25px;
+
+  background: #ff9d24;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  z-index: 30;
+
+  animation:
+    fishSwim 5s ease-in-out infinite alternate;
+}
+
+.fish::after {
   content: "";
 
   position: absolute;
 
-  width: 3px;
-  height: 3px;
-
-  border-radius: 50%;
-
-  background: black;
-
+  right: -15px;
   top: 2px;
-  left: 2px;
 
-  box-shadow:
-    18px 0 black;
+  border-left: 18px solid #ff9d24;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
 }
 
-.penguin-eye {
-  left: 13px;
+.fish1 {
+  left: 22%;
+  bottom: 30%;
 }
 
-.penguin-beak {
+.fish2 {
+  right: 22%;
+  bottom: 35%;
 
-  position: absolute;
-
-  left: 24px;
-  top: 26px;
-
-  width: 0;
-  height: 0;
-
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 12px solid #ffb21c;
+  transform: scale(.8);
 }
 
-.penguin-foot {
-
-  position: absolute;
-
-  width: 23px;
-  height: 10px;
-
-  border-radius: 50%;
-
-  background: #ffad1c;
-
-  bottom: 0;
-}
-
-.foot1 {
-  left: 8px;
-}
-
-.foot2 {
-  right: 8px;
-}
-
-.penguin.caught {
-  animation: penguinCaught .65s forwards;
-  pointer-events: none;
-}
-
-@keyframes penguinCaught {
-
-  0% {
-    transform: scale(1);
-    opacity: 1;
+@keyframes fishSwim {
+  from {
+    margin-left: -30px;
   }
 
-  40% {
-    transform:
-      scale(1.35)
-      rotate(10deg);
+  to {
+    margin-left: 30px;
   }
-
-  100% {
-    transform:
-      translateY(-100px)
-      scale(.2)
-      rotate(-25deg);
-
-    opacity: 0;
-  }
-
 }
 
-.penguin-score {
-
-  position: absolute;
-
-  right: 25px;
-  top: 65px;
-
-  color: white;
-
-  font-family: monospace;
-
-  font-weight: bold;
-
-  font-size: 18px;
-
-  text-shadow:
-    3px 3px #124a6c;
-
-}
-
-.penguin-message {
-
+.catch-message {
   position: absolute;
 
   left: 50%;
-  top: 30%;
+  bottom: 10%;
 
   transform: translateX(-50%);
 
-  z-index: 200;
+  padding: 14px 25px;
 
-  color: #063454;
+  color: white;
+
+  background: #123a58;
+
+  border: 3px solid white;
 
   font-family: monospace;
-
   font-weight: bold;
 
-  font-size: 18px;
-
   text-align: center;
-
-  pointer-events: none;
 }
 
 /* =========================
@@ -1552,10 +1372,13 @@ button {
 ========================= */
 
 #finalWorld {
+
   align-items: center;
   justify-content: center;
 
   color: white;
+
+  overflow-y: auto;
 
   background:
     radial-gradient(
@@ -1566,7 +1389,9 @@ button {
 }
 
 #finalWorld::before {
+
   content: "";
+
   position: absolute;
   inset: 0;
 
@@ -1578,10 +1403,12 @@ button {
     );
 
   background-size: 50px 50px;
+
   opacity: .25;
 }
 
 .final-content {
+
   position: relative;
   z-index: 5;
 
@@ -1589,19 +1416,24 @@ button {
     min(850px, 90vw);
 
   text-align: center;
+
+  padding: 50px 0;
 }
 
 .final-label {
+
   color: #ffd21a;
 
   font-family: monospace;
   font-weight: bold;
+
   letter-spacing: 7px;
 
   margin-bottom: 20px;
 }
 
 .final-title {
+
   font-family:
     Impact,
     "Arial Black",
@@ -1623,8 +1455,6 @@ button {
 }
 
 .final-message {
-  max-height: 52vh;
-  overflow-y: auto;
 
   padding: 30px;
 
@@ -1638,6 +1468,7 @@ button {
   text-align: left;
 
   font-family: Georgia, serif;
+
   line-height: 1.7;
 }
 
@@ -1645,17 +1476,105 @@ button {
   margin-bottom: 18px;
 }
 
+/* =========================
+   SONG
+========================= */
+
+.song-section {
+
+  margin-top: 40px;
+
+  padding: 35px 20px;
+
+  background:
+    rgba(0,0,0,.45);
+
+  border-top:
+    2px solid rgba(255,255,255,.25);
+
+  border-bottom:
+    2px solid rgba(255,255,255,.25);
+
+  text-align: center;
+}
+
+.song-label {
+
+  color: #ffd21a;
+
+  font-family: monospace;
+  font-weight: bold;
+
+  letter-spacing: 4px;
+
+  font-size: 12px;
+
+  margin-bottom: 12px;
+}
+
+.song-section h2 {
+
+  margin-bottom: 8px;
+
+  color: white;
+
+  font-family:
+    Impact,
+    "Arial Black",
+    sans-serif;
+
+  font-size:
+    clamp(32px, 5vw, 55px);
+
+  letter-spacing: 2px;
+
+  text-shadow:
+    3px 3px #0b8cff,
+    5px 5px #e52972;
+}
+
+.song-section p {
+
+  color: #aaa;
+
+  margin-bottom: 25px;
+}
+
+.birthday-video {
+
+  display: block;
+
+  width:
+    min(700px, 100%);
+
+  max-height: 400px;
+
+  margin: 0 auto;
+
+  border: 3px solid white;
+
+  background: #000;
+
+  box-shadow:
+    8px 8px #0b8cff,
+    0 0 30px rgba(229,41,114,.25);
+}
+
 .restart {
-  margin-top: 22px;
+
+  margin-top: 25px;
+
   padding: 15px 45px;
 
   color: white;
+
   background: #e52972;
 
   border: 3px solid white;
 
   font-family: monospace;
   font-weight: bold;
+
   letter-spacing: 3px;
 }
 
@@ -1664,6 +1583,7 @@ button {
 ========================= */
 
 #popup {
+
   position: fixed;
   inset: 0;
 
@@ -1676,16 +1596,19 @@ button {
 
   padding: 20px;
 
-  background: rgba(0,0,0,.8);
+  background:
+    rgba(0,0,0,.8);
 }
 
 .popup-box {
+
   width:
     min(600px, 90vw);
 
   padding: 35px;
 
   color: white;
+
   text-align: center;
 
   background:
@@ -1702,6 +1625,7 @@ button {
 }
 
 .popup-box h2 {
+
   margin-bottom: 15px;
 
   color: #ffd21a;
@@ -1714,10 +1638,13 @@ button {
 }
 
 .popup-button {
+
   margin-top: 25px;
+
   padding: 13px 35px;
 
   color: white;
+
   background: #0b8cff;
 
   border: 2px solid white;
@@ -1732,71 +1659,55 @@ button {
 @media (max-width: 700px) {
 
   .card {
+
     width: 88px;
     height: 145px;
+
     padding: 4px;
+
     border-width: 3px;
   }
 
   .card-top {
+
     height: 14px;
+
     font-size: 6px;
   }
 
   .card-photo {
+
     height: 58px;
+
     border-width: 2px;
   }
 
   .card-type {
+
     font-size: 5px;
   }
 
   .card-ability,
   .card-ability b {
+
     font-size: 5px;
   }
 
   .card-rarity {
+
     font-size: 8px;
   }
 
-  .baseball-title {
-    top: 12%;
-  }
+  .final-message {
 
-  .baseball-instructions {
-    top: 25%;
-    padding: 0 20px;
-    font-size: 11px;
-  }
-
-  .swing-button {
-    padding: 15px 40px;
-  }
-
-  .arctic-title {
-    top: 12%;
-  }
-
-  .arctic-subtitle {
-    top: 24%;
-    padding: 0 20px;
-    font-size: 11px;
+    font-size: 14px;
   }
 
   .penguin {
-    transform: scale(.8);
-  }
 
-  .penguin-score {
-    top: 60px;
-    right: 15px;
-    font-size: 13px;
-  }
-
-  .final-message {
-    font-size: 14px;
+    transform:
+      translateX(-50%)
+      scale(.85);
   }
 
 }
@@ -1809,9 +1720,9 @@ button {
 <div id="transition"></div>
 
 
-<!-- =====================================================
+<!-- =========================
      INTRO
-===================================================== -->
+========================= -->
 
 <section id="intro" class="screen active">
 
@@ -1861,13 +1772,11 @@ button {
 </section>
 
 
-<!-- =====================================================
-     LEVEL 1 — SONIC CARD LEVEL
-===================================================== -->
+<!-- =========================
+     LEVEL 1
+========================= -->
 
-<section
-  id="gameWorld"
-  class="screen">
+<section id="gameWorld" class="screen">
 
   <div class="hud">
 
@@ -1891,13 +1800,18 @@ button {
 
   </div>
 
+
   <div class="cloud cloud1"></div>
   <div class="cloud cloud2"></div>
+
 
   <div
     class="character"
     id="character">
   </div>
+
+
+  <!-- RINGS -->
 
   <div
     class="ring ring1"
@@ -1924,6 +1838,9 @@ button {
     onclick="collectRing(this)">
   </div>
 
+
+  <!-- PLATFORMS -->
+
   <div class="platform platform1"></div>
   <div class="platform platform2"></div>
   <div class="platform platform3"></div>
@@ -1936,15 +1853,19 @@ button {
     onclick="collectCard(this)">
 
     <div class="card-top">
+
       <span>DARBY</span>
-      <span class="card-hp">HP 210</span>
+
+      <span class="card-hp">
+        HP 210
+      </span>
+
     </div>
 
     <div class="card-photo">
 
       <img
-        src="251bbf52-e032-4ecc-a542-3c32b40bf0b9.jpeg"
-        onerror="this.style.display='none'">
+        src="251bbf52-e032-4ecc-a542-3c32b40bf0b9.jpeg">
 
     </div>
 
@@ -1955,8 +1876,12 @@ button {
     <div class="card-line"></div>
 
     <div class="card-ability">
-      <b>SPRAY & SKETCH</b><br>
+
+      <b>SPRAY & SKETCH</b>
+      <br>
+
       Turns anything into a canvas.
+
     </div>
 
     <div class="card-rarity">
@@ -1973,15 +1898,19 @@ button {
     onclick="collectCard(this)">
 
     <div class="card-top">
+
       <span>DARBY</span>
-      <span class="card-hp">HP 230</span>
+
+      <span class="card-hp">
+        HP 230
+      </span>
+
     </div>
 
     <div class="card-photo">
 
       <img
-        src="38514dda-9de0-41f1-8a3e-acdd58962246.jpeg"
-        onerror="this.style.display='none'">
+        src="38514dda-9de0-41f1-8a3e-acdd58962246.jpeg">
 
     </div>
 
@@ -1992,8 +1921,12 @@ button {
     <div class="card-line"></div>
 
     <div class="card-ability">
-      <b>OHTANI MODE</b><br>
+
+      <b>OHTANI MODE</b>
+      <br>
+
       Home run energy activated.
+
     </div>
 
     <div class="card-rarity">
@@ -2010,15 +1943,18 @@ button {
     onclick="collectCard(this)">
 
     <div class="card-top">
+
       <span>DARBY</span>
-      <span class="card-hp">HP 200</span>
+
+      <span class="card-hp">
+        HP 200
+      </span>
+
     </div>
 
     <div class="card-photo">
 
-      <img
-        src="IMG_6582.jpeg"
-        onerror="this.style.display='none'">
+      <img src="IMG_6582.jpeg">
 
     </div>
 
@@ -2029,8 +1965,12 @@ button {
     <div class="card-line"></div>
 
     <div class="card-ability">
-      <b>WORLD CUP MODE</b><br>
+
+      <b>WORLD CUP MODE</b>
+      <br>
+
       Argentina. Brazil. Game on.
+
     </div>
 
     <div class="card-rarity">
@@ -2047,15 +1987,18 @@ button {
     onclick="collectCard(this)">
 
     <div class="card-top">
+
       <span>DARBY</span>
-      <span class="card-hp">HP 190</span>
+
+      <span class="card-hp">
+        HP 190
+      </span>
+
     </div>
 
     <div class="card-photo">
 
-      <img
-        src="IMG_6585.jpeg"
-        onerror="this.style.display='none'">
+      <img src="IMG_6585.jpeg">
 
     </div>
 
@@ -2066,8 +2009,12 @@ button {
     <div class="card-line"></div>
 
     <div class="card-ability">
-      <b>Y2K ENERGY</b><br>
+
+      <b>Y2K ENERGY</b>
+      <br>
+
       2000s nostalgia activated.
+
     </div>
 
     <div class="card-rarity">
@@ -2076,6 +2023,8 @@ button {
 
   </div>
 
+
+  <!-- CHECKPOINT -->
 
   <div
     class="checkpoint"
@@ -2086,20 +2035,22 @@ button {
 
   </div>
 
+
   <div class="ground"></div>
 
 </section>
 
 
-<!-- =====================================================
-     LEVEL 2 — BASEBALL
-===================================================== -->
+<!-- =========================
+     LEVEL 2 BASEBALL
+========================= -->
 
 <section
   id="baseballWorld"
   class="screen">
 
   <div class="stadium-lights"></div>
+
 
   <div class="hud">
 
@@ -2114,192 +2065,139 @@ button {
 
   </div>
 
+
   <div class="baseball-title">
     DARBY'S HOME RUN
   </div>
 
-  <div class="baseball-instructions">
-    WAIT FOR THE BALL TO ENTER THE CIRCLE — THEN SWING!
+
+  <div class="scoreboard">
+
+    DAVID
+    <br>
+    LEVEL 21
+
   </div>
 
-  <div class="baseball-field"></div>
 
-  <div class="pitcher"></div>
+  <div class="pitch-area"></div>
 
-  <div class="ball-lane"></div>
-
-  <div class="batter"></div>
-
-  <div
-    class="swing-zone"
-    id="swingZone">
-  </div>
 
   <div
     class="baseball-ball"
     id="baseballBall">
   </div>
 
-  <div
-    class="pitch-message"
-    id="pitchMessage">
-  </div>
-
-  <div class="baseball-score">
-    STRIKES:
-    <span id="strikes">0</span>/3
-  </div>
 
   <button
     class="swing-button"
     onclick="swing()">
 
-    ⚾ SWING
+    SWING
 
   </button>
 
 </section>
 
 
-<!-- =====================================================
-     LEVEL 3 — ARCTIC PENGUIN
-===================================================== -->
+<!-- =========================
+     LEVEL 3 ARCTIC
+========================= -->
 
 <section
-  id="penguinWorld"
+  id="arcadeWorld"
   class="screen">
 
+  <div class="arctic-sky"></div>
+
+  <div class="aurora"></div>
+
   <div class="snow"></div>
+
 
   <div class="hud">
 
     <div>
-      LEVEL 3 // ARCTIC MISSION
+      LEVEL 3 // ARCTIC RUN
     </div>
 
     <div>
-      PENGUINS:
-      <span id="penguinCount">0</span>/5
+      FISH:
+      <span id="fishCount">0</span>/2
     </div>
 
   </div>
+
 
   <div class="arctic-title">
     CATCH THE PENGUIN
   </div>
 
+
   <div class="arctic-subtitle">
-    THE PENGUINS ARE ESCAPING! CLICK THEM BEFORE THEY GET AWAY.
+    CATCH THE FISH TO LURE THE PENGUIN
   </div>
 
-  <div class="ice-field">
 
-    <div class="ice-crack crack1"></div>
-    <div class="ice-crack crack2"></div>
-    <div class="ice-crack crack3"></div>
-
-    <div class="igloo"></div>
-
-    <div
-      class="penguin"
-      id="penguin1"
-      onclick="catchPenguin(this)">
-
-      <div class="penguin-body"></div>
-      <div class="penguin-belly"></div>
-      <div class="penguin-head"></div>
-      <div class="penguin-eye"></div>
-      <div class="penguin-beak"></div>
-
-      <div class="penguin-foot foot1"></div>
-      <div class="penguin-foot foot2"></div>
-
-    </div>
+  <div class="iceberg iceberg1"></div>
+  <div class="iceberg iceberg2"></div>
 
 
-    <div
-      class="penguin"
-      id="penguin2"
-      onclick="catchPenguin(this)">
+  <!-- FISH -->
 
-      <div class="penguin-body"></div>
-      <div class="penguin-belly"></div>
-      <div class="penguin-head"></div>
-      <div class="penguin-eye"></div>
-      <div class="penguin-beak"></div>
-
-      <div class="penguin-foot foot1"></div>
-      <div class="penguin-foot foot2"></div>
-
-    </div>
-
-
-    <div
-      class="penguin"
-      id="penguin3"
-      onclick="catchPenguin(this)">
-
-      <div class="penguin-body"></div>
-      <div class="penguin-belly"></div>
-      <div class="penguin-head"></div>
-      <div class="penguin-eye"></div>
-      <div class="penguin-beak"></div>
-
-      <div class="penguin-foot foot1"></div>
-      <div class="penguin-foot foot2"></div>
-
-    </div>
-
-
-    <div
-      class="penguin"
-      id="penguin4"
-      onclick="catchPenguin(this)">
-
-      <div class="penguin-body"></div>
-      <div class="penguin-belly"></div>
-      <div class="penguin-head"></div>
-      <div class="penguin-eye"></div>
-      <div class="penguin-beak"></div>
-
-      <div class="penguin-foot foot1"></div>
-      <div class="penguin-foot foot2"></div>
-
-    </div>
-
-
-    <div
-      class="penguin"
-      id="penguin5"
-      onclick="catchPenguin(this)">
-
-      <div class="penguin-body"></div>
-      <div class="penguin-belly"></div>
-      <div class="penguin-head"></div>
-      <div class="penguin-eye"></div>
-      <div class="penguin-beak"></div>
-
-      <div class="penguin-foot foot1"></div>
-      <div class="penguin-foot foot2"></div>
-
-    </div>
-
+  <div
+    class="fish fish1"
+    onclick="catchFish(this)">
   </div>
 
   <div
-    class="penguin-message"
-    id="penguinMessage">
+    class="fish fish2"
+    onclick="catchFish(this)">
+  </div>
 
-    CATCH 5 PENGUINS!
+
+  <!-- PENGUIN -->
+
+  <div
+    class="penguin"
+    id="penguin"
+    onclick="catchPenguin()">
+
+    <div class="penguin-body"></div>
+
+    <div class="penguin-belly"></div>
+
+    <div class="penguin-eye left"></div>
+    <div class="penguin-eye right"></div>
+
+    <div class="penguin-beak"></div>
+
+    <div class="penguin-wing left"></div>
+    <div class="penguin-wing right"></div>
+
+    <div class="penguin-foot left"></div>
+    <div class="penguin-foot right"></div>
 
   </div>
+
+
+  <div
+    class="catch-message"
+    id="catchMessage">
+
+    CATCH BOTH FISH FIRST!
+
+  </div>
+
+
+  <div class="ice-ground"></div>
 
 </section>
 
 
-<!-- =====================================================
+<!-- =========================
      FINAL
-===================================================== -->
+========================= -->
 
 <section
   id="finalWorld"
@@ -2307,14 +2205,21 @@ button {
 
   <div class="final-content">
 
+
     <div class="final-label">
       ★ FINAL LEVEL ★
     </div>
 
+
     <div class="final-title">
-      HAPPY BIRTHDAY<br>
+
+      HAPPY BIRTHDAY
+      <br>
+
       DAVID
+
     </div>
+
 
     <div class="final-message">
 
@@ -2322,42 +2227,104 @@ button {
         ¡Feliz cumpleaños, David!
       </p>
 
+
       <p>
+
         Te deseo un día maravilloso.
-        Te aprecio muchísimo y estoy muy agradecida
-        de tenerte en mi vida.
+        Te aprecio muchísimo y estoy muy
+        agradecida de tenerte en mi vida.
         Espero verte pronto.
+
       </p>
 
+
       <p>
-        Espero que en este nuevo capítulo sigas creciendo
-        como persona, te acerques más a Dios y seas una
+
+        Espero que en este nuevo capítulo
+        sigas creciendo como persona,
+        te acerques más a Dios y seas una
         versión aún mejor de ti mismo.
+
       </p>
 
-      <p>
-        Te deseo lo mejor y espero que puedas cumplir
-        todos tus sueños, incluso los más pequeños.
-      </p>
 
       <p>
-        “Porque yo sé los planes que tengo para ustedes,
-        planes de bienestar y no de calamidad,
-        para darles un futuro y una esperanza.”
+
+        Te deseo lo mejor y espero que puedas
+        cumplir todos tus sueños, incluso
+        los más pequeños.
+
       </p>
+
+
+      <p>
+
+        “Porque yo sé los planes que tengo
+        para ustedes, planes de bienestar
+        y no de calamidad, para darles un
+        futuro y una esperanza.”
+
+      </p>
+
 
       <p>
         — Jeremías 29:11
       </p>
 
+
       <p>
+
         Te quiero mucho.
+
         <br><br>
-        Besos,<br>
-        Tiffany
+
+        Besos,
+        <br>
+
+        Tiffany ♥
+
       </p>
 
     </div>
+
+
+    <!-- =========================
+         AMONG SHRUBS
+    ========================= -->
+
+    <div class="song-section">
+
+      <div class="song-label">
+        ★ ONE LAST THING ★
+      </div>
+
+
+      <h2>
+        FOR THE MEMORIES
+      </h2>
+
+
+      <p>
+        A little song that reminds me of you.
+      </p>
+
+
+      <video
+        id="birthdayVideo"
+        class="birthday-video"
+        controls
+        playsinline>
+
+        <source
+          src="Untitled.m4v"
+          type="video/mp4">
+
+        Your browser does not support this video.
+
+      </video>
+
+    </div>
+
 
     <button
       class="restart"
@@ -2372,9 +2339,9 @@ button {
 </section>
 
 
-<!-- =====================================================
+<!-- =========================
      POPUP
-===================================================== -->
+========================= -->
 
 <div id="popup">
 
@@ -2399,27 +2366,17 @@ button {
 
 <script>
 
-/* =====================================================
-   GAME VARIABLES
-===================================================== */
-
 let rings = 0;
 let cards = 0;
-
 let homeRuns = 0;
-let strikes = 0;
-
-let penguinsCaught = 0;
+let fish = 0;
 
 let ballMoving = false;
-let ballTimer = null;
-
-let baseballGameStarted = false;
 
 
-/* =====================================================
+/* =========================
    SCREEN CHANGE
-===================================================== */
+========================= */
 
 function changeScreen(id) {
 
@@ -2432,13 +2389,17 @@ function changeScreen(id) {
 
   transition.classList.add("go");
 
+
   setTimeout(() => {
 
     document
       .querySelectorAll(".screen")
       .forEach(screen => {
+
         screen.classList.remove("active");
+
       });
+
 
     document
       .getElementById(id)
@@ -2449,9 +2410,9 @@ function changeScreen(id) {
 }
 
 
-/* =====================================================
-   START GAME
-===================================================== */
+/* =========================
+   START
+========================= */
 
 function startGame() {
 
@@ -2459,13 +2420,16 @@ function startGame() {
     .getElementById("startButton")
     .style.display = "none";
 
+
   document
     .getElementById("sprayCan")
     .classList.add("animate");
 
+
   document
     .getElementById("sprayCloud")
     .classList.add("active");
+
 
   setTimeout(() => {
 
@@ -2475,6 +2439,7 @@ function startGame() {
 
   }, 650);
 
+
   setTimeout(() => {
 
     document
@@ -2483,9 +2448,11 @@ function startGame() {
 
   }, 1500);
 
+
   setTimeout(() => {
 
     changeScreen("gameWorld");
+
 
     setTimeout(() => {
 
@@ -2500,9 +2467,9 @@ function startGame() {
 }
 
 
-/* =====================================================
+/* =========================
    RINGS
-===================================================== */
+========================= */
 
 function collectRing(ring) {
 
@@ -2521,9 +2488,9 @@ function collectRing(ring) {
 }
 
 
-/* =====================================================
+/* =========================
    CARDS
-===================================================== */
+========================= */
 
 function collectCard(card) {
 
@@ -2537,13 +2504,16 @@ function collectCard(card) {
     .getElementById("cardCount")
     .textContent = cards;
 
+
   card.classList.add("collected");
+
 
   setTimeout(() => {
 
     card.style.display = "none";
 
   }, 750);
+
 
   if (cards === 4) {
 
@@ -2560,9 +2530,9 @@ function collectCard(card) {
 }
 
 
-/* =====================================================
-   NEXT LEVEL
-===================================================== */
+/* =========================
+   LEVEL 2
+========================= */
 
 function nextLevel() {
 
@@ -2577,50 +2547,32 @@ function nextLevel() {
 
   }
 
+
   changeScreen("baseballWorld");
+
 
   setTimeout(() => {
 
-    resetBaseball();
-
     startPitch();
 
-  }, 1000);
+  }, 900);
 
 }
 
 
-/* =====================================================
-   BASEBALL GAME
-===================================================== */
-
-function resetBaseball() {
-
-  homeRuns = 0;
-  strikes = 0;
-
-  document
-    .getElementById("homeRuns")
-    .textContent = homeRuns;
-
-  document
-    .getElementById("strikes")
-    .textContent = strikes;
-
-  baseballGameStarted = true;
-}
-
+/* =========================
+   BASEBALL
+========================= */
 
 function startPitch() {
-
-  if (!baseballGameStarted) return;
 
   const ball =
     document.getElementById("baseballBall");
 
-  ball.classList.remove("pitch");
 
   ball.style.display = "block";
+
+  ball.classList.remove("pitch");
 
   void ball.offsetWidth;
 
@@ -2628,17 +2580,20 @@ function startPitch() {
 
   ballMoving = true;
 
-  clearTimeout(ballTimer);
 
-  ballTimer = setTimeout(() => {
+  setTimeout(() => {
 
-    if (!ballMoving) return;
+    if (ballMoving) {
 
-    ballMoving = false;
+      ballMoving = false;
 
-    missPitch();
+      ball.style.display = "none";
 
-  }, 1800);
+      startPitch();
+
+    }
+
+  }, 1350);
 
 }
 
@@ -2647,76 +2602,62 @@ function swing() {
 
   if (!ballMoving) return;
 
+
   const ball =
     document.getElementById("baseballBall");
 
-  const ballRect =
+
+  const rect =
     ball.getBoundingClientRect();
-
-  const zone =
-    document.getElementById("swingZone");
-
-  const zoneRect =
-    zone.getBoundingClientRect();
-
-  const ballCenter =
-    ballRect.left + ballRect.width / 2;
-
-  const zoneLeft =
-    zoneRect.left;
-
-  const zoneRight =
-    zoneRect.right;
 
 
   /*
-     THE BALL HAS TO ACTUALLY BE
-     INSIDE THE BATTER'S ZONE.
+    The ball is hit when it reaches
+    the left side of the screen.
   */
 
-  if (
-    ballCenter >= zoneLeft - 25 &&
-    ballCenter <= zoneRight + 25
-  ) {
+  if (rect.left < window.innerWidth * .42) {
 
     ballMoving = false;
 
-    clearTimeout(ballTimer);
-
-    ball.classList.remove("pitch");
-
     ball.style.display = "none";
 
+
     homeRuns++;
+
 
     document
       .getElementById("homeRuns")
       .textContent = homeRuns;
 
-    showBaseballMessage(
-      "💥 HOME RUN!",
-      true
+
+    showPopup(
+      "HOME RUN!",
+      `
+      DARBY CRUSHED IT! ⚾
+      <br><br>
+      HOME RUNS: ${homeRuns}/3
+      `
     );
+
 
     if (homeRuns >= 3) {
 
-      baseballGameStarted = false;
-
       setTimeout(() => {
 
-        changeScreen("penguinWorld");
+        closePopup();
 
-        setTimeout(() => {
-
-          setupPenguinGame();
-
-        }, 700);
+        changeScreen("arcadeWorld");
 
       }, 1400);
 
-    } else {
+    }
+
+    else {
 
       setTimeout(() => {
+
+        closePopup();
 
         startPitch();
 
@@ -2724,300 +2665,123 @@ function swing() {
 
     }
 
-  } else {
+  }
 
-    ballMoving = false;
+}
 
-    clearTimeout(ballTimer);
 
-    ball.style.display = "none";
+/* =========================
+   ARCTIC — FISH
+========================= */
 
-    strikes++;
+function catchFish(fishElement) {
+
+  if (fishElement.dataset.caught) return;
+
+  fishElement.dataset.caught = true;
+
+  fishElement.style.display = "none";
+
+  fish++;
+
+
+  document
+    .getElementById("fishCount")
+    .textContent = fish;
+
+
+  if (fish === 1) {
 
     document
-      .getElementById("strikes")
-      .textContent = strikes;
+      .getElementById("catchMessage")
+      .textContent =
+      "ONE FISH! THE PENGUIN IS GETTING INTERESTED...";
 
-    showBaseballMessage(
-      "❌ STRIKE!",
-      false
+  }
+
+
+  if (fish === 2) {
+
+    document
+      .getElementById("catchMessage")
+      .textContent =
+      "THE PENGUIN IS HUNGRY! CATCH HIM! 🐧";
+
+    document
+      .getElementById("penguin")
+      .style.cursor = "pointer";
+
+  }
+
+}
+
+
+/* =========================
+   CATCH PENGUIN
+========================= */
+
+function catchPenguin() {
+
+  if (fish < 2) {
+
+    showPopup(
+      "TOO EARLY!",
+      "The penguin wants fish first. Catch both fish!"
     );
-
-    if (strikes >= 3) {
-
-      setTimeout(() => {
-
-        strikes = 0;
-
-        document
-          .getElementById("strikes")
-          .textContent = strikes;
-
-        showBaseballMessage(
-          "NEW INNING!",
-          false
-        );
-
-        setTimeout(() => {
-
-          startPitch();
-
-        }, 900);
-
-      }, 800);
-
-    } else {
-
-      setTimeout(() => {
-
-        startPitch();
-
-      }, 900);
-
-    }
-
-  }
-
-}
-
-
-function missPitch() {
-
-  const ball =
-    document.getElementById("baseballBall");
-
-  ball.style.display = "none";
-
-  strikes++;
-
-  document
-    .getElementById("strikes")
-    .textContent = strikes;
-
-  showBaseballMessage(
-    "⚾ TOO LATE!",
-    false
-  );
-
-  if (strikes >= 3) {
-
-    strikes = 0;
-
-    document
-      .getElementById("strikes")
-      .textContent = strikes;
-
-    setTimeout(() => {
-
-      startPitch();
-
-    }, 1000);
-
-  } else {
-
-    setTimeout(() => {
-
-      startPitch();
-
-    }, 900);
-
-  }
-
-}
-
-
-function showBaseballMessage(text, good) {
-
-  const message =
-    document.getElementById("pitchMessage");
-
-  const zone =
-    document.getElementById("swingZone");
-
-  message.textContent = text;
-
-  message.classList.remove("show");
-
-  zone.classList.remove("good");
-
-  void message.offsetWidth;
-
-  message.classList.add("show");
-
-  if (good) {
-
-    zone.classList.add("good");
-
-    setTimeout(() => {
-
-      zone.classList.remove("good");
-
-    }, 700);
-
-  }
-
-}
-
-
-/* =====================================================
-   PENGUIN GAME
-===================================================== */
-
-function setupPenguinGame() {
-
-  penguinsCaught = 0;
-
-  document
-    .getElementById("penguinCount")
-    .textContent = "0";
-
-  const penguins =
-    document.querySelectorAll(".penguin");
-
-  penguins.forEach((penguin, index) => {
-
-    penguin.classList.remove("caught");
-
-    penguin.style.display = "block";
-
-    penguin.dataset.caught = "";
-
-    movePenguin(penguin);
-
-  });
-
-}
-
-
-function movePenguin(penguin) {
-
-  if (penguin.dataset.caught) return;
-
-  const field =
-    document.querySelector(".ice-field");
-
-  const fieldWidth =
-    field.clientWidth;
-
-  const fieldHeight =
-    field.clientHeight;
-
-  const maxX =
-    Math.max(20, fieldWidth - 100);
-
-  const maxY =
-    Math.max(20, fieldHeight - 115);
-
-  const x =
-    20 + Math.random() * (maxX - 20);
-
-  const y =
-    20 + Math.random() * (maxY - 20);
-
-  penguin.style.left = x + "px";
-  penguin.style.top = y + "px";
-
-  penguin.style.transform =
-    "rotate(" +
-    ((Math.random() * 12) - 6) +
-    "deg)";
-
-}
-
-
-function catchPenguin(penguin) {
-
-  if (penguin.dataset.caught) return;
-
-  penguin.dataset.caught = true;
-
-  penguinsCaught++;
-
-  document
-    .getElementById("penguinCount")
-    .textContent = penguinsCaught;
-
-  penguin.classList.add("caught");
-
-  showPenguinMessage(
-    penguinsCaught === 5
-      ? "🐧 ALL PENGUINS CAUGHT!"
-      : "🐧 GOT ONE!"
-  );
-
-  if (penguinsCaught >= 5) {
-
-    setTimeout(() => {
-
-      changeScreen("finalWorld");
-
-    }, 1200);
 
     return;
 
   }
 
+
+  const penguin =
+    document.getElementById("penguin");
+
+
+  penguin.style.transition =
+    "2s ease-in-out";
+
+  penguin.style.left =
+    "85%";
+
+  penguin.style.transform =
+    "translateX(-50%) scale(.6)";
+
+
+  document
+    .getElementById("catchMessage")
+    .textContent =
+    "YOU CAUGHT THE PENGUIN! 🐧❄️";
+
+
   setTimeout(() => {
 
-    const remaining =
-      document.querySelectorAll(
-        '.penguin:not([data-caught="true"])'
-      );
-
-    if (remaining.length) {
-
-      movePenguin(
-        remaining[
-          Math.floor(
-            Math.random() * remaining.length
-          )
-        ]
-      );
-
-    }
-
-  }, 300);
-
-}
+    showPopup(
+      "PENGUIN CAUGHT!",
+      `
+      You found the final memory.
+      <br><br>
+      LEVEL 21 COMPLETE.
+      `
+    );
 
 
-function showPenguinMessage(text) {
+    setTimeout(() => {
 
-  const message =
-    document.getElementById("penguinMessage");
+      closePopup();
 
-  message.textContent = text;
+      changeScreen("finalWorld");
 
-  message.animate(
-    [
-      {
-        transform:
-          "translateX(-50%) scale(.7)",
-        opacity: 0
-      },
-      {
-        transform:
-          "translateX(-50%) scale(1.1)",
-        opacity: 1
-      },
-      {
-        transform:
-          "translateX(-50%) scale(1)",
-        opacity: 1
-      }
-    ],
-    {
-      duration: 650,
-      easing: "ease-out"
-    }
-  );
+    }, 1800);
+
+  }, 1200);
 
 }
 
 
-/* =====================================================
+/* =========================
    POPUP
-===================================================== */
+========================= */
 
 function showPopup(title, content) {
 
@@ -3025,9 +2789,11 @@ function showPopup(title, content) {
     .getElementById("popupTitle")
     .textContent = title;
 
+
   document
     .getElementById("popupContent")
     .innerHTML = content;
+
 
   document
     .getElementById("popup")
@@ -3043,32 +2809,6 @@ function closePopup() {
     .style.display = "none";
 
 }
-
-
-/* =====================================================
-   KEYBOARD SUPPORT
-   SPACE = SWING
-===================================================== */
-
-document.addEventListener(
-  "keydown",
-  function(event) {
-
-    if (
-      event.code === "Space" &&
-      document
-        .getElementById("baseballWorld")
-        .classList.contains("active")
-    ) {
-
-      event.preventDefault();
-
-      swing();
-
-    }
-
-  }
-);
 
 </script>
 
