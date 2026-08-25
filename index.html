@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DARBY // LEVEL 21</title>
 
 <style>
@@ -12,12 +12,13 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background: #050505;
   font-family: Arial, Helvetica, sans-serif;
-  background: #111;
 }
 
 button {
@@ -25,163 +26,449 @@ button {
   cursor: pointer;
 }
 
-/* =====================================================
-   GLOBAL
-===================================================== */
-
 .screen {
   position: fixed;
   inset: 0;
+  display: none;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  display: none;
 }
 
 .screen.active {
   display: flex;
 }
 
-.hidden {
-  display: none !important;
-}
+/* =========================================================
+   TRANSITION
+========================================================= */
 
-.pixel {
-  font-family: "Courier New", monospace;
-  font-weight: 900;
-  letter-spacing: 2px;
-}
-
-.transition {
+#transition {
   position: fixed;
   inset: 0;
-  z-index: 999;
-  background: #000;
-  transform: scaleX(0);
-  transform-origin: left;
+  z-index: 9999;
+  background: #050505;
+  transform: translateX(-100%);
   pointer-events: none;
 }
 
-.transition.go {
-  animation: wipe 1s ease-in-out;
+#transition.go {
+  animation: screenWipe 1s ease-in-out;
 }
 
-@keyframes wipe {
-  0% { transform: scaleX(0); }
-  45% { transform: scaleX(1); }
-  55% { transform: scaleX(1); }
-  100% { transform: scaleX(0); transform-origin: right; }
+@keyframes screenWipe {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  45% {
+    transform: translateX(0);
+  }
+
+  55% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
 }
 
-/* =====================================================
-   01 — BRICK WALL
-===================================================== */
+/* =========================================================
+   INTRO — HYPER REALISTIC BRICK WALL
+========================================================= */
 
 #intro {
   align-items: center;
   justify-content: center;
 
   background:
-    linear-gradient(rgba(0,0,0,.12), rgba(0,0,0,.35)),
-    repeating-linear-gradient(
-      0deg,
-      #8e392c 0px,
-      #8e392c 52px,
-      #4f211c 53px,
-      #4f211c 59px
+    radial-gradient(
+      ellipse at 50% 40%,
+      rgba(255,255,255,.08),
+      transparent 45%
     ),
-    repeating-linear-gradient(
+    linear-gradient(
       90deg,
-      transparent 0px,
-      transparent 105px,
-      #4f211c 106px,
-      #4f211c 112px
-    );
-
-  background-blend-mode: multiply;
+      rgba(0,0,0,.45),
+      transparent 20%,
+      transparent 80%,
+      rgba(0,0,0,.55)
+    ),
+    #61261f;
 }
 
+/* Main brick texture */
+
 .brick-wall {
+  position: absolute;
+  inset: -20px;
+
+  background:
+    /* mortar */
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 58px,
+      rgba(22,11,9,.85) 59px 65px
+    ),
+
+    /* brick offsets */
+    repeating-linear-gradient(
+      90deg,
+      rgba(0,0,0,.22) 0 3px,
+      transparent 3px 120px
+    ),
+
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 60px,
+      rgba(255,255,255,.035) 61px 65px,
+      transparent 66px 120px
+    ),
+
+    /* actual brick color variation */
+    repeating-linear-gradient(
+      170deg,
+      #6e2922 0 13px,
+      #7e3027 14px 29px,
+      #64251f 30px 43px,
+      #81342a 44px 59px
+    );
+
+  transform: perspective(900px) rotateX(.5deg);
+
+  filter:
+    contrast(1.25)
+    saturate(.85);
+
+  box-shadow:
+    inset 0 0 160px rgba(0,0,0,.8);
+}
+
+/* Individual brick highlights/shadows */
+
+.brick-wall::before {
+  content: "";
   position: absolute;
   inset: 0;
 
   background:
     repeating-linear-gradient(
-      0deg,
-      transparent 0 50px,
-      rgba(35,10,8,.7) 51px 57px
-    ),
-    repeating-linear-gradient(
       90deg,
-      transparent 0 108px,
-      rgba(35,10,8,.65) 109px 115px
+      transparent 0 118px,
+      rgba(0,0,0,.5) 119px 123px
     );
+
+  opacity: .7;
 }
 
-.wall-light {
+/* gritty surface */
+
+.brick-wall::after {
+  content: "";
   position: absolute;
   inset: 0;
 
   background:
     radial-gradient(
-      circle at 50% 42%,
-      rgba(255,180,120,.22),
+      circle at 20% 30%,
+      rgba(255,255,255,.07) 0 1px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 70% 60%,
+      rgba(0,0,0,.2) 0 2px,
+      transparent 3px
+    );
+
+  background-size: 13px 17px, 19px 23px;
+
+  opacity: .45;
+
+  mix-blend-mode: overlay;
+}
+
+/* realistic vignette */
+
+.wall-vignette {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 35%,
+      rgba(0,0,0,.72) 100%
+    );
+
+  z-index: 2;
+}
+
+/* warm light across wall */
+
+.wall-light {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 38%,
+      rgba(255,205,150,.18),
       transparent 55%
     );
 }
 
+/* =========================================================
+   SPRAY CAN
+========================================================= */
+
+.spray-can {
+  position: absolute;
+  z-index: 20;
+
+  left: -100px;
+  top: 47%;
+
+  width: 45px;
+  height: 92px;
+
+  border-radius: 7px 7px 12px 12px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #171717,
+      #e6e6e6 35%,
+      #777 55%,
+      #111
+    );
+
+  box-shadow:
+    6px 8px 12px rgba(0,0,0,.55);
+
+  transform: rotate(-17deg);
+}
+
+.spray-can::after {
+  content: "PAINT";
+  position: absolute;
+
+  left: 5px;
+  top: 35px;
+
+  font-size: 7px;
+  font-weight: 900;
+
+  transform: rotate(90deg);
+
+  color: #222;
+}
+
+.spray-cap {
+  position: absolute;
+
+  width: 33px;
+  height: 19px;
+
+  top: -14px;
+  left: 6px;
+
+  border-radius: 5px 5px 2px 2px;
+
+  background: #111;
+}
+
+.spray-nozzle {
+  position: absolute;
+
+  width: 17px;
+  height: 8px;
+
+  top: -18px;
+  right: -3px;
+
+  background: #ddd;
+}
+
+.spray-can.animate {
+  animation: sprayAcross 2.4s cubic-bezier(.15,.8,.2,1) forwards;
+}
+
+@keyframes sprayAcross {
+
+  0% {
+    left: -100px;
+    top: 48%;
+  }
+
+  35% {
+    left: 28%;
+    top: 43%;
+  }
+
+  65% {
+    left: 62%;
+    top: 47%;
+  }
+
+  100% {
+    left: 110%;
+    top: 49%;
+  }
+
+}
+
+/* =========================================================
+   SPRAY PAINT
+========================================================= */
+
+.paint {
+  position: absolute;
+  z-index: 8;
+
+  width: 500px;
+  height: 180px;
+
+  left: 50%;
+  top: 43%;
+
+  transform: translate(-50%,-50%) scale(.1);
+
+  opacity: 0;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(15,105,255,.95) 0%,
+      rgba(15,105,255,.65) 25%,
+      rgba(226,30,80,.5) 50%,
+      transparent 72%
+    );
+
+  filter: blur(11px);
+}
+
+.paint.active {
+  animation: paintReveal 2.2s ease forwards;
+}
+
+@keyframes paintReveal {
+
+  0% {
+    opacity: 0;
+    transform:
+      translate(-50%,-50%)
+      scale(.1);
+  }
+
+  25% {
+    opacity: .9;
+  }
+
+  65% {
+    opacity: .75;
+    transform:
+      translate(-50%,-50%)
+      scale(1.15);
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate(-50%,-50%)
+      scale(1.5);
+  }
+
+}
+
+/* =========================================================
+   GRAFFITI
+========================================================= */
+
 .intro-content {
   position: relative;
-  z-index: 5;
-  width: min(900px, 90vw);
+  z-index: 15;
+
+  width: 90vw;
+
   text-align: center;
 }
 
-.intro-small {
-  color: #ddd;
-  font-size: 13px;
-  letter-spacing: 6px;
-  margin-bottom: 30px;
+.intro-label {
+  color: #eee;
+
+  font-family: monospace;
+
+  font-size: 12px;
+
+  letter-spacing: 7px;
+
+  margin-bottom: 25px;
+
+  text-shadow:
+    2px 2px 5px #000;
 }
 
-.graffiti-title {
-  font-family: Impact, "Arial Black", sans-serif;
-  font-size: clamp(80px, 18vw, 220px);
+.graffiti {
+  font-family:
+    Impact,
+    "Arial Black",
+    sans-serif;
+
+  font-size:
+    clamp(90px, 18vw, 230px);
+
   line-height: .8;
+
+  font-style: italic;
+
+  transform:
+    rotate(-5deg)
+    scale(.2);
+
+  opacity: 0;
 
   background:
     linear-gradient(
       110deg,
-      #087cff 0%,
-      #354eff 38%,
-      #a82dff 65%,
-      #ff243d 100%
+      #0c8cff,
+      #4d4cff 35%,
+      #a52bff 62%,
+      #ff2449
     );
 
   -webkit-background-clip: text;
   background-clip: text;
+
   color: transparent;
 
-  -webkit-text-stroke: 5px #111;
+  -webkit-text-stroke:
+    5px #111;
 
   text-shadow:
-    9px 9px 0 #111,
-    15px 15px 0 rgba(0,0,0,.4);
-
-  transform: rotate(-4deg);
-
-  opacity: 0;
+    8px 8px 0 #111,
+    14px 14px 0 rgba(0,0,0,.5);
 }
 
-.graffiti-title.reveal {
-  animation: graffitiReveal 1.4s cubic-bezier(.1,.7,.2,1) forwards;
+.graffiti.reveal {
+  animation:
+    graffitiIn
+    1.3s
+    cubic-bezier(.1,.8,.2,1)
+    forwards;
 }
 
-@keyframes graffitiReveal {
+@keyframes graffitiIn {
+
   0% {
     opacity: 0;
-    transform: translateX(-120px) rotate(-12deg) scale(.5);
-    filter: blur(10px);
+    transform:
+      translateX(-180px)
+      rotate(-14deg)
+      scale(.2);
+
+    filter: blur(12px);
   }
 
   60% {
@@ -190,499 +477,632 @@ button {
 
   100% {
     opacity: 1;
-    transform: translateX(0) rotate(-4deg) scale(1);
+
+    transform:
+      translateX(0)
+      rotate(-5deg)
+      scale(1);
+
     filter: blur(0);
   }
+
 }
 
-.level21 {
-  margin-top: 35px;
+.level-text {
+  margin-top: 40px;
+
   color: white;
-  font-size: clamp(25px, 5vw, 52px);
-  font-weight: 900;
-  letter-spacing: 7px;
-  text-shadow: 4px 4px #111;
+
+  font-family: monospace;
+
+  font-size:
+    clamp(24px, 5vw, 55px);
+
+  letter-spacing: 6px;
+
   opacity: 0;
+
+  text-shadow:
+    3px 3px #000;
 }
 
-.level21.show {
-  animation: fadeUp .7s forwards;
+.level-text.show {
+  animation:
+    levelAppear
+    .7s
+    ease
+    forwards;
 }
 
-@keyframes fadeUp {
+@keyframes levelAppear {
+
   from {
     opacity: 0;
     transform: translateY(25px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
+
 }
 
-/* spray can */
+.start-button {
+  margin-top: 35px;
 
-.spray-can {
-  position: absolute;
-  z-index: 20;
-
-  width: 42px;
-  height: 85px;
-
-  left: -80px;
-  top: 47%;
-
-  border-radius: 8px 8px 12px 12px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #222,
-      #eee 45%,
-      #555 70%,
-      #111
-    );
-
-  box-shadow: 4px 6px 0 rgba(0,0,0,.45);
-
-  transform: rotate(-18deg);
-}
-
-.spray-cap {
-  position: absolute;
-  top: -13px;
-  left: 5px;
-  width: 32px;
-  height: 18px;
-  border-radius: 5px 5px 2px 2px;
-  background: #111;
-}
-
-.spray-nozzle {
-  position: absolute;
-  top: -18px;
-  right: -4px;
-  width: 17px;
-  height: 9px;
-  background: #ddd;
-}
-
-.spray-can.spray {
-  animation: sprayAcross 2.2s ease-in-out forwards;
-}
-
-@keyframes sprayAcross {
-  0% {
-    left: -80px;
-    top: 48%;
-  }
-
-  50% {
-    left: 45%;
-    top: 42%;
-  }
-
-  100% {
-    left: 110%;
-    top: 50%;
-  }
-}
-
-.paint-cloud {
-  position: absolute;
-  z-index: 10;
-
-  width: 240px;
-  height: 100px;
-
-  left: 25%;
-  top: 42%;
-
-  opacity: 0;
-
-  background:
-    radial-gradient(
-      ellipse,
-      rgba(35,105,255,.8),
-      rgba(255,35,70,.35),
-      transparent 70%
-    );
-
-  filter: blur(12px);
-}
-
-.paint-cloud.show {
-  animation: paint 2.2s ease forwards;
-}
-
-@keyframes paint {
-  0% { opacity: 0; transform: scale(.3); }
-  40% { opacity: .8; transform: scale(1); }
-  100% { opacity: 0; transform: scale(1.8); }
-}
-
-.start-intro {
-  margin: 45px auto 0;
-
-  padding: 16px 42px;
+  padding: 15px 42px;
 
   background: #111;
+
   color: white;
 
-  border: 3px solid white;
+  border:
+    3px solid white;
 
-  font-size: 16px;
+  box-shadow:
+    6px 6px #087cff;
+
+  font-family: monospace;
+
   font-weight: 900;
-  letter-spacing: 4px;
 
-  box-shadow: 6px 6px #087cff;
+  letter-spacing: 4px;
 
   transition: .2s;
 }
 
-.start-intro:hover {
-  transform: translate(-3px,-3px);
-  box-shadow: 10px 10px #ff243d;
+.start-button:hover {
+  transform:
+    translate(-3px,-3px);
+
+  box-shadow:
+    10px 10px #ed2939;
 }
 
-/* =====================================================
-   HUD
-===================================================== */
+/* =========================================================
+   GAME HUD
+========================================================= */
 
 .hud {
   position: absolute;
-  z-index: 50;
+
+  z-index: 100;
+
   top: 15px;
   left: 18px;
   right: 18px;
 
   display: flex;
-  justify-content: space-between;
+
+  justify-content:
+    space-between;
 
   color: white;
+
+  font-family: monospace;
+
   font-size: 14px;
-  text-shadow: 2px 2px #000;
+
+  font-weight: 900;
+
+  text-shadow:
+    2px 2px #000;
+
   pointer-events: none;
 }
 
 .hud-right {
   display: flex;
-  gap: 22px;
+  gap: 25px;
 }
 
-/* =====================================================
-   02 — SPEED WORLD
-===================================================== */
+/* =========================================================
+   SONIC-STYLE LEVEL
+========================================================= */
 
-#speedWorld {
+#gameWorld {
+
   background:
     linear-gradient(
-      #51caff 0%,
-      #b6efff 54%,
-      #73d35b 55%,
-      #4aa43b 100%
+      #55caff 0%,
+      #c3f1ff 52%,
+      #72d15b 53%,
+      #4ca93b 100%
     );
+
 }
 
 .sun {
   position: absolute;
-  width: 110px;
-  height: 110px;
+
+  width: 120px;
+  height: 120px;
+
+  top: 10%;
+  right: 9%;
+
   border-radius: 50%;
-  background: #ffe95a;
-  top: 12%;
-  right: 10%;
-  box-shadow: 0 0 45px #fff29a;
-}
-
-.palm {
-  position: absolute;
-  bottom: 20%;
-  width: 25px;
-  height: 180px;
-  background: #74452a;
-  border-radius: 20px;
-  z-index: 3;
-}
-
-.palm::before,
-.palm::after {
-  content: "";
-  position: absolute;
-  width: 130px;
-  height: 50px;
-  border-radius: 100%;
-  background: #159447;
-}
-
-.palm::before {
-  left: -60px;
-  top: -30px;
-  transform: rotate(-20deg);
-}
-
-.palm::after {
-  left: -45px;
-  top: -55px;
-  transform: rotate(25deg);
-}
-
-.palm1 { left: 7%; transform: rotate(-5deg); }
-.palm2 { right: 7%; transform: rotate(5deg); }
-
-.speed-ground {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 22%;
-  z-index: 4;
-
-  border-top: 9px solid #f3d34b;
 
   background:
-    repeating-conic-gradient(
-      #98552d 0 25%,
-      #723e22 0 50%
-    )
-    0 / 65px 65px;
+    radial-gradient(
+      circle,
+      #fff9a4,
+      #ffe23a
+    );
+
+  box-shadow:
+    0 0 60px rgba(255,236,80,.7);
 }
+
+/* ground */
+
+.ground {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 21%;
+
+  border-top:
+    9px solid #e8ca42;
+
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #98572f 0 32px,
+      #713c24 32px 64px
+    );
+
+  z-index: 20;
+}
+
+/* platforms */
 
 .platform {
   position: absolute;
-  z-index: 8;
 
-  height: 26px;
+  z-index: 30;
 
-  background: #d5b337;
-  border-top: 8px solid #4fbd48;
+  height: 25px;
 
-  border-radius: 4px;
+  background: #d6b63c;
+
+  border-top:
+    8px solid #3eae4a;
+
+  border-radius: 3px;
 }
 
-.platform.a {
-  width: 190px;
-  left: 14%;
+.platform1 {
+  width: 180px;
+
+  left: 10%;
   bottom: 34%;
 }
 
-.platform.b {
-  width: 170px;
-  left: 42%;
+.platform2 {
+  width: 180px;
+
+  left: 39%;
   bottom: 48%;
 }
 
-.platform.c {
-  width: 190px;
-  right: 12%;
-  bottom: 38%;
+.platform3 {
+  width: 170px;
+
+  right: 10%;
+  bottom: 36%;
 }
 
-/* original speed character */
+/* =========================================================
+   GAME CHARACTER
+========================================================= */
 
-.speed-character {
+.character {
   position: absolute;
-  z-index: 20;
+
+  z-index: 50;
 
   left: -120px;
-  bottom: 26%;
+  bottom: 25%;
 
-  width: 82px;
-  height: 82px;
+  width: 80px;
+  height: 80px;
 
   border-radius: 50%;
 
   background:
-    radial-gradient(circle at 66% 31%, white 0 6%, transparent 7%),
+    radial-gradient(
+      circle at 65% 30%,
+      white 0 6%,
+      transparent 7%
+    ),
     #087cff;
 
   box-shadow:
-    inset -13px -13px #034aa4,
-    0 8px rgba(0,0,0,.25);
+    inset -13px -13px #034a9f,
+    0 8px 0 rgba(0,0,0,.25);
 
   display: none;
 }
 
-.speed-character::before {
+.character::before {
   content: "";
 
   position: absolute;
-  left: -48px;
-  top: 3px;
 
-  border-top: 25px solid transparent;
-  border-bottom: 25px solid transparent;
-  border-right: 65px solid #087cff;
+  left: -52px;
+  top: 5px;
 
-  transform: rotate(-12deg);
+  border-top:
+    25px solid transparent;
+
+  border-bottom:
+    25px solid transparent;
+
+  border-right:
+    68px solid #087cff;
+
+  transform:
+    rotate(-12deg);
 }
 
-.speed-character::after {
+.character::after {
   content: "";
 
   position: absolute;
-  bottom: -12px;
-  right: -18px;
 
-  width: 48px;
-  height: 17px;
+  right: -20px;
+  bottom: -10px;
 
-  background: #e73535;
+  width: 50px;
+  height: 18px;
+
   border-radius: 50%;
+
+  background: #ed2939;
 }
 
-.speed-character.roll {
+.character.roll {
+
   display: block;
+
   animation:
-    characterRoll 2s cubic-bezier(.1,.8,.2,1) forwards,
-    characterSpin 2s linear forwards;
+    rollAcross
+    2.2s
+    cubic-bezier(.1,.8,.2,1)
+    forwards;
+
 }
 
-@keyframes characterRoll {
+@keyframes rollAcross {
+
   from {
     left: -120px;
+    transform: rotate(0);
   }
+
   to {
     left: 110%;
-  }
-}
-
-@keyframes characterSpin {
-  to {
     transform: rotate(1080deg);
   }
+
 }
 
-/* rings */
+/* =========================================================
+   RINGS
+========================================================= */
 
 .ring {
+
   position: absolute;
-  z-index: 15;
+
+  z-index: 60;
 
   width: 42px;
   height: 42px;
 
-  border: 7px solid #ffd21a;
+  border:
+    7px solid #ffd21a;
+
   border-radius: 50%;
 
   box-shadow:
-    inset 0 0 0 2px #fff28a,
-    0 4px #a56b00;
+    inset 0 0 0 2px #fff5a0,
+    0 4px #9b6700;
 
-  animation: ringSpin .7s infinite alternate;
   cursor: pointer;
+
+  animation:
+    ringSpin
+    .65s
+    infinite
+    alternate;
+
 }
 
 @keyframes ringSpin {
-  from { transform: scaleX(1); }
-  to { transform: scaleX(.28); }
+
+  from {
+    transform: scaleX(1);
+  }
+
+  to {
+    transform: scaleX(.25);
+  }
+
 }
 
-.ring:hover {
-  filter: brightness(1.3);
+.ring1 {
+  left: 23%;
+  top: 34%;
 }
 
-.ring.r1 { left: 28%; top: 38%; }
-.ring.r2 { left: 33%; top: 30%; }
-.ring.r3 { left: 38%; top: 38%; }
-.ring.r4 { right: 30%; top: 30%; }
-.ring.r5 { right: 24%; top: 38%; }
+.ring2 {
+  left: 29%;
+  top: 27%;
+}
 
-/* world objects */
+.ring3 {
+  left: 35%;
+  top: 34%;
+}
 
-.world-object {
+.ring4 {
+  right: 28%;
+  top: 30%;
+}
+
+.ring5 {
+  right: 22%;
+  top: 37%;
+}
+
+/* =========================================================
+   COLLECTIBLE CARDS
+========================================================= */
+
+.card {
+
   position: absolute;
-  z-index: 20;
-  cursor: pointer;
-  transition: .2s;
-}
 
-.world-object:hover {
-  transform: scale(1.12);
-}
+  z-index: 80;
 
-.memory-token {
-  left: 8%;
-  bottom: 27%;
+  width: 115px;
 
-  width: 90px;
-  height: 70px;
-
-  background: #fff;
-  border: 5px solid #222;
-  transform: rotate(-6deg);
-
-  box-shadow: 6px 6px rgba(0,0,0,.3);
-}
-
-.memory-token::after {
-  content: "MEMORY";
-  position: absolute;
-  left: 13px;
-  bottom: 5px;
-  color: #111;
-  font: 700 9px Arial;
-}
-
-.soccer-token {
-  right: 8%;
-  bottom: 26%;
-
-  width: 70px;
-  height: 70px;
-
-  border-radius: 50%;
+  padding:
+    7px 7px 24px;
 
   background:
-    radial-gradient(circle, #111 0 13%, transparent 14%),
-    white;
+    linear-gradient(
+      145deg,
+      #f6d950,
+      #df9816
+    );
 
-  border: 3px solid #222;
-}
+  border:
+    4px solid #fff2a0;
 
-.checkpoint {
-  right: 45%;
-  bottom: 22%;
+  border-radius: 8px;
 
-  width: 100px;
-  padding: 10px;
-
-  background: #f4d449;
-  border: 4px solid #173f86;
-
-  text-align: center;
-  font-size: 11px;
-  font-weight: 900;
+  box-shadow:
+    5px 6px 0 #563506,
+    0 0 18px rgba(255,211,40,.5);
 
   cursor: pointer;
+
+  transition:
+    transform .25s,
+    filter .25s;
 }
 
-/* =====================================================
-   POPUP
-===================================================== */
+.card img {
 
-#popup {
-  position: absolute;
-  inset: 0;
+  width: 100%;
+  height: 88px;
+
+  display: block;
+
+  object-fit: cover;
+
+  border:
+    3px solid white;
+
+}
+
+.card-name {
+
+  margin-top: 5px;
+
+  text-align: center;
+
+  color: #111;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+  font-weight: 900;
+
+}
+
+.card:hover {
+
+  transform:
+    translateY(-10px)
+    rotate(0deg)
+    scale(1.1);
+
+  filter: brightness(1.15);
+
   z-index: 200;
 
+}
+
+.card1 {
+  left: 7%;
+  bottom: 29%;
+  transform: rotate(-8deg);
+}
+
+.card2 {
+  left: 26%;
+  bottom: 54%;
+  transform: rotate(7deg);
+}
+
+.card3 {
+  right: 26%;
+  bottom: 31%;
+  transform: rotate(-6deg);
+}
+
+.card4 {
+  right: 7%;
+  bottom: 54%;
+  transform: rotate(9deg);
+}
+
+.card.collected {
+
+  animation:
+    cardCollect
+    .65s
+    ease
+    forwards;
+
+}
+
+@keyframes cardCollect {
+
+  0% {
+    transform:
+      scale(1)
+      rotate(0);
+  }
+
+  45% {
+    transform:
+      scale(1.3)
+      rotate(0);
+  }
+
+  100% {
+    transform:
+      translateY(-100px)
+      scale(.1);
+
+    opacity: 0;
+
+  }
+
+}
+
+/* =========================================================
+   CHECKPOINT
+========================================================= */
+
+.checkpoint {
+
+  position: absolute;
+
+  z-index: 70;
+
+  right: 43%;
+  bottom: 20%;
+
+  width: 120px;
+
+  padding: 12px;
+
+  text-align: center;
+
+  font-family: monospace;
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  background: #555;
+
+  color: #aaa;
+
+  border:
+    4px solid #222;
+
+  cursor: not-allowed;
+
+  transition: .3s;
+
+}
+
+.checkpoint.unlocked {
+
+  background: #ffd21a;
+
+  color: #111;
+
+  border-color: #17418d;
+
+  cursor: pointer;
+
+  animation:
+    pulseCheckpoint
+    1s
+    infinite
+    alternate;
+
+}
+
+@keyframes pulseCheckpoint {
+
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.08);
+  }
+
+}
+
+/* =========================================================
+   POPUP
+========================================================= */
+
+#popup {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 500;
+
   display: none;
+
   align-items: center;
   justify-content: center;
 
-  background: rgba(0,0,0,.75);
+  background:
+    rgba(0,0,0,.75);
 
-  padding: 25px;
+  padding: 20px;
+
 }
 
 .popup-box {
-  width: min(700px, 94vw);
-  max-height: 90vh;
-  overflow: auto;
 
-  background: #f5f0df;
-  color: #111;
+  width:
+    min(650px, 92vw);
 
-  border: 6px solid #087cff;
+  background:
+    #f4f0df;
+
+  border:
+    6px solid #087cff;
 
   box-shadow:
     10px 10px #ed2939;
@@ -690,272 +1110,390 @@ button {
   padding: 25px;
 
   text-align: center;
+
 }
 
 .popup-box h2 {
-  font-family: Impact, "Arial Black", sans-serif;
-  font-size: 42px;
-  margin-bottom: 20px;
-}
 
-.popup-box img {
-  max-width: 100%;
-  max-height: 55vh;
-  object-fit: contain;
+  font-family:
+    Impact,
+    "Arial Black",
+    sans-serif;
+
+  font-size: 42px;
+
+  margin-bottom: 20px;
+
 }
 
 .popup-box p {
+
   font-family: Georgia, serif;
+
   font-size: 18px;
-  line-height: 1.7;
-  margin: 12px 0;
+
+  line-height: 1.6;
+
+  margin: 10px 0;
+
+}
+
+.popup-box img {
+
+  max-width: 100%;
+
+  max-height: 50vh;
+
+  object-fit: contain;
+
 }
 
 .popup-button {
-  margin-top: 20px;
-  padding: 12px 28px;
 
-  background: #087cff;
-  color: white;
+  margin-top: 18px;
+
+  padding:
+    12px 30px;
 
   border: none;
 
+  background:
+    #087cff;
+
+  color: white;
+
   font-weight: 900;
+
 }
 
-/* =====================================================
-   03 — BASEBALL
-===================================================== */
+/* =========================================================
+   BASEBALL
+========================================================= */
 
 #baseballWorld {
+
   background:
     linear-gradient(
-      #61caff 0 53%,
-      #72c95a 54% 100%
+      #63cbff 0 53%,
+      #70c957 54% 100%
     );
+
 }
 
 .baseball-title {
+
   position: absolute;
-  top: 12%;
+
+  top: 11%;
+
   left: 0;
   right: 0;
 
   text-align: center;
 
+  font-family:
+    Impact,
+    "Arial Black",
+    sans-serif;
+
+  font-size:
+    clamp(55px, 10vw, 105px);
+
   color: white;
 
-  font-family: Impact, "Arial Black", sans-serif;
-  font-size: clamp(45px, 9vw, 90px);
-
   text-shadow:
-    6px 6px #143f8c,
+    6px 6px #17448d,
     -4px -4px #ed2939;
+
 }
 
 .scoreboard {
+
   position: absolute;
-  top: 29%;
+
+  top: 30%;
   left: 50%;
-  transform: translateX(-50%);
 
-  background: #151515;
-  color: #f7df52;
+  transform:
+    translateX(-50%);
 
-  border: 6px solid #777;
+  padding:
+    14px 35px;
 
-  padding: 15px 35px;
+  background: #111;
+
+  border:
+    5px solid #777;
+
+  color: #ffe34d;
+
+  font-family: monospace;
+
+  font-weight: 900;
 
   text-align: center;
 
-  font-family: "Courier New", monospace;
-  font-weight: 900;
-
-  box-shadow: 0 8px #333;
 }
 
 .batter {
-  position: absolute;
-  bottom: 25%;
-  left: 18%;
 
-  width: 70px;
-  height: 120px;
+  position: absolute;
+
+  left: 18%;
+  bottom: 24%;
+
+  width: 80px;
+
+  height: 135px;
+
 }
 
 .batter-head {
+
   width: 55px;
   height: 55px;
+
   border-radius: 50%;
-  background: #d99970;
-  border: 4px solid #222;
+
+  background: #d7966c;
+
+  border:
+    4px solid #222;
+
 }
 
 .batter-body {
-  width: 65px;
-  height: 75px;
-  margin-top: -2px;
-  background: #174d9b;
-  border: 4px solid #222;
+
+  width: 68px;
+  height: 78px;
+
+  background:
+    #174d9b;
+
+  border:
+    4px solid #222;
+
 }
 
 .bat {
+
   position: absolute;
+
   width: 125px;
   height: 13px;
 
-  background: #c78b42;
-
-  right: -85px;
+  right: -90px;
   top: 65px;
 
-  transform: rotate(-35deg);
+  background:
+    #c98b42;
 
-  transform-origin: left center;
+  transform:
+    rotate(-35deg);
 
-  transition: transform .15s;
+  transform-origin:
+    left center;
+
+  transition:
+    .15s;
+
 }
 
 .batter.swing .bat {
-  transform: rotate(35deg);
+
+  transform:
+    rotate(35deg);
+
 }
 
 .ball {
+
   position: absolute;
 
   width: 25px;
   height: 25px;
 
+  right: 20%;
+  bottom: 45%;
+
   border-radius: 50%;
 
   background: white;
 
-  border: 2px solid #222;
-
-  right: 22%;
-  bottom: 45%;
+  border:
+    2px solid #222;
 
   cursor: pointer;
 
-  box-shadow: 0 3px 0 rgba(0,0,0,.25);
 }
 
-.pitch {
-  animation: pitch 1.1s linear forwards;
+.ball.pitch {
+
+  animation:
+    pitch
+    1.15s
+    linear
+    forwards;
+
 }
 
 @keyframes pitch {
+
   from {
-    right: 22%;
+    right: 20%;
   }
 
   to {
     right: 74%;
   }
+
 }
 
 .swing-button {
+
   position: absolute;
 
-  bottom: 8%;
   left: 50%;
+  bottom: 7%;
 
-  transform: translateX(-50%);
+  transform:
+    translateX(-50%);
 
-  padding: 17px 45px;
+  padding:
+    16px 45px;
 
-  background: #ed2939;
+  background:
+    #ed2939;
+
   color: white;
 
-  border: 4px solid white;
+  border:
+    4px solid white;
 
-  font-size: 20px;
+  box-shadow:
+    6px 6px #17448d;
+
   font-weight: 900;
 
-  box-shadow: 6px 6px #143f8c;
+  font-size: 20px;
+
 }
 
-.swing-button:active {
-  transform: translate(-50%, 5px);
-  box-shadow: 2px 2px #143f8c;
-}
-
-/* =====================================================
-   04 — DISCOVERY WORLD
-===================================================== */
+/* =========================================================
+   DISCOVERY
+========================================================= */
 
 #discoveryWorld {
+
   background:
     linear-gradient(
-      #242447 0 50%,
-      #0c0d19 51% 100%
+      #242448 0 50%,
+      #090a15 51% 100%
     );
+
   color: white;
+
 }
 
 .discovery-title {
+
   position: absolute;
-  top: 10%;
+
+  top: 9%;
+
   left: 0;
   right: 0;
 
   text-align: center;
 
-  font-family: Impact, "Arial Black", sans-serif;
-  font-size: clamp(45px, 9vw, 85px);
+  font-family:
+    Impact,
+    "Arial Black",
+    sans-serif;
 
-  color: white;
+  font-size:
+    clamp(38px, 7vw, 75px);
 
   text-shadow:
     5px 5px #087cff,
     -4px -4px #ed2939;
+
 }
 
 .discovery-grid {
+
   position: absolute;
 
   left: 7%;
   right: 7%;
-  top: 29%;
-  bottom: 13%;
+
+  top: 28%;
+  bottom: 10%;
 
   display: grid;
 
   grid-template-columns:
     repeat(4, 1fr);
 
-  gap: 15px;
+  gap: 14px;
+
 }
 
 .discovery {
-  background: #15151f;
 
-  border: 3px solid #777;
+  background:
+    #15151f;
+
+  border:
+    3px solid #777;
 
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
 
   text-align: center;
 
-  padding: 12px;
-
   cursor: pointer;
 
-  transition: .25s;
+  transition:
+    .25s;
+
 }
 
 .discovery:hover {
-  border-color: #ffd21a;
-  transform: translateY(-8px);
-  box-shadow: 0 8px #087cff;
+
+  transform:
+    translateY(-7px);
+
+  border-color:
+    #ffd21a;
+
+  box-shadow:
+    0 8px #087cff;
+
 }
 
-.discovery-art {
-  width: 65px;
-  height: 65px;
-  margin-bottom: 14px;
+.discovery.found {
+
+  opacity: .3;
+
+  pointer-events: none;
+
+}
+
+.discovery-shape {
+
+  width: 60px;
+  height: 60px;
+
+  margin-bottom: 12px;
 
   border-radius: 10px;
 
@@ -965,171 +1503,249 @@ button {
       #087cff,
       #ed2939
     );
+
 }
 
 .discovery h3 {
-  font-size: 13px;
-  letter-spacing: 1px;
+
+  font-family: monospace;
+
+  font-size: 11px;
+
 }
 
-/* =====================================================
-   05 — FINAL
-===================================================== */
+/* =========================================================
+   FINAL
+========================================================= */
 
 #finalWorld {
-  align-items: center;
-  justify-content: center;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
 
   background:
     radial-gradient(
       circle,
-      #183c80,
-      #070713 70%
+      #183e82,
+      #060712 70%
     );
 
   color: white;
 
   text-align: center;
+
 }
 
 .final-content {
-  width: min(800px, 90vw);
+
+  width:
+    min(800px, 90vw);
+
 }
 
 .final-label {
-  letter-spacing: 6px;
-  font-size: 13px;
-  color: #ffd21a;
-  margin-bottom: 20px;
+
+  color:
+    #ffd21a;
+
+  font-family:
+    monospace;
+
+  letter-spacing:
+    6px;
+
+  font-size:
+    12px;
+
+  margin-bottom:
+    20px;
+
 }
 
 .final-title {
-  font-family: Impact, "Arial Black", sans-serif;
 
-  font-size: clamp(65px, 13vw, 140px);
+  font-family:
+    Impact,
+    "Arial Black",
+    sans-serif;
 
-  line-height: .85;
+  font-size:
+    clamp(65px, 13vw, 140px);
+
+  line-height:
+    .85;
 
   text-shadow:
     7px 7px #087cff,
     -5px -5px #ed2939;
 
-  margin-bottom: 35px;
+  margin-bottom:
+    30px;
+
 }
 
 .final-message {
-  background: rgba(0,0,0,.55);
 
-  border: 2px solid rgba(255,255,255,.7);
+  padding:
+    28px;
 
-  padding: 28px;
+  background:
+    rgba(0,0,0,.55);
 
-  text-align: left;
+  border:
+    2px solid rgba(255,255,255,.7);
 
-  font-family: Georgia, serif;
+  text-align:
+    left;
 
-  font-size: 18px;
+  font-family:
+    Georgia, serif;
 
-  line-height: 1.8;
+  font-size:
+    18px;
+
+  line-height:
+    1.75;
+
+  max-height:
+    60vh;
+
+  overflow-y:
+    auto;
+
 }
 
 .final-message p {
-  margin-bottom: 20px;
-}
 
-.signature {
-  font-size: 23px;
+  margin-bottom:
+    18px;
+
 }
 
 .restart {
-  margin-top: 30px;
 
-  padding: 14px 30px;
+  margin-top:
+    25px;
 
-  background: #087cff;
+  padding:
+    13px 30px;
 
-  color: white;
+  background:
+    #087cff;
 
-  border: 3px solid white;
+  color:
+    white;
 
-  font-weight: 900;
+  border:
+    3px solid white;
+
+  font-weight:
+    900;
+
 }
 
-/* =====================================================
+/* =========================================================
    MOBILE
-===================================================== */
+========================================================= */
 
-@media(max-width: 700px) {
+@media(max-width:700px) {
 
   .hud {
-    font-size: 10px;
+
+    font-size:
+      9px;
+
   }
 
   .hud-right {
-    gap: 8px;
+
+    gap:
+      8px;
+
+  }
+
+  .card {
+
+    width:
+      82px;
+
+    padding:
+      5px 5px 18px;
+
+  }
+
+  .card img {
+
+    height:
+      62px;
+
+  }
+
+  .card-name {
+
+    font-size:
+      7px;
+
   }
 
   .discovery-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+    gap:
+      8px;
+
   }
 
-  .discovery-art {
-    width: 45px;
-    height: 45px;
+  .discovery-shape {
+
+    width:
+      42px;
+
+    height:
+      42px;
+
   }
 
   .discovery h3 {
-    font-size: 9px;
-  }
 
-  .platform.a {
-    left: 5%;
-    width: 130px;
-  }
+    font-size:
+      8px;
 
-  .platform.b {
-    left: 35%;
-    width: 120px;
-  }
-
-  .platform.c {
-    right: 5%;
-    width: 130px;
-  }
-
-  .baseball-title {
-    top: 15%;
-  }
-
-  .scoreboard {
-    top: 31%;
-    font-size: 11px;
   }
 
   .final-message {
-    font-size: 15px;
-    max-height: 55vh;
-    overflow-y: auto;
+
+    font-size:
+      15px;
+
   }
+
 }
 </style>
 </head>
 
 <body>
 
-<div class="transition" id="transition"></div>
+<div id="transition"></div>
 
 <!-- =====================================================
-     INTRO — BRICK WALL
+     INTRO
 ===================================================== -->
 
 <section id="intro" class="screen active">
 
   <div class="brick-wall"></div>
+
+  <div class="wall-vignette"></div>
+
   <div class="wall-light"></div>
 
-  <div class="paint-cloud" id="paintCloud"></div>
+  <div class="paint" id="paint"></div>
 
   <div class="spray-can" id="sprayCan">
     <div class="spray-cap"></div>
@@ -1138,22 +1754,28 @@ button {
 
   <div class="intro-content">
 
-    <div class="intro-small">
+    <div class="intro-label">
       SPECIAL BIRTHDAY EDITION
     </div>
 
-    <div class="graffiti-title" id="graffitiTitle">
+    <div
+      class="graffiti"
+      id="graffiti"
+    >
       DARBY
     </div>
 
-    <div class="level21" id="level21">
+    <div
+      class="level-text"
+      id="levelText"
+    >
       LEVEL 21 UNLOCKED
     </div>
 
     <button
-      class="start-intro"
-      onclick="startIntro()"
-      id="startIntroButton"
+      class="start-button"
+      id="startButton"
+      onclick="startGame()"
     >
       START
     </button>
@@ -1164,76 +1786,122 @@ button {
 
 
 <!-- =====================================================
-     SPEED WORLD
+     GAME WORLD
 ===================================================== -->
 
-<section id="speedWorld" class="screen">
+<section id="gameWorld" class="screen">
 
   <div class="hud">
-    <div class="pixel">
-      DARBY // LV.21
+
+    <div>
+      DARBY // LEVEL 21
     </div>
 
-    <div class="hud-right pixel">
-      <div>RINGS <span id="rings">0</span></div>
-      <div>MEMORIES <span id="memories">0</span>/4</div>
+    <div class="hud-right">
+
+      <div>
+        RINGS:
+        <span id="ringCount">0</span>
+      </div>
+
+      <div>
+        CARDS:
+        <span id="cardCount">0</span>/4
+      </div>
+
     </div>
+
   </div>
 
   <div class="sun"></div>
 
-  <div class="palm palm1"></div>
-  <div class="palm palm2"></div>
+  <div class="character" id="character"></div>
 
-  <div class="speed-character" id="speedCharacter"></div>
+  <div class="ring ring1" onclick="collectRing(this)"></div>
+  <div class="ring ring2" onclick="collectRing(this)"></div>
+  <div class="ring ring3" onclick="collectRing(this)"></div>
+  <div class="ring ring4" onclick="collectRing(this)"></div>
+  <div class="ring ring5" onclick="collectRing(this)"></div>
 
-  <div class="ring r1" onclick="collectRing(this)"></div>
-  <div class="ring r2" onclick="collectRing(this)"></div>
-  <div class="ring r3" onclick="collectRing(this)"></div>
-  <div class="ring r4" onclick="collectRing(this)"></div>
-  <div class="ring r5" onclick="collectRing(this)"></div>
+  <div class="platform platform1"></div>
+  <div class="platform platform2"></div>
+  <div class="platform platform3"></div>
 
-  <div class="platform a"></div>
-  <div class="platform b"></div>
-  <div class="platform c"></div>
-
-  <div
-    class="world-object memory-token"
-    onclick="openMemory()"
-  ></div>
+  <!-- COLLECTIBLE CARDS -->
 
   <div
-    class="world-object soccer-token"
-    onclick="openSoccer()"
-  ></div>
+    class="card card1"
+    onclick="collectCard(this)"
+  >
+    <img src="251bbf52-e032-4ecc-a542-3c32b40bf0b9.jpeg">
+    <div class="card-name">
+      DARBY // 01
+    </div>
+  </div>
+
+  <div
+    class="card card2"
+    onclick="collectCard(this)"
+  >
+    <img src="38514dda-9de0-41f1-8a3e-acdd58962246.jpeg">
+    <div class="card-name">
+      DARBY // 02
+    </div>
+  </div>
+
+  <div
+    class="card card3"
+    onclick="collectCard(this)"
+  >
+    <img src="IMG_6582.jpeg">
+    <div class="card-name">
+      DARBY // 03
+    </div>
+  </div>
+
+  <div
+    class="card card4"
+    onclick="collectCard(this)"
+  >
+    <img src="IMG_6585.jpeg">
+    <div class="card-name">
+      DARBY // 04
+    </div>
+  </div>
+
+  <!-- CHECKPOINT -->
 
   <div
     class="checkpoint"
-    onclick="goBaseball()"
+    id="checkpoint"
+    onclick="nextLevel()"
   >
-    CHECKPOINT<br>
-    NEXT LEVEL
+    COLLECT<br>
+    ALL 4 CARDS
   </div>
 
-  <div class="speed-ground"></div>
+  <div class="ground"></div>
 
 </section>
 
 
 <!-- =====================================================
-     BASEBALL WORLD
+     BASEBALL
 ===================================================== -->
 
 <section id="baseballWorld" class="screen">
 
   <div class="hud">
-    <div class="pixel">
+
+    <div>
       DARBY BASEBALL
     </div>
 
-    <div class="pixel">
-      HOME RUNS <span id="homeRuns">0</span>
+    <div>
+      HOME RUNS:
+      <span id="homeRuns">0</span>
     </div>
+
   </div>
 
   <div class="baseball-title">
@@ -1242,13 +1910,18 @@ button {
 
   <div class="scoreboard">
     DARBY<br>
-    21
+    LEVEL 21
   </div>
 
-  <div class="batter" id="batter">
+  <div
+    class="batter"
+    id="batter"
+  >
 
     <div class="batter-head"></div>
+
     <div class="batter-body"></div>
+
     <div class="bat"></div>
 
   </div>
@@ -1270,19 +1943,20 @@ button {
 
 
 <!-- =====================================================
-     DISCOVERY WORLD
+     DISCOVERY
 ===================================================== -->
 
 <section id="discoveryWorld" class="screen">
 
   <div class="hud">
 
-    <div class="pixel">
+    <div>
       DISCOVERY ZONE
     </div>
 
-    <div class="pixel">
-      FOUND <span id="discoveries">0</span>/8
+    <div>
+      FOUND:
+      <span id="foundCount">0</span>/8
     </div>
 
   </div>
@@ -1293,43 +1967,67 @@ button {
 
   <div class="discovery-grid">
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-art"></div>
+    <div
+      class="discovery"
+      onclick="discover(this)"
+    >
+      <div class="discovery-shape"></div>
       <h3>VENEZUELA</h3>
     </div>
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-art"></div>
+    <div
+      class="discovery"
+      onclick="discover(this)"
+    >
+      <div class="discovery-shape"></div>
       <h3>SHOHEI OHTANI</h3>
     </div>
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-art"></div>
+    <div
+      class="discovery"
+      onclick="discover(this)"
+    >
+      <div class="discovery-shape"></div>
       <h3>DRAWING</h3>
     </div>
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-art"></div>
+    <div
+      class="discovery"
+      onclick="discover(this)"
+    >
+      <div class="discovery-shape"></div>
       <h3>SONIC</h3>
     </div>
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-art"></div>
+    <div
+      class="discovery"
+      onclick="discover(this)"
+    >
+      <div class="discovery-shape"></div>
       <h3>PENGUINS</h3>
     </div>
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-art"></div>
+    <div
+      class="discovery"
+      onclick="discover(this)"
+    >
+      <div class="discovery-shape"></div>
       <h3>ARGENTINA + BRAZIL</h3>
     </div>
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-art"></div>
+    <div
+      class="discovery"
+      onclick="discover(this)"
+    >
+      <div class="discovery-shape"></div>
       <h3>2000s MUSIC</h3>
     </div>
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-art"></div>
+    <div
+      class="discovery"
+      onclick="discover(this)"
+    >
+      <div class="discovery-shape"></div>
       <h3>LUIS MIGUEL</h3>
     </div>
 
@@ -1339,14 +2037,14 @@ button {
 
 
 <!-- =====================================================
-     FINAL WORLD
+     FINAL
 ===================================================== -->
 
 <section id="finalWorld" class="screen">
 
   <div class="final-content">
 
-    <div class="final-label pixel">
+    <div class="final-label">
       ALL LEVELS COMPLETE
     </div>
 
@@ -1364,8 +2062,7 @@ button {
       <p>
         Te deseo un día maravilloso. Te aprecio muchísimo
         y estoy muy agradecida de tenerte en mi vida.
-        Espero verte pronto y poder seguir compartiendo
-        momentos y creando recuerdos juntos.
+        Espero verte pronto.
       </p>
 
       <p>
@@ -1385,15 +2082,19 @@ button {
         — Jeremías 29:11
       </p>
 
-      <p class="signature">
-        Te quiero mucho.<br>
+      <p>
+        Te quiero mucho.
+        <br><br>
         Besos,<br>
         Tiffany
       </p>
 
     </div>
 
-    <button class="restart" onclick="location.reload()">
+    <button
+      class="restart"
+      onclick="location.reload()"
+    >
       PLAY AGAIN
     </button>
 
@@ -1428,19 +2129,19 @@ button {
 
 <script>
 
-/* =====================================================
+/* =========================================================
    STATE
-===================================================== */
+========================================================= */
 
-let ringCount = 0;
-let memoryCount = 0;
+let rings = 0;
+let cards = 0;
 let homeRuns = 0;
-let discoveryCount = 0;
+let discoveries = 0;
 
 
-/* =====================================================
-   SCREEN TRANSITION
-===================================================== */
+/* =========================================================
+   SCREEN CHANGE
+========================================================= */
 
 function changeScreen(id) {
 
@@ -1455,10 +2156,11 @@ function changeScreen(id) {
 
   setTimeout(() => {
 
-    document.querySelectorAll(".screen")
-      .forEach(screen =>
-        screen.classList.remove("active")
-      );
+    document
+      .querySelectorAll(".screen")
+      .forEach(screen => {
+        screen.classList.remove("active");
+      });
 
     document
       .getElementById(id)
@@ -1469,163 +2171,164 @@ function changeScreen(id) {
 }
 
 
-/* =====================================================
+/* =========================================================
    INTRO
-===================================================== */
+========================================================= */
 
-function startIntro() {
+function startGame() {
 
   document
-    .getElementById("startIntroButton")
+    .getElementById("startButton")
     .style.display = "none";
 
   document
     .getElementById("sprayCan")
-    .classList.add("spray");
+    .classList.add("animate");
 
   document
-    .getElementById("paintCloud")
-    .classList.add("show");
+    .getElementById("paint")
+    .classList.add("active");
 
   setTimeout(() => {
 
     document
-      .getElementById("graffitiTitle")
+      .getElementById("graffiti")
       .classList.add("reveal");
 
-  }, 650);
+  }, 550);
 
   setTimeout(() => {
 
     document
-      .getElementById("level21")
+      .getElementById("levelText")
       .classList.add("show");
 
   }, 1500);
 
   setTimeout(() => {
 
-    changeScreen("speedWorld");
+    changeScreen("gameWorld");
 
     setTimeout(() => {
 
       document
-        .getElementById("speedCharacter")
+        .getElementById("character")
         .classList.add("roll");
 
     }, 500);
 
-  }, 3100);
+  }, 3200);
 
 }
 
 
-/* =====================================================
+/* =========================================================
    RINGS
-===================================================== */
+========================================================= */
 
 function collectRing(ring) {
 
-  if (ring.dataset.collected) return;
+  if (ring.dataset.collected) {
+    return;
+  }
 
   ring.dataset.collected = "true";
 
   ring.style.display = "none";
 
-  ringCount++;
+  rings++;
 
   document
-    .getElementById("rings")
-    .textContent = ringCount;
+    .getElementById("ringCount")
+    .textContent = rings;
 
 }
 
 
-/* =====================================================
-   MEMORY
-===================================================== */
+/* =========================================================
+   CARDS
+========================================================= */
 
-function openMemory() {
+function collectCard(card) {
 
-  if (memoryCount >= 4) {
-
-    showPopup(
-      "MEMORIES COMPLETE",
-      "<p>You've already found all four memories.</p>"
-    );
-
+  if (card.dataset.collected) {
     return;
   }
 
-  const photos = [
-    "251bbf52-e032-4ecc-a542-3c32b40bf0b9.jpeg",
-    "38514dda-9de0-41f1-8a3e-acdd58962246.jpeg",
-    "IMG_6582.jpeg",
-    "IMG_6585.jpeg"
-  ];
+  card.dataset.collected = "true";
 
-  const photo = photos[memoryCount];
-
-  memoryCount++;
+  cards++;
 
   document
-    .getElementById("memories")
-    .textContent = memoryCount;
+    .getElementById("cardCount")
+    .textContent = cards;
 
-  showPopup(
-    "MEMORY FOUND",
-    `
-      <img src="${photo}" alt="Memory ${memoryCount}">
-      <p>
-        MEMORY ${memoryCount} / 4
-      </p>
-    `
-  );
+  card.classList.add("collected");
 
-}
+  setTimeout(() => {
 
+    card.style.display = "none";
 
-/* =====================================================
-   SOCCER
-===================================================== */
+  }, 650);
 
-function openSoccer() {
+  if (cards === 4) {
 
-  showPopup(
-    "NEXT STOP",
-    `
-      <p>
-        A little piece of the game world
-        dedicated to your love of soccer.
-      </p>
+    const checkpoint =
+      document.getElementById("checkpoint");
 
-      <p>
-        Argentina. Brazil. Game on.
-      </p>
-    `
-  );
+    checkpoint.classList.add("unlocked");
+
+    checkpoint.innerHTML =
+      "NEXT LEVEL<br>→";
+
+  }
 
 }
 
 
-/* =====================================================
-   BASEBALL
-===================================================== */
+/* =========================================================
+   NEXT LEVEL
+========================================================= */
 
-function goBaseball() {
+function nextLevel() {
+
+  if (cards < 4) {
+
+    showPopup(
+      "LEVEL LOCKED",
+      `
+        <p>
+          There are still cards hidden
+          around the level.
+        </p>
+
+        <p>
+          CARDS COLLECTED:
+          ${cards}/4
+        </p>
+      `
+    );
+
+    return;
+
+  }
 
   changeScreen("baseballWorld");
 
   setTimeout(() => {
 
-    pitch();
+    pitchBall();
 
   }, 1000);
 
 }
 
 
-function pitch() {
+/* =========================================================
+   BASEBALL
+========================================================= */
+
+function pitchBall() {
 
   const ball =
     document.getElementById("ball");
@@ -1641,17 +2344,16 @@ function pitch() {
 
 function swing() {
 
-  document
-    .getElementById("batter")
-    .classList.add("swing");
+  const batter =
+    document.getElementById("batter");
+
+  batter.classList.add("swing");
 
   setTimeout(() => {
 
-    document
-      .getElementById("batter")
-      .classList.remove("swing");
+    batter.classList.remove("swing");
 
-  }, 300);
+  }, 250);
 
 }
 
@@ -1661,7 +2363,11 @@ function hitBall() {
   const ball =
     document.getElementById("ball");
 
-  if (!ball.classList.contains("pitch")) return;
+  if (
+    !ball.classList.contains("pitch")
+  ) {
+    return;
+  }
 
   homeRuns++;
 
@@ -1672,58 +2378,51 @@ function hitBall() {
   ball.classList.remove("pitch");
 
   showPopup(
-    "HOME RUN",
+    "HOME RUN!",
     `
       <p>
-        YOU CRUSHED IT.
+        DARBY CRUSHED IT.
       </p>
 
       <p>
-        HOME RUNS: ${homeRuns}
-      </p>
-
-      <p>
-        +500 XP
+        HOME RUNS:
+        ${homeRuns}
       </p>
     `
   );
 
   setTimeout(() => {
 
-    if (homeRuns >= 1) {
+    closePopup();
 
-      changeScreen("discoveryWorld");
+    changeScreen("discoveryWorld");
 
-    } else {
-
-      pitch();
-
-    }
-
-  }, 1800);
+  }, 1600);
 
 }
 
 
-/* =====================================================
-   DISCOVERIES
-===================================================== */
+/* =========================================================
+   DISCOVERY
+========================================================= */
 
 function discover(item) {
 
-  if (item.dataset.found) return;
+  if (item.dataset.found) {
+    return;
+  }
 
   item.dataset.found = "true";
 
-  item.style.opacity = ".35";
+  item.classList.add("found");
 
-  discoveryCount++;
+  discoveries++;
 
   document
-    .getElementById("discoveries")
-    .textContent = discoveryCount;
+    .getElementById("foundCount")
+    .textContent = discoveries;
 
-  if (discoveryCount === 8) {
+  if (discoveries === 8) {
 
     setTimeout(() => {
 
@@ -1731,11 +2430,11 @@ function discover(item) {
         "ALL DISCOVERIES FOUND",
         `
           <p>
-            You found everything.
+            You found every piece.
           </p>
 
           <p>
-            One final level is waiting.
+            One final level remains.
           </p>
         `
       );
@@ -1746,18 +2445,18 @@ function discover(item) {
 
         changeScreen("finalWorld");
 
-      }, 2200);
+      }, 1800);
 
-    }, 500);
+    }, 400);
 
   }
 
 }
 
 
-/* =====================================================
+/* =========================================================
    POPUP
-===================================================== */
+========================================================= */
 
 function showPopup(title, content) {
 
