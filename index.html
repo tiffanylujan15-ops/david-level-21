@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,29 +9,25 @@
 
 <style>
 
-/* =========================
-   RESET
-========================= */
-
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-family: Arial, Helvetica, sans-serif;
   background: #000;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 button {
   font: inherit;
   cursor: pointer;
 }
-
 
 /* =========================
    SCREENS
@@ -47,133 +44,58 @@ button {
   display: flex;
 }
 
-
 /* =========================
-   SCREEN TRANSITION
+   TRANSITION
 ========================= */
 
 #transition {
   position: fixed;
   inset: 0;
-  background: #050505;
-  z-index: 9999;
+  z-index: 99999;
   pointer-events: none;
+  background: #050505;
   transform: translateX(-100%);
 }
 
 #transition.go {
-  animation: wipe 1s ease-in-out;
+  animation: screenWipe 1s ease-in-out forwards;
 }
 
-@keyframes wipe {
+@keyframes screenWipe {
   0% { transform: translateX(-100%); }
   45% { transform: translateX(0); }
   55% { transform: translateX(0); }
   100% { transform: translateX(100%); }
 }
 
-
-/* =====================================================
-   INTRO — BRICK WALL
-===================================================== */
+/* =========================
+   INTRO — REAL BRICK WALL
+========================= */
 
 #intro {
   align-items: center;
   justify-content: center;
-  background: #27110d;
+
+  background:
+    url("image.jpeg")
+    center center / cover no-repeat;
 }
 
-.brick-wall {
-  position: absolute;
-  inset: 0;
-
-  background-color: #71352b;
-
-  background-image:
-
-  /* horizontal mortar */
-  repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    transparent 56px,
-    #28110e 57px,
-    #1a0b09 62px
-  ),
-
-  /* vertical brick lines */
-  repeating-linear-gradient(
-    to right,
-    transparent 0px,
-    transparent 148px,
-    rgba(35,15,12,.8) 149px,
-    rgba(15,5,5,.9) 154px
-  ),
-
-  /* brick texture */
-  repeating-linear-gradient(
-    145deg,
-    #7b372d 0px,
-    #6b2e27 18px,
-    #843b30 36px,
-    #55211d 55px
-  );
-
-  box-shadow:
-    inset 0 0 180px #000;
-}
-
-.brick-wall::before {
+#intro::before {
   content: "";
   position: absolute;
   inset: 0;
 
   background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255,190,120,.08) 0%,
+      rgba(0,0,0,.15) 45%,
+      rgba(0,0,0,.72) 100%
+    );
 
-  radial-gradient(
-    circle at 20% 30%,
-    rgba(255,255,255,.08) 0 1px,
-    transparent 2px
-  ),
-
-  radial-gradient(
-    circle at 70% 60%,
-    rgba(0,0,0,.25) 0 2px,
-    transparent 3px
-  );
-
-  background-size: 14px 18px, 23px 28px;
-
-  opacity: .55;
+  z-index: 1;
 }
-
-.wall-vignette {
-  position: absolute;
-  inset: 0;
-
-  background:
-  radial-gradient(
-    ellipse at center,
-    transparent 30%,
-    rgba(0,0,0,.82) 100%
-  );
-
-  z-index: 2;
-}
-
-.wall-light {
-  position: absolute;
-  inset: 0;
-
-  background:
-  radial-gradient(
-    ellipse at 50% 35%,
-    rgba(255,190,120,.15),
-    transparent 55%
-  );
-
-  z-index: 3;
-}
-
 
 /* =========================
    SPRAY CAN
@@ -181,254 +103,243 @@ button {
 
 .spray-can {
   position: absolute;
-  z-index: 20;
+  width: 58px;
+  height: 130px;
+  left: -150px;
+  top: 47%;
+  z-index: 10;
 
-  left: -100px;
-  top: 48%;
-
-  width: 45px;
-  height: 95px;
-
-  border-radius: 8px 8px 12px 12px;
+  border-radius: 10px 10px 16px 16px;
 
   background:
-  linear-gradient(
-    90deg,
-    #111,
-    #ddd 30%,
-    #777 55%,
-    #111
-  );
+    linear-gradient(
+      90deg,
+      #171717 0%,
+      #747474 20%,
+      #eeeeee 47%,
+      #8a8a8a 68%,
+      #111 100%
+    );
 
-  box-shadow:
-    8px 8px 14px rgba(0,0,0,.6);
-
+  box-shadow: 10px 14px 22px rgba(0,0,0,.75);
   transform: rotate(-15deg);
 }
 
 .spray-can::before {
   content: "";
-
   position: absolute;
-
-  width: 30px;
-  height: 16px;
-
-  left: 7px;
-  top: -12px;
-
-  background: #111;
-
-  border-radius: 4px 4px 1px 1px;
+  width: 38px;
+  height: 17px;
+  left: 10px;
+  top: -15px;
+  background: #151515;
+  border-radius: 5px 5px 2px 2px;
 }
 
 .spray-can::after {
   content: "";
-
   position: absolute;
-
-  width: 15px;
-  height: 7px;
-
-  right: -5px;
-  top: -15px;
-
-  background: #eee;
+  width: 20px;
+  height: 8px;
+  right: -11px;
+  top: -18px;
+  border-radius: 2px;
+  background: #d9d9d9;
 }
 
 .spray-can.animate {
-  animation: sprayAcross 2.4s forwards;
+  animation: sprayAcross 2.7s ease-in-out forwards;
 }
 
 @keyframes sprayAcross {
   0% {
-    left: -100px;
-    top: 50%;
+    left: -150px;
+    top: 55%;
   }
 
-  40% {
-    left: 35%;
+  35% {
+    left: 22%;
+    top: 48%;
+  }
+
+  65% {
+    left: 53%;
     top: 43%;
   }
 
-  70% {
-    left: 70%;
-    top: 47%;
-  }
-
   100% {
-    left: 110%;
+    left: 115%;
     top: 50%;
   }
 }
 
-
 /* =========================
-   SPRAY CLOUD
+   SPRAY MIST
 ========================= */
 
-.spray-paint {
+.spray-cloud {
   position: absolute;
-
-  z-index: 7;
-
   left: 50%;
-  top: 43%;
-
-  width: 600px;
-  height: 230px;
+  top: 45%;
+  width: 750px;
+  height: 400px;
+  z-index: 3;
 
   transform:
-  translate(-50%, -50%) scale(.1);
+    translate(-50%, -50%)
+    scale(.3);
 
   opacity: 0;
 
   background:
-  radial-gradient(
-    ellipse,
-    rgba(0,110,255,.9),
-    rgba(150,40,255,.55) 40%,
-    rgba(255,30,60,.3) 60%,
-    transparent 75%
-  );
+    radial-gradient(
+      ellipse at center,
+      rgba(0,132,255,.6) 0%,
+      rgba(0,132,255,.35) 25%,
+      rgba(0,132,255,.15) 45%,
+      transparent 72%
+    );
 
-  filter: blur(13px);
+  filter: blur(10px);
 }
 
-.spray-paint.active {
-  animation: sprayReveal 2.2s forwards;
+.spray-cloud.active {
+  animation: sprayCloud 2s ease forwards;
 }
 
-@keyframes sprayReveal {
+@keyframes sprayCloud {
   0% {
     opacity: 0;
-    transform:
-    translate(-50%, -50%)
-    scale(.1);
+    transform: translate(-50%, -50%) scale(.2);
   }
 
-  40% {
-    opacity: .9;
+  35% {
+    opacity: .85;
   }
 
   100% {
     opacity: 0;
-    transform:
-    translate(-50%, -50%)
-    scale(1.5);
+    transform: translate(-50%, -50%) scale(1.5);
   }
 }
 
-
 /* =========================
-   INTRO TEXT
+   GRAFFITI
 ========================= */
 
 .intro-content {
   position: relative;
-  z-index: 15;
-
+  z-index: 5;
   width: 90%;
   text-align: center;
 }
 
 .intro-label {
-  color: #fff;
-
-  font-family: monospace;
-
-  letter-spacing: 7px;
-
-  font-size: 12px;
-
   margin-bottom: 25px;
-
-  text-shadow:
-  3px 3px #000;
+  color: #fff;
+  font-family: monospace;
+  letter-spacing: 6px;
+  font-size: 12px;
+  text-shadow: 2px 2px 6px #000;
 }
 
 .graffiti {
-  font-family:
-  Impact,
-  "Arial Black",
-  sans-serif;
-
-  font-size:
-  clamp(90px, 18vw, 230px);
-
-  font-style: italic;
-
-  line-height: .8;
-
+  position: relative;
   opacity: 0;
 
+  font-family:
+    Impact,
+    "Arial Black",
+    sans-serif;
+
+  font-size:
+    clamp(95px, 18vw, 240px);
+
+  line-height: .8;
+  font-style: italic;
+  letter-spacing: -8px;
+
   transform:
-  rotate(-6deg)
-  scale(.2);
+    rotate(-6deg)
+    scale(.2);
 
-  color: #138cff;
+  color: #0b8cff;
 
-  -webkit-text-stroke:
-  6px #111;
+  -webkit-text-stroke: 7px #101010;
 
   text-shadow:
-  9px 9px 0 #111,
-  15px 15px 0 rgba(0,0,0,.5);
+    3px 3px 0 #ffffff,
+    8px 8px 0 #101010,
+    14px 14px 16px rgba(0,0,0,.7);
+}
+
+.graffiti::after {
+  content: "";
+  position: absolute;
+  inset: -20px;
+  z-index: -1;
+  opacity: .65;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(20,130,255,.5) 0 2px,
+      transparent 3px
+    );
+
+  background-size: 20px 20px;
 }
 
 .graffiti.reveal {
-  animation: graffitiIn 1.3s forwards;
+  animation: graffitiReveal 1.2s ease-out forwards;
 }
 
-@keyframes graffitiIn {
+@keyframes graffitiReveal {
   0% {
     opacity: 0;
-
     transform:
-    translateX(-180px)
-    rotate(-15deg)
-    scale(.2);
+      translateX(-100px)
+      rotate(-12deg)
+      scale(.25);
 
     filter: blur(10px);
   }
 
   100% {
     opacity: 1;
-
     transform:
-    rotate(-6deg)
-    scale(1);
+      rotate(-6deg)
+      scale(1);
 
     filter: blur(0);
   }
 }
 
 .level-text {
-  margin-top: 35px;
-
-  color: white;
-
-  font-family: monospace;
-
-  letter-spacing: 6px;
-
-  font-size:
-  clamp(20px, 4vw, 45px);
-
+  margin-top: 38px;
+  color: #fff;
   opacity: 0;
 
+  font-family: monospace;
+  font-weight: bold;
+
+  font-size:
+    clamp(20px, 4vw, 42px);
+
+  letter-spacing: 7px;
+
   text-shadow:
-  4px 4px #000;
+    4px 4px 8px #000;
 }
 
 .level-text.show {
-  animation: fadeUp .7s forwards;
+  animation: fadeUp .8s forwards;
 }
 
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(25px);
+    transform: translateY(30px);
   }
 
   to {
@@ -438,53 +349,48 @@ button {
 }
 
 .start-button {
-  margin-top: 35px;
-
-  padding: 16px 45px;
-
-  background: #111;
+  margin-top: 32px;
+  padding: 17px 52px;
 
   color: white;
+  background: rgba(0,0,0,.85);
 
   border: 3px solid white;
 
-  box-shadow:
-  7px 7px #087cff;
-
   font-family: monospace;
-
   font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 5px;
 
-  letter-spacing: 4px;
+  box-shadow:
+    8px 8px 0 #0b8cff;
+
+  transition: .2s;
 }
 
+.start-button:hover {
+  transform: scale(1.07);
+}
 
-/* =====================================================
+/* =========================
    HUD
-===================================================== */
+========================= */
 
 .hud {
   position: absolute;
-
-  top: 15px;
+  top: 18px;
   left: 20px;
   right: 20px;
-
-  z-index: 500;
+  z-index: 1000;
 
   display: flex;
   justify-content: space-between;
 
   color: white;
-
   font-family: monospace;
-
   font-weight: bold;
 
-  text-shadow:
-  2px 2px #000;
-
-  pointer-events: none;
+  text-shadow: 3px 3px #000;
 }
 
 .hud-right {
@@ -492,140 +398,151 @@ button {
   gap: 25px;
 }
 
-
-/* =====================================================
-   GAME LEVEL
-===================================================== */
+/* =========================
+   LEVEL 1
+========================= */
 
 #gameWorld {
   background:
-  linear-gradient(
-    #52c9ff 0%,
-    #bceeff 52%,
-    #70cf59 53%,
-    #48a33a 100%
-  );
+    linear-gradient(
+      #45c5ff 0%,
+      #b9ecff 48%,
+      #70cc57 49%,
+      #2f852e 100%
+    );
 }
 
-.sun {
+.cloud {
   position: absolute;
+  width: 150px;
+  height: 55px;
+  border-radius: 50px;
+  background: white;
+  opacity: .8;
+}
 
-  right: 9%;
-  top: 9%;
-
-  width: 120px;
-  height: 120px;
-
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
   border-radius: 50%;
+  background: white;
+}
 
-  background:
-  radial-gradient(
-    circle,
-    #fff9a0,
-    #ffe13a
-  );
+.cloud::before {
+  width: 75px;
+  height: 75px;
+  left: 25px;
+  top: -35px;
+}
 
-  box-shadow:
-  0 0 60px rgba(255,225,50,.7);
+.cloud::after {
+  width: 60px;
+  height: 60px;
+  right: 20px;
+  top: -22px;
+}
+
+.cloud1 {
+  top: 14%;
+  left: 10%;
+}
+
+.cloud2 {
+  top: 22%;
+  right: 12%;
+  transform: scale(.7);
 }
 
 .ground {
   position: absolute;
-
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
 
-  height: 21%;
+  height: 22%;
+  z-index: 10;
 
   background:
-  repeating-linear-gradient(
-    45deg,
-    #92532d 0 32px,
-    #6c3923 32px 64px
-  );
+    repeating-linear-gradient(
+      45deg,
+      #754323 0 32px,
+      #a66a38 32px 64px
+    );
 
-  border-top:
-  9px solid #d9bd3e;
-
-  z-index: 20;
+  border-top: 10px solid #54b63d;
 }
 
 .platform {
   position: absolute;
+  height: 30px;
+  z-index: 5;
 
-  z-index: 30;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #8b522a 0 20px,
+      #a96b36 20px 40px
+    );
 
-  height: 25px;
-
-  background: #d4b13b;
-
-  border-top:
-  8px solid #36a64a;
+  border-top: 8px solid #48ad3d;
+  box-shadow: 0 7px rgba(0,0,0,.2);
 }
 
 .platform1 {
-  width: 180px;
-  left: 8%;
-  bottom: 35%;
+  width: 210px;
+  left: 7%;
+  bottom: 38%;
 }
 
 .platform2 {
-  width: 180px;
+  width: 210px;
   left: 39%;
-  bottom: 50%;
+  bottom: 52%;
 }
 
 .platform3 {
-  width: 180px;
-  right: 8%;
-  bottom: 37%;
+  width: 210px;
+  right: 7%;
+  bottom: 39%;
 }
 
-
-/* =========================
-   BLUE SPEED BALL
-========================= */
+/* BLUE SPEED BALL */
 
 .character {
   position: absolute;
-
-  z-index: 70;
-
-  left: -100px;
+  left: -120px;
   bottom: 23%;
+  width: 82px;
+  height: 82px;
+  z-index: 100;
 
-  width: 78px;
-  height: 78px;
+  display: none;
 
   border-radius: 50%;
 
   background:
-  radial-gradient(
-    circle at 35% 25%,
-    #42a8ff,
-    #087cff 45%,
-    #03499e 100%
-  );
+    radial-gradient(
+      circle at 30% 25%,
+      #59b7ff,
+      #0c83e8 48%,
+      #03478e 100%
+    );
 
   box-shadow:
-  inset -12px -12px #023b83,
-  0 8px rgba(0,0,0,.25);
-
-  display: none;
+    inset -13px -13px #02336d,
+    0 9px rgba(0,0,0,.25);
 }
 
 .character.roll {
   display: block;
-
-  animation:
-  rollAcross 2.2s forwards;
+  animation: rollAcross 2.4s linear forwards;
 }
 
 @keyframes rollAcross {
   from {
-    left: -100px;
-    transform: rotate(0);
+    left: -120px;
+    transform: rotate(0deg);
   }
 
   to {
@@ -634,185 +551,133 @@ button {
   }
 }
 
-
 /* =========================
-   GAME RINGS
+   RINGS
 ========================= */
 
 .ring {
   position: absolute;
-
   width: 42px;
   height: 42px;
-
-  z-index: 80;
-
-  border:
-  7px solid #ffd21a;
+  z-index: 200;
 
   border-radius: 50%;
+  border: 7px solid #ffd21c;
 
   box-shadow:
-  inset 0 0 0 2px #fff6a3,
-  0 4px #936100;
+    inset 3px 0 #fff2a2,
+    inset -3px 0 #b67b00,
+    0 4px 0 #9a6400;
 
   cursor: pointer;
-
-  animation:
-  ringSpin .65s infinite alternate;
+  animation: ringSpin .65s infinite alternate;
 }
 
 @keyframes ringSpin {
-  from {
-    transform: scaleX(1);
-  }
-
-  to {
-    transform: scaleX(.25);
-  }
+  from { transform: scaleX(1); }
+  to { transform: scaleX(.25); }
 }
 
-.ring1 { left: 22%; top: 35%; }
-.ring2 { left: 28%; top: 27%; }
-.ring3 { left: 35%; top: 35%; }
-.ring4 { right: 28%; top: 30%; }
-.ring5 { right: 21%; top: 38%; }
+.ring1 { left: 20%; top: 34%; }
+.ring2 { left: 29%; top: 26%; }
+.ring3 { left: 38%; top: 37%; }
+.ring4 { right: 30%; top: 27%; }
+.ring5 { right: 18%; top: 38%; }
 
-
-/* =====================================================
-   RETRO TRADING CARDS
-===================================================== */
+/* =========================
+   CARDS
+========================= */
 
 .card {
   position: absolute;
-
-  z-index: 100;
-
-  width: 145px;
-  height: 215px;
+  width: 150px;
+  height: 225px;
+  z-index: 300;
 
   padding: 7px;
+  cursor: pointer;
 
   border-radius: 10px;
 
-  cursor: pointer;
-
   background:
-  linear-gradient(
-    135deg,
-    #f7df61,
-    #c88617
-  );
+    linear-gradient(
+      135deg,
+      #ffe77d,
+      #bd7810
+    );
 
-  border:
-  5px solid #f9ed9e;
+  border: 5px solid #fff0a0;
 
   box-shadow:
-  5px 7px 0 #5e3904,
-  0 0 18px rgba(255,220,40,.55);
+    6px 8px 0 #563400,
+    0 0 22px rgba(255,220,50,.45);
 
   transition:
-  transform .25s,
-  filter .25s;
-}
-
-.card::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 4px;
-
-  border:
-  1px solid rgba(85,50,0,.6);
-
-  border-radius: 5px;
-
-  pointer-events: none;
+    transform .25s,
+    filter .25s;
 }
 
 .card:hover {
   transform:
-  translateY(-12px)
-  rotate(0deg)
-  scale(1.08);
+    translateY(-18px)
+    rotate(0deg)
+    scale(1.1);
 
-  filter: brightness(1.12);
-
-  z-index: 300;
+  filter: brightness(1.1);
+  z-index: 500;
 }
 
 .card-top {
+  height: 23px;
   display: flex;
   justify-content: space-between;
-
   align-items: center;
 
-  height: 22px;
-
   color: #17120a;
-
-  font-family: Arial;
-
+  font-size: 11px;
   font-weight: 900;
-
-  font-size: 10px;
 }
 
 .card-hp {
-  color: #c41616;
+  color: #bd1010;
 }
 
 .card-photo {
   width: 100%;
-  height: 92px;
-
-  border:
-  3px solid #5d4316;
-
-  background: #ddd;
-
+  height: 95px;
   overflow: hidden;
+  border: 3px solid #5b4011;
 }
 
 .card-photo img {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
 }
 
 .card-type {
   margin-top: 5px;
-
-  padding: 3px;
+  padding: 4px;
 
   text-align: center;
 
   background: rgba(255,255,255,.45);
 
-  color: #4b3211;
-
-  font-size: 7px;
-
+  color: #49310b;
+  font-size: 8px;
   font-weight: bold;
-
   letter-spacing: 1px;
 }
 
 .card-line {
-  border-top:
-  1px solid #71510d;
-
-  margin: 5px 0;
+  margin: 6px 0;
+  border-top: 1px solid #76550b;
 }
 
 .card-ability {
+  color: #241a08;
   font-size: 8px;
-
-  color: #261b0b;
-
-  line-height: 1.25;
+  line-height: 1.3;
 }
 
 .card-ability b {
@@ -821,484 +686,537 @@ button {
 
 .card-rarity {
   position: absolute;
-
   bottom: 5px;
   right: 8px;
 
-  font-size: 12px;
-
-  color: #332000;
+  color: #3a2600;
+  font-size: 13px;
 }
 
-
-/* CARD POSITIONS */
-
 .card1 {
-  left: 6%;
-  bottom: 25%;
+  left: 5%;
+  bottom: 24%;
   transform: rotate(-7deg);
 }
 
 .card2 {
   left: 27%;
-  bottom: 53%;
-  transform: rotate(6deg);
+  bottom: 52%;
+  transform: rotate(5deg);
 }
 
 .card3 {
   right: 27%;
-  bottom: 28%;
+  bottom: 27%;
   transform: rotate(-5deg);
 }
 
 .card4 {
   right: 5%;
   bottom: 51%;
-  transform: rotate(8deg);
+  transform: rotate(7deg);
 }
-
-
-/* CARD COLLECTION */
 
 .card.collected {
   animation:
-  collectCard .7s forwards;
+    collectCard .75s forwards;
 }
 
 @keyframes collectCard {
-  0% {
-    opacity: 1;
-  }
+  0% { opacity: 1; }
 
-  45% {
+  50% {
     transform:
-    scale(1.25)
-    rotate(0);
+      scale(1.35)
+      rotate(0);
   }
 
   100% {
     opacity: 0;
 
     transform:
-    translateY(-120px)
-    scale(.1);
+      translateY(-180px)
+      scale(.1);
   }
 }
 
-
-/* =====================================================
+/* =========================
    CHECKPOINT
-===================================================== */
+========================= */
 
 .checkpoint {
   position: absolute;
-
-  z-index: 90;
-
   left: 50%;
-  bottom: 22%;
+  bottom: 24%;
 
   transform: translateX(-50%);
+  z-index: 400;
 
-  width: 130px;
-
-  padding: 14px;
+  width: 180px;
+  padding: 17px;
 
   text-align: center;
 
-  background: #555;
+  color: #777;
+  background: #272727;
 
-  border: 4px solid #222;
-
-  color: #aaa;
+  border: 4px solid #111;
 
   font-family: monospace;
-
-  font-size: 10px;
-
   font-weight: bold;
 
   cursor: not-allowed;
 }
 
 .checkpoint.unlocked {
+  color: #171717;
   background: #ffd21a;
-
-  border-color: #17428c;
-
-  color: #111;
+  border-color: #19428c;
 
   cursor: pointer;
 
   animation:
-  checkpointPulse 1s infinite alternate;
+    checkpointPulse 1s infinite alternate;
 }
 
 @keyframes checkpointPulse {
   from {
     transform:
-    translateX(-50%)
-    scale(1);
+      translateX(-50%)
+      scale(1);
   }
 
   to {
     transform:
-    translateX(-50%)
-    scale(1.08);
+      translateX(-50%)
+      scale(1.08);
   }
 }
 
-
-/* =====================================================
-   BASEBALL LEVEL
-===================================================== */
+/* =========================
+   LEVEL 2 BASEBALL
+========================= */
 
 #baseballWorld {
   background:
-  linear-gradient(
-    #61ccff 0 52%,
-    #6cc654 53% 100%
-  );
+    linear-gradient(
+      #071323 0%,
+      #102f56 58%,
+      #1e4225 59%,
+      #07100a 100%
+    );
+}
+
+.stadium-lights {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 8% 22%,
+      rgba(255,255,220,.8) 0 2%,
+      transparent 13%
+    ),
+    radial-gradient(
+      circle at 92% 22%,
+      rgba(255,255,220,.8) 0 2%,
+      transparent 13%
+    );
 }
 
 .baseball-title {
   position: absolute;
-
   top: 10%;
   width: 100%;
 
   text-align: center;
 
+  color: #ffd34b;
+
   font-family:
-  Impact,
-  "Arial Black",
-  sans-serif;
+    Impact,
+    "Arial Black",
+    sans-serif;
 
   font-size:
-  clamp(60px, 11vw, 120px);
+    clamp(55px, 10vw, 120px);
 
-  color: white;
+  letter-spacing: 3px;
 
   text-shadow:
-  6px 6px #17438b,
-  -4px -4px #e82c3a;
+    5px 5px #8c1010,
+    10px 10px #000;
 }
 
 .scoreboard {
   position: absolute;
-
-  top: 31%;
+  top: 30%;
   left: 50%;
 
   transform: translateX(-50%);
 
-  background: #111;
+  min-width: 300px;
+  padding: 18px 35px;
 
-  color: #ffe24b;
-
-  padding: 15px 35px;
+  color: #82ff63;
+  background: #070707;
 
   border: 5px solid #777;
 
-  font-family: monospace;
+  box-shadow:
+    8px 8px #000;
 
   text-align: center;
 
-  font-weight: bold;
+  font-family: monospace;
+  font-size: 22px;
 }
 
-.batter {
+.pitch-area {
   position: absolute;
+  left: 50%;
+  bottom: 10%;
 
-  left: 19%;
-  bottom: 23%;
+  transform: translateX(-50%);
 
-  width: 80px;
-  height: 140px;
+  width: min(700px, 95vw);
+  height: 45%;
+
+  border-radius: 50% 50% 0 0;
+
+  background:
+    radial-gradient(
+      ellipse at center bottom,
+      #a46b39 0 30%,
+      #3e7d38 31% 70%,
+      transparent 71%
+    );
 }
 
-.batter-head {
-  width: 55px;
-  height: 55px;
-
-  border-radius: 50%;
-
-  background: #d99a70;
-
-  border: 4px solid #222;
-}
-
-.batter-body {
-  width: 68px;
-  height: 80px;
-
-  background: #174c9c;
-
-  border: 4px solid #222;
-}
-
-.bat {
+.baseball-ball {
   position: absolute;
+  right: 15%;
+  bottom: 46%;
 
-  top: 65px;
-  right: -90px;
-
-  width: 125px;
-  height: 13px;
-
-  background: #c98d45;
-
-  transform:
-  rotate(-35deg);
-
-  transform-origin:
-  left center;
-
-  transition: .2s;
-}
-
-.batter.swing .bat {
-  transform:
-  rotate(40deg);
-}
-
-.ball {
-  position: absolute;
-
-  right: 20%;
-  bottom: 45%;
-
-  width: 28px;
-  height: 28px;
+  width: 38px;
+  height: 38px;
+  z-index: 20;
 
   border-radius: 50%;
 
   background: white;
 
-  border: 2px solid #222;
+  border: 2px solid #ccc;
 
-  cursor: pointer;
+  box-shadow: 0 3px 7px #000;
 }
 
-.ball.pitch {
-  animation:
-  pitchBall 1.2s linear forwards;
+.baseball-ball::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+
+  border-left: 2px dashed #d01c1c;
+  border-radius: 50%;
+}
+
+.baseball-ball.pitch {
+  animation: pitchBall 1.5s linear forwards;
 }
 
 @keyframes pitchBall {
   from {
-    right: 20%;
+    right: 15%;
+    transform: scale(.7);
   }
 
   to {
-    right: 73%;
+    right: 72%;
+    transform: scale(1.3);
   }
 }
 
 .swing-button {
   position: absolute;
-
   left: 50%;
-  bottom: 8%;
+  bottom: 5%;
 
   transform: translateX(-50%);
+  z-index: 100;
 
-  padding: 16px 45px;
-
-  background: #e82c3a;
+  padding: 18px 60px;
 
   color: white;
+  background: #c71924;
 
   border: 4px solid white;
 
   box-shadow:
-  7px 7px #17438b;
+    8px 8px #124c9e;
 
+  font-family: monospace;
   font-weight: bold;
-
-  font-size: 18px;
+  letter-spacing: 3px;
 }
 
+/* =========================
+   LEVEL 3 ARCADE
+========================= */
 
-/* =====================================================
-   DISCOVERY LEVEL
-===================================================== */
-
-#discoveryWorld {
+#arcadeWorld {
   background:
-  radial-gradient(
-    circle at top,
-    #39396b,
-    #080913 70%
-  );
-
-  color: white;
+    radial-gradient(
+      circle at top,
+      #261b50,
+      #090613 65%
+    );
 }
 
-.discovery-title {
+.arcade-title {
   position: absolute;
-
-  top: 8%;
+  top: 7%;
   width: 100%;
 
   text-align: center;
 
   font-family:
-  Impact,
-  "Arial Black",
-  sans-serif;
+    Impact,
+    "Arial Black",
+    sans-serif;
 
   font-size:
-  clamp(35px, 6vw, 75px);
+    clamp(40px, 7vw, 90px);
+
+  color: #fff;
 
   text-shadow:
-  5px 5px #087cff,
-  -4px -4px #e82c3a;
+    4px 4px #f02b8d,
+    -4px -4px #0d9fff;
 }
 
-.discovery-grid {
+.arcade-subtitle {
   position: absolute;
+  top: 20%;
+  width: 100%;
 
-  left: 8%;
-  right: 8%;
+  text-align: center;
 
-  top: 28%;
+  color: #ddd;
+
+  font-family: monospace;
+  letter-spacing: 2px;
+  font-size: 12px;
+}
+
+.arcade-machines {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: 30%;
   bottom: 12%;
 
-  display: grid;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 
-  grid-template-columns:
-  repeat(4, 1fr);
-
-  gap: 14px;
+  gap: clamp(10px, 2vw, 30px);
 }
 
-.discovery {
-  background: #171725;
+.machine {
+  position: relative;
 
-  border: 3px solid #777;
+  width: min(180px, 18vw);
+  height: min(300px, 48vh);
+
+  padding: 12px;
+  cursor: pointer;
+
+  background:
+    linear-gradient(
+      90deg,
+      #111,
+      #343434 45%,
+      #111
+    );
+
+  border: 5px solid #ff2c91;
+
+  box-shadow:
+    inset 0 0 30px #000,
+    0 0 20px rgba(255,44,145,.5);
+
+  transition: .25s;
+}
+
+.machine:nth-child(2) {
+  border-color: #ff851b;
+}
+
+.machine:nth-child(3) {
+  border-color: #69e850;
+}
+
+.machine:nth-child(4) {
+  border-color: #0fc8ff;
+}
+
+.machine:nth-child(5) {
+  border-color: #d838ff;
+}
+
+.machine:hover {
+  transform: translateY(-15px);
+  filter: brightness(1.2);
+}
+
+.machine-screen {
+  height: 45%;
 
   display: flex;
-
-  flex-direction: column;
-
   align-items: center;
   justify-content: center;
 
   text-align: center;
 
-  cursor: pointer;
+  color: white;
+  background: #070707;
 
-  transition: .25s;
+  border: 3px solid #666;
+
+  font-family: monospace;
+  font-size: clamp(8px, 1vw, 14px);
 }
 
-.discovery:hover {
-  transform: translateY(-7px);
+.machine-icon {
+  width: 50px;
+  height: 50px;
 
-  border-color: #ffd21a;
+  margin: 20px auto;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      #fff,
+      #0b8cff 35%,
+      #101010 36%
+    );
+
+  box-shadow:
+    0 0 18px #0b8cff;
 }
 
-.discovery.found {
-  opacity: .3;
+.machine-name {
+  color: white;
+  text-align: center;
 
+  font-family: monospace;
+  font-weight: bold;
+
+  font-size:
+    clamp(9px, 1vw, 13px);
+}
+
+.machine.found {
+  opacity: .45;
+  transform: scale(.95);
   pointer-events: none;
 }
 
-.discovery-icon {
-  width: 55px;
-  height: 55px;
-
-  margin-bottom: 12px;
-
-  border-radius: 10px;
-
-  background:
-  linear-gradient(
-    135deg,
-    #087cff,
-    #e82c3a
-  );
-}
-
-.discovery h3 {
-  font-family: monospace;
-  font-size: 10px;
-}
-
-
-/* =====================================================
-   FINAL SCREEN
-===================================================== */
+/* =========================
+   FINAL
+========================= */
 
 #finalWorld {
   align-items: center;
   justify-content: center;
 
-  background:
-  radial-gradient(
-    circle,
-    #193e84,
-    #05060f 72%
-  );
-
   color: white;
 
-  text-align: center;
+  background:
+    radial-gradient(
+      circle,
+      #142b66,
+      #05050d 70%
+    );
+}
+
+#finalWorld::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    radial-gradient(
+      circle,
+      white 1px,
+      transparent 1px
+    );
+
+  background-size: 50px 50px;
+  opacity: .25;
 }
 
 .final-content {
+  position: relative;
+  z-index: 5;
+
   width:
-  min(800px, 90vw);
+    min(850px, 90vw);
+
+  text-align: center;
 }
 
 .final-label {
   color: #ffd21a;
 
   font-family: monospace;
-
-  letter-spacing: 6px;
-
-  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 7px;
 
   margin-bottom: 20px;
 }
 
 .final-title {
   font-family:
-  Impact,
-  "Arial Black",
-  sans-serif;
+    Impact,
+    "Arial Black",
+    sans-serif;
 
   font-size:
-  clamp(70px, 13vw, 145px);
+    clamp(75px, 14vw, 160px);
 
-  line-height: .85;
+  line-height: .8;
 
-  margin-bottom: 30px;
+  margin-bottom: 35px;
+
+  color: #eaf4ff;
 
   text-shadow:
-  7px 7px #087cff,
-  -5px -5px #e82c3a;
+    6px 6px #0b8cff,
+    -5px -5px #e52972,
+    10px 10px #000;
 }
 
 .final-message {
+  max-height: 52vh;
+  overflow-y: auto;
+
+  padding: 30px;
+
+  color: #eee;
+
   background:
-  rgba(0,0,0,.58);
+    rgba(0,0,0,.62);
 
-  border:
-  2px solid rgba(255,255,255,.6);
-
-  padding: 28px;
+  border: 2px solid rgba(255,255,255,.5);
 
   text-align: left;
 
   font-family: Georgia, serif;
-
   line-height: 1.7;
-
-  max-height: 58vh;
-
-  overflow-y: auto;
 }
 
 .final-message p {
@@ -1307,93 +1225,89 @@ button {
 
 .restart {
   margin-top: 22px;
-
-  padding: 14px 35px;
-
-  background: #087cff;
+  padding: 15px 45px;
 
   color: white;
+  background: #e52972;
 
   border: 3px solid white;
 
+  font-family: monospace;
   font-weight: bold;
+  letter-spacing: 3px;
 }
 
-
-/* =====================================================
+/* =========================
    POPUP
-===================================================== */
+========================= */
 
 #popup {
   position: fixed;
   inset: 0;
 
-  z-index: 1000;
+  z-index: 10000;
 
   display: none;
 
   align-items: center;
   justify-content: center;
 
-  background:
-  rgba(0,0,0,.78);
-
   padding: 20px;
+
+  background: rgba(0,0,0,.8);
 }
 
 .popup-box {
   width:
-  min(600px, 92vw);
+    min(600px, 90vw);
 
-  background: #f3eedb;
+  padding: 35px;
 
-  color: #111;
-
-  padding: 30px;
-
+  color: white;
   text-align: center;
 
-  border: 6px solid #087cff;
+  background:
+    linear-gradient(
+      135deg,
+      #17172a,
+      #050509
+    );
+
+  border: 4px solid #0b9fff;
 
   box-shadow:
-  10px 10px #e82c3a;
+    10px 10px #e52972;
 }
 
 .popup-box h2 {
-  font-family: Impact;
-  font-size: 45px;
-
   margin-bottom: 15px;
+
+  color: #ffd21a;
+
+  font-family:
+    Impact,
+    sans-serif;
+
+  font-size: 45px;
 }
 
 .popup-button {
-  margin-top: 20px;
-
-  padding: 12px 30px;
-
-  background: #087cff;
+  margin-top: 25px;
+  padding: 13px 35px;
 
   color: white;
+  background: #0b8cff;
 
-  border: none;
+  border: 2px solid white;
 
   font-weight: bold;
 }
 
-
-/* =====================================================
+/* =========================
    MOBILE
-===================================================== */
+========================= */
 
 @media (max-width: 700px) {
-
-  .hud {
-    font-size: 9px;
-  }
-
-  .hud-right {
-    gap: 8px;
-  }
 
   .card {
     width: 88px;
@@ -1403,8 +1317,8 @@ button {
   }
 
   .card-top {
-    font-size: 6px;
     height: 14px;
+    font-size: 6px;
   }
 
   .card-photo {
@@ -1425,15 +1339,14 @@ button {
     font-size: 8px;
   }
 
-  .discovery-grid {
-    grid-template-columns:
-    repeat(2, 1fr);
-
-    gap: 8px;
+  .machine {
+    width: 17vw;
+    height: 230px;
+    padding: 5px;
   }
 
-  .discovery h3 {
-    font-size: 8px;
+  .arcade-machines {
+    gap: 5px;
   }
 
   .final-message {
@@ -1447,22 +1360,13 @@ button {
 
 <body>
 
-
 <div id="transition"></div>
 
-
-<!-- =========================
-     INTRO
-========================= -->
+<!-- INTRO -->
 
 <section id="intro" class="screen active">
 
-  <div class="brick-wall"></div>
-  <div class="wall-vignette"></div>
-  <div class="wall-light"></div>
-
-  <div class="spray-paint" id="sprayPaint"></div>
-
+  <div class="spray-cloud" id="sprayCloud"></div>
   <div class="spray-can" id="sprayCan"></div>
 
   <div class="intro-content">
@@ -1483,7 +1387,9 @@ button {
       class="start-button"
       id="startButton"
       onclick="startGame()">
+
       START
+
     </button>
 
   </div>
@@ -1491,26 +1397,39 @@ button {
 </section>
 
 
-<!-- =========================
-     GAME WORLD
-========================= -->
+<!-- LEVEL 1 -->
 
 <section id="gameWorld" class="screen">
 
   <div class="hud">
 
-    <div>DARBY // LEVEL 21</div>
+    <div>
+      DARBY // LEVEL 21
+    </div>
 
     <div class="hud-right">
-      <div>RINGS: <span id="ringCount">0</span></div>
-      <div>CARDS: <span id="cardCount">0</span>/4</div>
+
+      <div>
+        RINGS:
+        <span id="ringCount">0</span>
+      </div>
+
+      <div>
+        CARDS:
+        <span id="cardCount">0</span>/4
+      </div>
+
     </div>
 
   </div>
 
-  <div class="sun"></div>
+  <div class="cloud cloud1"></div>
+  <div class="cloud cloud2"></div>
 
-  <div class="character" id="character"></div>
+  <div
+    class="character"
+    id="character">
+  </div>
 
   <div class="ring ring1" onclick="collectRing(this)"></div>
   <div class="ring ring2" onclick="collectRing(this)"></div>
@@ -1644,8 +1563,7 @@ button {
     id="checkpoint"
     onclick="nextLevel()">
 
-    COLLECT<br>
-    ALL 4 CARDS
+    COLLECT ALL 4 CARDS
 
   </div>
 
@@ -1654,38 +1572,41 @@ button {
 </section>
 
 
-<!-- =========================
-     BASEBALL LEVEL
-========================= -->
+<!-- LEVEL 2 BASEBALL -->
 
 <section id="baseballWorld" class="screen">
 
+  <div class="stadium-lights"></div>
+
   <div class="hud">
-    <div>DARBY BASEBALL</div>
-    <div>HOME RUNS: <span id="homeRuns">0</span></div>
+
+    <div>
+      LEVEL 2 // DARBY'S HOME RUN
+    </div>
+
+    <div>
+      HOME RUNS:
+      <span id="homeRuns">0</span>/3
+    </div>
+
   </div>
 
   <div class="baseball-title">
-    BATTER UP
+    DARBY'S HOME RUN
   </div>
 
   <div class="scoreboard">
-    DARBY<br>
+    DAVID<br>
     LEVEL 21
   </div>
 
-  <div class="batter" id="batter">
-
-    <div class="batter-head"></div>
-    <div class="batter-body"></div>
-    <div class="bat"></div>
-
+  <div class="pitch-area">
+    <div class="hit-zone"></div>
   </div>
 
   <div
-    class="ball"
-    id="ball"
-    onclick="hitBall()">
+    class="baseball-ball"
+    id="baseballBall">
   </div>
 
   <button
@@ -1699,67 +1620,115 @@ button {
 </section>
 
 
-<!-- =========================
-     DISCOVERY LEVEL
-========================= -->
+<!-- LEVEL 3 ARCADE -->
 
-<section id="discoveryWorld" class="screen">
+<section id="arcadeWorld" class="screen">
 
   <div class="hud">
 
-    <div>DISCOVERY ZONE</div>
+    <div>
+      LEVEL 3
+    </div>
 
     <div>
-      FOUND:
-      <span id="foundCount">0</span>/8
+      MEMORIES:
+      <span id="memoryCount">0</span>/5
     </div>
 
   </div>
 
-  <div class="discovery-title">
-    THINGS THAT REMIND ME OF YOU
+  <div class="arcade-title">
+    THE MEMORY ARCADE
   </div>
 
-  <div class="discovery-grid">
+  <div class="arcade-subtitle">
+    PLAY EACH MACHINE TO UNLOCK A MEMORY
+  </div>
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-icon"></div>
-      <h3>VENEZUELA</h3>
+  <div class="arcade-machines">
+
+    <div
+      class="machine"
+      onclick="unlockMemory(this, 'GRAFFITI MODE', 'DARBY was never going to escape a birthday game without a little graffiti.')">
+
+      <div class="machine-screen">
+        GRAFFITI
+      </div>
+
+      <div class="machine-icon"></div>
+
+      <div class="machine-name">
+        ARTIST MODE
+      </div>
+
     </div>
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-icon"></div>
-      <h3>SHOHEI OHTANI</h3>
+
+    <div
+      class="machine"
+      onclick="unlockMemory(this, 'HOME RUN MODE', 'Baseball had to make an appearance somewhere.')">
+
+      <div class="machine-screen">
+        BASEBALL
+      </div>
+
+      <div class="machine-icon"></div>
+
+      <div class="machine-name">
+        ALL-STAR
+      </div>
+
     </div>
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-icon"></div>
-      <h3>DRAWING</h3>
+
+    <div
+      class="machine"
+      onclick="unlockMemory(this, 'WORLD CUP MODE', 'Argentina, Brazil and fútbol energy unlocked.')">
+
+      <div class="machine-screen">
+        WORLD CUP
+      </div>
+
+      <div class="machine-icon"></div>
+
+      <div class="machine-name">
+        FÚTBOL
+      </div>
+
     </div>
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-icon"></div>
-      <h3>SONIC</h3>
+
+    <div
+      class="machine"
+      onclick="unlockMemory(this, 'PENGUIN MODE', 'A penguin obviously had to be hiding somewhere in here.')">
+
+      <div class="machine-screen">
+        PENGUIN
+      </div>
+
+      <div class="machine-icon"></div>
+
+      <div class="machine-name">
+        FOUND IT
+      </div>
+
     </div>
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-icon"></div>
-      <h3>PENGUINS</h3>
-    </div>
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-icon"></div>
-      <h3>ARGENTINA + BRAZIL</h3>
-    </div>
+    <div
+      class="machine"
+      onclick="unlockMemory(this, 'RETRO MODE', '2000s nostalgia and Luis Miguel unlocked.')">
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-icon"></div>
-      <h3>2000s MUSIC</h3>
-    </div>
+      <div class="machine-screen">
+        RETRO
+      </div>
 
-    <div class="discovery" onclick="discover(this)">
-      <div class="discovery-icon"></div>
-      <h3>LUIS MIGUEL</h3>
+      <div class="machine-icon"></div>
+
+      <div class="machine-name">
+        Y2K MODE
+      </div>
+
     </div>
 
   </div>
@@ -1767,21 +1736,19 @@ button {
 </section>
 
 
-<!-- =========================
-     FINAL LEVEL
-========================= -->
+<!-- FINAL -->
 
 <section id="finalWorld" class="screen">
 
   <div class="final-content">
 
     <div class="final-label">
-      ALL LEVELS COMPLETE
+      ★ FINAL LEVEL ★
     </div>
 
     <div class="final-title">
-      DARBY<br>
-      LEVEL 21
+      HAPPY BIRTHDAY<br>
+      DAVID
     </div>
 
     <div class="final-message">
@@ -1811,9 +1778,7 @@ button {
         para darles un futuro y una esperanza.”
       </p>
 
-      <p>
-        — Jeremías 29:11
-      </p>
+      <p>— Jeremías 29:11</p>
 
       <p>
         Te quiero mucho.
@@ -1837,9 +1802,7 @@ button {
 </section>
 
 
-<!-- =========================
-     POPUP
-========================= -->
+<!-- POPUP -->
 
 <div id="popup">
 
@@ -1864,24 +1827,20 @@ button {
 
 <script>
 
-/* =========================
-   GAME STATE
-========================= */
-
 let rings = 0;
 let cards = 0;
 let homeRuns = 0;
-let discoveries = 0;
+let memories = 0;
+
+let ballMoving = false;
 
 
-/* =========================
-   TRANSITION
-========================= */
+/* SCREEN CHANGE */
 
 function changeScreen(id) {
 
   const transition =
-  document.getElementById("transition");
+    document.getElementById("transition");
 
   transition.classList.remove("go");
 
@@ -1892,51 +1851,49 @@ function changeScreen(id) {
   setTimeout(() => {
 
     document
-    .querySelectorAll(".screen")
-    .forEach(screen => {
-      screen.classList.remove("active");
-    });
+      .querySelectorAll(".screen")
+      .forEach(screen => {
+        screen.classList.remove("active");
+      });
 
     document
-    .getElementById(id)
-    .classList.add("active");
+      .getElementById(id)
+      .classList.add("active");
 
   }, 450);
 
 }
 
 
-/* =========================
-   INTRO
-========================= */
+/* START GAME */
 
 function startGame() {
 
   document
-  .getElementById("startButton")
-  .style.display = "none";
+    .getElementById("startButton")
+    .style.display = "none";
 
   document
-  .getElementById("sprayCan")
-  .classList.add("animate");
+    .getElementById("sprayCan")
+    .classList.add("animate");
 
   document
-  .getElementById("sprayPaint")
-  .classList.add("active");
+    .getElementById("sprayCloud")
+    .classList.add("active");
 
   setTimeout(() => {
 
     document
-    .getElementById("graffiti")
-    .classList.add("reveal");
+      .getElementById("graffiti")
+      .classList.add("reveal");
 
-  }, 600);
+  }, 650);
 
   setTimeout(() => {
 
     document
-    .getElementById("levelText")
-    .classList.add("show");
+      .getElementById("levelText")
+      .classList.add("show");
 
   }, 1500);
 
@@ -1947,77 +1904,71 @@ function startGame() {
     setTimeout(() => {
 
       document
-      .getElementById("character")
-      .classList.add("roll");
+        .getElementById("character")
+        .classList.add("roll");
 
-    }, 500);
+    }, 600);
 
-  }, 3200);
+  }, 3300);
 
 }
 
 
-/* =========================
-   RINGS
-========================= */
+/* RINGS */
 
 function collectRing(ring) {
 
   if (ring.dataset.collected) return;
 
-  ring.dataset.collected = "true";
+  ring.dataset.collected = true;
 
   ring.style.display = "none";
 
   rings++;
 
   document
-  .getElementById("ringCount")
-  .textContent = rings;
+    .getElementById("ringCount")
+    .textContent = rings;
 
 }
 
 
-/* =========================
-   TRADING CARDS
-========================= */
+/* CARDS */
 
 function collectCard(card) {
 
   if (card.dataset.collected) return;
 
-  card.dataset.collected = "true";
+  card.dataset.collected = true;
 
   cards++;
 
   document
-  .getElementById("cardCount")
-  .textContent = cards;
+    .getElementById("cardCount")
+    .textContent = cards;
 
   card.classList.add("collected");
 
   setTimeout(() => {
     card.style.display = "none";
-  }, 700);
+  }, 750);
 
   if (cards === 4) {
 
     const checkpoint =
-    document.getElementById("checkpoint");
+      document.getElementById("checkpoint");
 
     checkpoint.classList.add("unlocked");
 
     checkpoint.innerHTML =
-    "NEXT LEVEL<br>→";
+      "4/4 CARDS FOUND<br>NEXT LEVEL →";
 
   }
 
 }
 
 
-/* =========================
-   CHECKPOINT
-========================= */
+/* NEXT LEVEL */
 
 function nextLevel() {
 
@@ -2025,37 +1976,30 @@ function nextLevel() {
 
     showPopup(
       "LEVEL LOCKED",
-      `
-      <p>
-      You still need to find all four cards.
-      </p>
-
-      <p>
-      CARDS: ${cards}/4
-      </p>
-      `
+      "You still need to collect all four cards."
     );
 
     return;
+
   }
 
   changeScreen("baseballWorld");
 
   setTimeout(() => {
-    pitchBall();
-  }, 900);
+    startPitch();
+  }, 1000);
 
 }
 
 
-/* =========================
-   BASEBALL
-========================= */
+/* BASEBALL */
 
-function pitchBall() {
+function startPitch() {
 
   const ball =
-  document.getElementById("ball");
+    document.getElementById("baseballBall");
+
+  ball.style.display = "block";
 
   ball.classList.remove("pitch");
 
@@ -2063,129 +2007,141 @@ function pitchBall() {
 
   ball.classList.add("pitch");
 
-}
-
-
-function swing() {
-
-  const batter =
-  document.getElementById("batter");
-
-  batter.classList.add("swing");
-
-  setTimeout(() => {
-    batter.classList.remove("swing");
-  }, 250);
-
-}
-
-
-function hitBall() {
-
-  const ball =
-  document.getElementById("ball");
-
-  if (!ball.classList.contains("pitch")) {
-    return;
-  }
-
-  swing();
-
-  ball.style.display = "none";
-
-  homeRuns++;
-
-  document
-  .getElementById("homeRuns")
-  .textContent = homeRuns;
-
-  showPopup(
-    "HOME RUN!",
-    `
-    <p>
-    DARBY CRUSHED IT.
-    </p>
-    `
-  );
+  ballMoving = true;
 
   setTimeout(() => {
 
-    closePopup();
+    if (ballMoving) {
 
-    changeScreen("discoveryWorld");
+      ballMoving = false;
+      startPitch();
+
+    }
 
   }, 1600);
 
 }
 
 
-/* =========================
-   DISCOVERY
-========================= */
+function swing() {
 
-function discover(item) {
+  if (!ballMoving) return;
 
-  if (item.dataset.found) return;
+  const ball =
+    document.getElementById("baseballBall");
 
-  item.dataset.found = "true";
+  const rect =
+    ball.getBoundingClientRect();
 
-  item.classList.add("found");
+  const screenWidth =
+    window.innerWidth;
 
-  discoveries++;
+  if (rect.left < screenWidth * .42) {
 
-  document
-  .getElementById("foundCount")
-  .textContent = discoveries;
+    ballMoving = false;
 
-  if (discoveries === 8) {
+    ball.style.display = "none";
 
-    setTimeout(() => {
+    homeRuns++;
 
-      showPopup(
-        "LEVEL COMPLETE",
-        `
-        <p>
-        You found everything.
-        </p>
+    document
+      .getElementById("homeRuns")
+      .textContent = homeRuns;
 
-        <p>
-        One last thing...
-        </p>
-        `
-      );
+    showPopup(
+      "HOME RUN!",
+      `DARBY CRUSHED IT.<br><br>HOME RUNS: ${homeRuns}/3`
+    );
+
+    if (homeRuns >= 3) {
 
       setTimeout(() => {
 
         closePopup();
 
-        changeScreen("finalWorld");
+        changeScreen("arcadeWorld");
 
-      }, 1800);
+      }, 1500);
 
-    }, 500);
+    } else {
+
+      setTimeout(() => {
+
+        closePopup();
+        startPitch();
+
+      }, 1200);
+
+    }
 
   }
 
 }
 
 
-/* =========================
-   POPUP
-========================= */
+/* MEMORY ARCADE */
+
+function unlockMemory(machine, title, text) {
+
+  if (machine.dataset.found) return;
+
+  machine.dataset.found = true;
+
+  machine.classList.add("found");
+
+  memories++;
+
+  document
+    .getElementById("memoryCount")
+    .textContent = memories;
+
+  showPopup(title, text);
+
+  if (memories === 5) {
+
+    setTimeout(() => {
+
+      closePopup();
+
+      setTimeout(() => {
+
+        showPopup(
+          "FINAL LEVEL UNLOCKED",
+          "You found every memory.<br><br>One last thing..."
+        );
+
+        setTimeout(() => {
+
+          closePopup();
+
+          changeScreen("finalWorld");
+
+        }, 1800);
+
+      }, 500);
+
+    }, 800);
+
+  }
+
+}
+
+
+/* POPUP */
 
 function showPopup(title, content) {
 
   document
-  .getElementById("popupTitle")
-  .textContent = title;
+    .getElementById("popupTitle")
+    .textContent = title;
 
   document
-  .getElementById("popupContent")
-  .innerHTML = content;
+    .getElementById("popupContent")
+    .innerHTML = content;
 
   document
-  .getElementById("popup")
-  .style.display = "flex";
+    .getElementById("popup")
+    .style.display = "flex";
 
 }
 
@@ -2193,8 +2149,8 @@ function showPopup(title, content) {
 function closePopup() {
 
   document
-  .getElementById("popup")
-  .style.display = "none";
+    .getElementById("popup")
+    .style.display = "none";
 
 }
 
@@ -2202,3 +2158,4 @@ function closePopup() {
 
 </body>
 </html>
+```
